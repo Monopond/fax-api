@@ -53,5 +53,44 @@ An example of a SOAP envelope for the Monopond Fax API is shown below with the h
     <soapenv:Body>
         ...
     </soapenv:Body>
+</soapenv:Envelope>
 ```
+##Authorisation Headers
+The Monopond Fax API uses WS-Security to authorise users on the platform. The WS-Security specification allows users to authenticate against SOAP services using a variety of different models.
+When connecting to the Monopond Fax API you must use the UsernameToken security token format whichformat, which authenticates based on your Monopond username and password.
+
+Applying these security headers will differ based on your API integration/connection method.
+
+When using the WSDL to generate your SOAP client you may use a WS-Security library from your programming language to apply the headers to this SOAP service. Below is an example of applying these headers in Java using WSS4J interceptors:
+
+```java
+Map<String,Object> outProps = new HashMap<String,Object>();
+outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
+outProps.put(WSHandlerConstants.USER, ”username”);
+outProps.put(WSHandlerConstants.PW_CALLBACK_REF, new CallbackHandler() {
+	public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
+		WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
+		pc.setPassword(“password”);
+	}
+});
+outProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_TEXT);
+factory.getOutInterceptors().add(new WSS4JOutInterceptor(outProps));
+```
+
+Alternatively if you are sending raw XML to the API you will need to apply the security headers to the request yourself following the example below:
+
+```xml
+...
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+      </wsse:Security>
+    </soapenv:Header>
+...
+```
+
+
 
