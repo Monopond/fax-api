@@ -182,3 +182,9 @@ This method is recommended for broadcasting as it takes advantage of the multipl
 When sending multiple faxes in batch it is recommended to group them into requests of around 600 fax messages for optimal performance. If you are sending the same document to multiple destinations it is strongly advised to only attach the document once in the root of the send request rather than attaching a document for each destination.
 
 For detailed examples, see Section 6 of this document. of this document.Request
+
+
+------------- kreigh starts here ---------------------
+##FaxStatus
+###Description
+This function 
