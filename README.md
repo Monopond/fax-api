@@ -203,12 +203,12 @@ There are multiple levels of verbosity available in the request; these are expla
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
 |--- | --- | --- | --- | ---|
-|**BroadcastRef**|  | String | User-defined broadcast reference. | |
-|**SendRef**|  | String | User-defined send reference. | |
-|**MessageRef**|  | String | User-defined message reference. | |
-|**Verbosity**|  | String | Verbosity String The level of detail in the status response. Please see below for a list of possible values.| |
+|**BroadcastRef**|  | *String* | User-defined broadcast reference. | |
+|**SendRef**|  | *String* | User-defined send reference. | |
+|**MessageRef**|  | *String* | User-defined message reference. | |
+|**Verbosity**|  | *String* | Verbosity String The level of detail in the status response. Please see below for a list of possible values.| |
 
-### Verbosity Levels:	
+**Verbosity Levels:**	
   
 | **Value** | **Description** |
 | --- | --- |
@@ -217,3 +217,15 @@ There are multiple levels of verbosity available in the request; these are expla
 | **details** | details Includes the results from ***“send”*** along with details of the parameters used to send the fax messages. |
 | **results** |Includes the results from ***“send”*** along with the sending results of the fax messages. |
 | **all** | all Includes the results from both ***“details”*** and ***“results”*** along with some extra uncommon fields. |
+
+###Response
+The response received depends entirely on the verbosity level specified.
+
+**FaxStatusResponse:**
+
+| Name | Type | Verbosity | Description |
+| --- | --- | --- | --- |
+| **FaxStatusTotals** | *FaxStatusTotals* | *brief* | Counts of how many faxes are at each status. See below for more details. |
+| **FaxResultsTotals** | *FaxResultsTotals* | *brief* | FaxResultsTotals FaxResultsTotals brief Totals of the end results of the faxes. See below for more details. |
+| **FaxMessages** | *Array of FaxMessage* | *send* | send List of each fax in the query. See below for more details. |
+
