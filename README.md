@@ -270,9 +270,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **InvalidArgumentsException, NoMessagesFoundException, DocumentContentTypeNotFoundException, or InternalServerException.**
 You can find more details on these faults in the next sSection 5 of this document.
 
-
-
-------------- kreigh starts here ---------------------
 ##FaxStatus
 ###Description
 
@@ -406,4 +403,6 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **FAX_CANCELLED** | Cancelled |
 | **FAX_NO_ANSWER** | No answer |
 | **FAX_UNKNOWN** | Unknown fax error |
+
+-----froi starts here-----
 
