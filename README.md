@@ -461,5 +461,28 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
+##ResumeFax
+WARNING: The ResumeFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
+
+WARNING: This is a stub feature in API version 2.0.1 and currently does not perform any functionality.Description
+Resumes a paused fax message. This fax message must be in the paused status.
+
+When making a resume request, you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request. 
+
+###Request
+####ResumeFaxRequest Parameters:
+| Name | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| **BroadcastRef** | | *String* | User-defined broadcast reference. | |
+| **SendRef** | | *String* | User-defined send reference. | |
+| **MessageRef** | | *String* | User-defined message reference. | |
+
+###Response
+The response received from a ResumeFaxRequest is the same response you would receive when calling the FaxStatus method call with the “send” verbosity level. 
+
+###SOAP Faults
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+**InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 -----froi starts here-----
 
