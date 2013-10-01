@@ -210,10 +210,10 @@ There are multiple levels of verbosity available in the request; these are expla
 
 ### Verbosity Levels:	
   
-| **Value** | ** Description **|
+| **Value** | ** Description ** |
 | --- | --- |
 | ** breif ** | Gives you an overall view of the messages. This simply shows very high-level statistics, consisting of counts of how many faxes are at each status (i.e. processing, queued,sending) and totals of the results of these faxes (success, failed, blocked). |
 | ** send ** | send Includes the results from ***“brief”*** while also including an itemised list of each fax message in the request. |
 | ** details ** | details Includes the results from ***“send”*** along with details of the parameters used to send the fax messages. |
-| ** results ** |Includes the results from “send” along with the sending results of the fax messages. |
-| ** all ** | all Includes the results from both “details” and “results” along with some extra uncommon fields. |
+| ** results ** |Includes the results from ***“send”*** along with the sending results of the fax messages. |
+| ** all ** | all Includes the results from both ***“details”*** and ***“results”*** along with some extra uncommon fields. |
