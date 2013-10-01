@@ -183,6 +183,22 @@ When sending multiple faxes in batch it is recommended to group them into reques
 
 For detailed examples, see Section 6 of this document. of this document.Request
 
+###SendFaxRequest Parameters:
+**Name**|**Required**|**Type**|**Description**|**Default**
+-----|-----|-----|-----|-----
+**BroadcastRef**||String|Allows the user to tag all faxes in this request with a user-defined broadcastreference. These faxes can then be retrieved at a later point based on this reference.|
+**SendRef**||String|Similar to the BroadcastRef, this allows the user to tag all faxes in this request with a send reference. The SendRef is used to represent all faxes in this request only, so naturally it must be unique.|
+**FaxMessages**|**X**|FaxMessages describe each individual fax message and its destination. See below for details.|
+**SendFrom**||Alphanumeric String|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|Fax
+**Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
+**Resolution**||Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|normal
+**ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
+**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|Current time (immediate sending)
+**Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
+**BusyRetries**||DateTime|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
+**HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
+
+
 
 ------------- kreigh starts here ---------------------
 ##FaxStatus
@@ -228,4 +244,6 @@ The response received depends entirely on the verbosity level specified.
 | **FaxStatusTotals** | *FaxStatusTotals* | *brief* | Counts of how many faxes are at each status. See below for more details. |
 | **FaxResultsTotals** | *FaxResultsTotals* | *brief* | FaxResultsTotals FaxResultsTotals brief Totals of the end results of the faxes. See below for more details. |
 | **FaxMessages** | *Array of FaxMessage* | *send* | send List of each fax in the query. See below for more details. |
+
+
 
