@@ -306,10 +306,10 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **attempt** | *Integer* | *results* | The attempt number of the FaxResult. |
 | **result** | *String* | *results* | The result of the fax message. See the FaxResults table above for all possible results values. |
 | **Error** | *FaxError* | *results* |  The fax error code if the fax was not successful. See below for all possible values. |
-| **cost** | *BigDecimal* | *results* | The final cost of the fax message. |
- | **pages** | *Integer* | *results* | Total pages sent to the end fax machine. |
- | **scheduledStartTime** | *DateTime* | *results* | The date and time the fax is scheduled to start. |
- | **dateCallStarted** | *DateTime* | *results* | Date and time the fax started transmitting. |
- | **dateCallEnded** | *DateTime* | *results* | Date and time the fax finished transmitting. |
+| **cost** | *BigDecimal* | *results* | The final cost of the fax message. | 
+| **pages** | *Integer* | *results* | Total pages sent to the end fax machine. |
+| **scheduledStartTime** | *DateTime* | *results* | The date and time the fax is scheduled to start. |
+| **dateCallStarted** | *DateTime* | *results* | Date and time the fax started transmitting. |
+| **dateCallEnded** | *DateTime* | *results* | Date and time the fax finished transmitting. |
  
 
