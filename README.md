@@ -437,5 +437,29 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
+##PauseFax
+WARNING: The PauseFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
+
+###Description
+Pauses a fax message before it starts transmitting. This fax message must either be queued, starting or sending. Please note the fax cannot be paused if the message is currently being transmitted to the destination device.
+
+When making a pause request, you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request. 
+
+###Request
+####PauseFaxRequest Parameters:
+| Name | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| **BroadcastRef** | | *String* | User-defined broadcast reference. | |
+| **SendRef** | | *String* | User-defined send reference. | |
+| **MessageRef** | | *String* | User-defined message reference. | |
+
+###Response
+The response received from a PauseFaxRequest is the same response you would receive when calling the FaxStatus method call with the ***“send”*** verbosity level. 
+
+###SOAP Faults
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+**InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
 -----froi starts here-----
 
