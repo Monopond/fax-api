@@ -229,3 +229,24 @@ The response received depends entirely on the verbosity level specified.
 | **FaxResultsTotals** | *FaxResultsTotals* | *brief* | FaxResultsTotals FaxResultsTotals brief Totals of the end results of the faxes. See below for more details. |
 | **FaxMessages** | *Array of FaxMessage* | *send* | send List of each fax in the query. See below for more details. |
 
+**FaxStatusTotals:**
+
+Contains the total count of how many faxes are at each status. 
+To see more information on each fax status, view the FaxStatus table below.
+
+| Name | Type | Verbosity | Description |
+| --- | --- | --- | --- |
+| **pending** | *Long* | *brief* | Fax is pending on the system and waiting to be processed.|
+| **processing** | *Long* | *brief* | Fax is in the initial processing stages. |
+| **queued** | *Long* | *brief* | Fax has finished processing and is queued, ready to send out at the send time. |
+| **starting** | *Long* | *brief* | Fax is ready to be sent out. |
+| **sending** | *Long* | *brief* | Fax has been spooled to our servers and is in the process of being sent out. |
+| **pausing** | *Long* | *brief* | Fax has been told to pause. |
+| **paused** | *Long* | *brief* | Fax is currently paused. |
+| **resuming** | *Long* | *brief* | Fax has been told to resume. After the resume has been confirmed, it is set back to the “sending” status. |
+| **stopping** | *Long* | *brief* | Fax has been told to stop. After the stop has been confirmed, it is set to the “finalizing” status. |
+| **finalizing** | *Long* | *brief* | Fax has finished sending and the results are being processed.|
+| **done** | *Long* | *brief* | Fax has completed and no further actions will take place. The detailed results are available at this status. |
+
+
+
