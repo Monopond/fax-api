@@ -248,5 +248,18 @@ To see more information on each fax status, view the FaxStatus table below.
 | **finalizing** | *Long* | *brief* | Fax has finished sending and the results are being processed.|
 | **done** | *Long* | *brief* | Fax has completed and no further actions will take place. The detailed results are available at this status. |
 
+**FaxResultsTotals:**
+
+Contains the total count of how many faxes ended in each result, as well as some additional totals. To view more information on each fax result, view the FaxResults table below.
+
+| Name | Type | Verbosity | Description |
+| --- | --- | --- | --- |
+| **success** | *Long* | *brief* | Fax has successfully been delivered to its destination.|
+| **blocked** | *Long* |  *brief* | Destination number was found in one of the block lists. |
+| **failed** | *Long* | *brief* | Fax failed getting to its destination.|
+| **totalAttempts** | *Long* | *brief* |Total attempts made in the reference context.|
+| **totalFaxDuration** | *Long* | *brief* |totalFaxDuration Long brief Total time spent on the line in the reference context.|
+| **totalPages** | *Long* | *brief* | Total pages sent in the reference context.|
+
 
 
