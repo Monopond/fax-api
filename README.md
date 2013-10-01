@@ -193,10 +193,82 @@ For detailed examples, see Section 6 of this document. of this document.Request
 **Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
 **Resolution**||Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|normal
 **ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
-**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|Current time (immediate sending)
+**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|
 **Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
 **BusyRetries**||DateTime|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
 **HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
+
+***FaxMessage Parameters:***
+This represents a single fax message being sent to a destination.
+**Name**|**Required**|**Type**|**Description**|**Default**
+-----|-----|-----|-----|-----
+**MessageRef**|**X**|String|A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.|
+**SendTo**|**X**|String|The phone number the fax message will be sent to.|
+**SendFrom**||Alphanumeric String|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|Empty
+**Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
+**Resolution**||Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|normal
+**ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Start now
+**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|
+**Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
+**BusyRetries**||DateTime|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
+**HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
+
+***FaxDocument Parameters:***
+Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
+**Name**|**Required**|**Type**|**Description**|**Default**
+-----|-----|-----|-----|-----
+**FileName**|**X**|String|The document filename including extension. This is important as it is used to help identify the document MIME type.|
+**FileData**|**X**|Base64|The document encoded in Base64 format.|
+**Order**||Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
+
+**Resolution Levels:**
+
+**Value**|**Description**
+--|--
+**normal**|Normal standard resolution (98 scan lines per inch)
+**fine**|Fine resolution (196 scan lines per inch)
+
+
+**Blocklists Parameters:**
+
+WARNING: The blocklist feature is inactive and non-functional in this (2.0.1) version of the Fax API.
+
+**Header Format:**
+Determines the format of the header line that is printed on the top of the transmitted fax message.
+This is set to **rom %from%, To %to%|%a %b %d %H:%M %Y”**y default which produces the following:
+
+From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
+
+**Value**|**Description**
+--|--
+**%from%**|The value of the **SendFrom** field in the message.
+**%to%**|The value of the **SendTo** field in the message.
+**%a**|Weekday name (abbreviated)
+**%A**|Weekday name
+**%b**|Month name (abbreviated)
+**%B**|Month name
+**%d**|Day of the month as a decimal (01 – 31)
+**%m**|Month as a decimal (01 – 12)
+**%y**|Year as a decimal (abbreviated)
+**%Y**|Year as a decimal
+**%H**|Hour as a decimal using a 24-hour clock (00 – 23)
+**%I**|Hour as a decimal using a 12-hour clock (01 – 12)
+**%M**|Minute as a decimal (00 – 59)
+**%S**|Second as a decimal (00 – 59)
+**%p**|AM or PM
+**%j**|Day of the year as a decimal (001 – 366)
+**%U**|Week of the year as a decimal (Monday as first day of the week) (00 – 53)
+**%W**|Day of the year as a decimal (001 – 366)
+**%w**|Day of the week as a decimal (0 – 6) (Sunday being 0)
+**%%**|A literal % character
+
+TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”Response
+The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
+
+**SOAP Faults**
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+**InvalidArgumentsException, NoMessagesFoundException, DocumentContentTypeNotFoundException, or InternalServerException.**
+You can find more details on these faults in the next sSection 5 of this document.
 
 
 
@@ -334,6 +406,4 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **FAX_CANCELLED** | Cancelled |
 | **FAX_NO_ANSWER** | No answer |
 | **FAX_UNKNOWN** | Unknown fax error |
-
- 
 
