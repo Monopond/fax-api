@@ -187,4 +187,18 @@ For detailed examples, see Section 6 of this document. of this document.Request
 ------------- kreigh starts here ---------------------
 ##FaxStatus
 ###Description
-This function 
+
+This function provides you with a method of retrieving the status, details and results of fax messages sent. While this is a legitimate method of retrieving results we strongly advise that you take advantage of our callback service (see Section 4), which will push these fax results to you as they are completed.
+
+When making a status request, you must provide at least a BroadcastRef, SendRef or MessageRef. The 
+function will also accept a combination of these to further narrow the request query.
+- Limiting by a BroadcastRef allows you to retrieve faxes contained in a group of send requests.
+- Limiting by SendRef allows you to retrieve faxes contained in a single send request.
+- Limiting by MessageRef allows you to retrieve a single fax message.
+
+There are multiple levels of verbosity available in the request; these are explained in detail below. You can also find full examples in Section 6 of this document.
+
+###Request
+
+**FaxStatusRequest Parameters:**
+
