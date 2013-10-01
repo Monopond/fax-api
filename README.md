@@ -287,5 +287,15 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **sendTo** | *String* | *send* | |
 | **status** |  | *send* | The current status of the fax message. See the FaxStatus table above for possible status values. |
 | **FaxDetails** | *FaxDetails* | *details* | Contains the details and settings the fax was sent with. See below for more details. |
-| **FaxResults** | *FaxResults Array of FaxResult* | *results* | Contains the results of each attempt at sending the fax message and their connection details. See below for more details. |
+| **FaxResults** | *Array of FaxResult* | *results* | Contains the results of each attempt at sending the fax message and their connection details. See below for more details. |
+
+**FaxDetails:**
+
+| Name | Type | Verbosity | Description |
+| --- | --- | --- | --- |
+| **sendFrom** | *Alphanumeric String* | *details* | |
+| **resolution** | *String* | *details* | |
+| **retries** | *Integer* | *details* | |
+| **busyRetries** | *Integer* | *details* | |
+| **headerFormat** | *String* | *details* | |
 
