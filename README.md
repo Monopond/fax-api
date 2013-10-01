@@ -485,4 +485,201 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 -----froi starts here-----
+#4.Callback Service
+##Description
+The callback service allows our platform to post fax results to you on fax message completion.
+
+To take advantage of this, you are required to write a simple web service to accept requests from our system, parse them and update the status of the faxes on your system.
+
+Once you have deployed the web service, please contact your account manager with the web service URL so they can attach it to your account. Once it is active, a request similar to the following will be posted to you on fax message completion:
+
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FaxMessage status="done" sendTo="61011111111" broadcastRef="test-1" sendRef="test-1-1" messageRef="test-1-1-1">
+	<FaxResults>
+		<FaxResult dateCallEnded="2012-08-02T13:27:18+08:00" dateCallStarted="2012-08-02T13:26:51+08:00" scheduledStartTime="2012-08-02T13:26:49.299+08:00" totalFaxDuration="27" pages="1" cost="0.15" result="success" attempt="1"/>
+	</FaxResults>
+</FaxMessage>
+```
+
+#5.More Information
+##Exceptions/SOAP Faults
+If an error occurs during a request on the Monopond Fax API the service will throw a SOAP fault or exception. Each exception is listed in detail below. To see which exceptions match up to the function calls please refer to the function descriptions in the previous sectionSection 3.
+###InvalidArgumentsException
+One or more of the arguments passed in the request were invalid. Each element that failed validation is included in the fault details along with the reason for failure.
+###DocumentContentTypeNotFoundException
+There was an error while decoding the document provided; we were unable to determine its content type.
+###NoMessagesFoundException
+Based on the references sent in the request no messages could be found that match the criteria.
+###InternalServerException
+An unusual error occurred on the platform. If this error occurs please contact support for further instruction.
+
+##General Parameters and File Formatting
+###File Encoding
+All files are encoded in the Base64 encoding specified in RFC 2045 - MIME (Multipurpose Internet Mail Extensions). The Base64 encoding is designed to represent arbitrary sequences of octets in a form that need not be humanly readable. A 65-character subset ([A-Za-z0-9+/=]) of US-ASCII is used, enabling 6 bits to be represented per printable character. For more information see http://tools.ietf.org/html/rfc2045 and http://en.wikipedia.org/wiki/Base64
+
+###Dates
+Dates are always passed in ISO-8601 format with time zone. For example: “2012-07-17T19:27:23+08:00”
+
+#6.API Examples
+##SendFax
+###Sending a single fax message
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:SendFaxRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <SendRef>test-1-1</SendRef>
+            <FaxMessages>
+                <FaxMessage>
+                    <MessageRef>test-1-1-1</MessageRef>
+                    <SendTo>61011111111</SendTo>
+                    <SendFrom>Test Fax</SendFrom>
+                    <Documents>
+                        <Document>
+                            <FileName>test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                            /Document>
+                    </Documents>
+                    <Resolution>normal</Resolution>
+                    <Retries>0</Retries>
+                    <BusyRetries>2</BusyRetries>
+                </FaxMessage>
+            </FaxMessages>
+        </v2:SendFaxRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+###Sending multiple fax messages in a single request
+In the example request below the first fax message contains no overriding parameters so it will inherit the parameters set in the parent send request.
+The second fax message has overrides for resolution and busy retries so these values will be used for that message only. With no overrides for the document or any other settings these will be inherited from the send request.
+The third fax message has an override for the document so for this message that document will be used but all other settings will be inherited from the send request.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:SendFaxRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <SendRef>test-1-2</SendRef>
+            <FaxMessages>
+                <FaxMessage>
+                    <MessageRef>test-1-2-1</MessageRef>
+                    <SendTo>61011111111</SendTo>
+                </FaxMessage>
+                <FaxMessage>
+                    <MessageRef>test-1-2-2</MessageRef>
+                    <SendTo>61022222222</SendTo>
+                    <Resolution>fine</Resolution>
+                    <BusyRetries>3</BusyRetries>
+                </FaxMessage>
+                <FaxMessage>
+                    <MessageRef>test-1-2-3</MessageRef>
+                    <SendTo>61033333333</SendTo>
+                    <Documents>
+                        <Document>
+                            <FileName>another_test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhbm90aGVyIGZheA==</FileData>
+                        </Document>
+                    </Documents>
+                </FaxMessage>
+            </FaxMessages>
+            <SendFrom>Test Fax</SendFrom>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+            <Resolution>normal</Resolution>
+            <Retries>0</Retries>
+            <BusyRetries>2</BusyRetries>
+            <ScheduledStartTime>2012-04-30T19:02:00+08:00</ScheduledStartTime>
+        </v2:SendFaxRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+###Sending multiple documents in a single fax message
+In the example below we are sending multiple documents in a single fax transmission. These documents will be concatenated together, in the order specified, into a single transmissible fax message before being sent to the destination.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:SendFaxRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <SendRef>test-1-1</SendRef>
+            <FaxMessages>
+                <FaxMessage>
+                    <MessageRef>test-1-1-1</MessageRef>
+                    <SendTo>61011111111</SendTo>
+                    <SendFrom>Test Fax</SendFrom>
+                    <Documents>
+                        <Document>
+                            <FileName>test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                            <Order>0</Order>
+                        </Document>
+                        <Document>
+                            <FileName>another_test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhbm90aGVyIGZheA==</FileData>
+                            <Order>1</Order>
+                        </Document>
+                    </Documents>
+                    <Resolution>normal</Resolution>
+                    <Retries>0</Retries>
+                    <BusyRetries>2</BusyRetries>
+                </FaxMessage>
+            </FaxMessages>
+        </v2:SendFaxRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+```
+##FaxStatus
+###Status request with “brief” verbosity
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <Verbosity>brief</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
 
