@@ -277,5 +277,15 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **totalFaxDuration** | *Long* | *brief* |totalFaxDuration Long brief Total time spent on the line in the reference context.|
 | **totalPages** | *Long* | *brief* | Total pages sent in the reference context.|
 
+**FaxMessages:**
 
+| Name | Type | Verbosity | Description |
+| --- | --- | --- | --- |
+| **messageRef** | *String* | *send* | |
+| **sendRef** | *String* | *send* | |
+| **broadcastRef** | *String* | *send* | |
+| **sendTo** | *String* | *send* | |
+| **status** |  | *send* | The current status of the fax message. See the FaxStatus table above for possible status values. |
+| **FaxDetails** | *FaxDetails* | *details* | Contains the details and settings the fax was sent with. See below for more details. |
+| **FaxResults** | *FaxResults Array of FaxResult* | *results* | Contains the results of each attempt at sending the fax message and their connection details. See below for more details. |
 
