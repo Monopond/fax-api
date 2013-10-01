@@ -404,5 +404,38 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **FAX_NO_ANSWER** | No answer |
 | **FAX_UNKNOWN** | Unknown fax error |
 
+###SOAP Faults
+
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+
+**InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
+##StopFax
+WARNING: The StopFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
+
+###Description
+Stops a fax message from sending. This fax message must either be paused, queued, starting or sending. Please note the fax cannot be stopped if the fax is currently in the process of being transmitted to the destination device.
+
+When making a stop request you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request.
+
+###Request
+####StopFaxRequest Parameters:
+
+| Name | Required | Type | Description | Default |
+| --- | --- | --- | --- | --- |
+| **BroadcastRef** | | *String* | User-defined broadcast reference. |  |
+| **SendRef** |  | *String* | User-defined send reference. | |
+| **MessageRef** |  | *String* | User-defined message reference. | |
+
+###Response
+The response received from a StopFaxRequest is the same response you would receive when calling the FaxStatus method call with the “send” verbosity level.
+
+###SOAP Faults
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+
+**InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
 -----froi starts here-----
 
