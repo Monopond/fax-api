@@ -484,7 +484,7 @@ The response received from a ResumeFaxRequest is the same response you would rec
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
------froi starts here-----
+
 #4.Callback Service
 ##Description
 The callback service allows our platform to post fax results to you on fax message completion.
@@ -663,6 +663,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 ```
 ##FaxStatus
 ###Status request with “brief” verbosity
+
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
     <soapenv:Header>
@@ -682,4 +683,64 @@ In the example below we are sending multiple documents in a single fax transmiss
 </soapenv:Envelope>
 ```
 
+###Status request with “details” verbosity
 
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <SendRef>test-1-1</SendRef>
+            <Verbosity>details</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+###Status request with “results” verbosity
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+    <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <SendRef>test-1-2</SendRef>
+            <Verbosity>results</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+###Status request with “all” verbosity
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <MessageRef>test-1-1-1</MessageRef>
+            <Verbosity>all</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
