@@ -45,4 +45,13 @@ The SOAP envelope provides a wrapper around each API request, defining the XML d
 The envelope consists of two sections; a header and a body. The header contains authentication information and is explained in the next document section. The body contains the fax request information when making each function call and is described in the function definitions throughout this document.
 
 An example of a SOAP envelope for the Monopond Fax API is shown below with the header and body information omitted.
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+    <soapenv:Header>
+        ...
+    </soapenv:Header>
+    <soapenv:Body>
+        ...
+    </soapenv:Body>
+```
 
