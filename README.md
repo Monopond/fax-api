@@ -91,6 +91,94 @@ Alternatively if you are sending raw XML to the API you will need to apply the s
     </soapenv:Header>
 ...
 ```
+#3.Function Definitions
+##SendFax
+###Description
+This is the core function in the API allowing you to send faxes on the platform. 
 
+Your specific faxing requirements will dictate which send request type below should be used. The two common use cases would be the sending of a single fax document to one destination and the sending of a single fax document to multiple destinations.
 
+###Sending a single fax:
+To send a fax to a single destination a request similar to the following example can be used:
 
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <SendFrom>Test Fax</SendFrom>
+            <Resolution>normal</Resolution>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+###Sending multiple faxes:
+To send faxes to multiple destinations a request similar to the following example can be used. Please note the addition of another “FaxMessage”:
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <SendFrom>Test Fax</SendFrom>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+        <FaxMessage>
+            <MessageRef>test-1-1-2</MessageRef>
+            <SendTo> 6022222222</SendTo>
+            <SendFrom>Test Fax</SendFrom>
+            <Documents>
+                <Document>
+             <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+###Sending faxes to multiple destinations with the same document (broadcasting):
+To send the same fax content to multiple destinations (broadcasting) a request similar to the example below can be used.
+
+This method is recommended for broadcasting as it takes advantage of the multiple tiers in the send request. This eliminates the repeated parameters out of the individual fax message elements which are instead inherited from the parent send fax request. An example below shows “SendFrom” being used for both FaxMessages. While not shown in the example below further control can be achieved over individual fax elements to override the parameters set in the parent.
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+        </FaxMessage>
+        <FaxMessage>
+            <MessageRef>test-1-1-2</MessageRef>
+            <SendTo>6022222222</SendTo>
+        </FaxMessage>
+    </FaxMessages>
+    <Documents>
+        <Document>
+            <FileName>test.txt</FileName>
+            <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+        </Document>
+    </Documents>
+    <SendFrom>Test Fax</SendFrom>
+</v2:SendFaxRequest>
+```
+
+When sending multiple faxes in batch it is recommended to group them into requests of around 600 fax messages for optimal performance. If you are sending the same document to multiple destinations it is strongly advised to only attach the document once in the root of the send request rather than attaching a document for each destination.
+
+For detailed examples, see Section 6 of this document. of this document.Request
