@@ -200,6 +200,7 @@ For detailed examples, see Section 6 of this document. of this document.Request
 
 ***FaxMessage Parameters:***
 This represents a single fax message being sent to a destination.
+
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
 **MessageRef** | **X** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message. |
