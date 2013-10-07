@@ -241,8 +241,8 @@ This is set to **rom %from%, To %to%|%a %b %d %H:%M %Y”**y default which produ
 
 From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
 
-**Value**|**Description**
---|--
+**Value** | **Description**
+--- | ---
 **%from%**|The value of the **SendFrom** field in the message.
 **%to%**|The value of the **SendTo** field in the message.
 **%a**|Weekday name (abbreviated)
