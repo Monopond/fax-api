@@ -221,14 +221,14 @@ Represents a fax document to be sent through the system. Supported file types ar
 -----|-----|-----|-----|-----
 **FileName**|**X**|String|The document filename including extension. This is important as it is used to help identify the document MIME type.|
 **FileData**|**X**|Base64|The document encoded in Base64 format.|
-**Order**||Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
+**Order** | | Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
 
 **Resolution Levels:**
 
-**Value**|**Description**
---|--
-**normal**|Normal standard resolution (98 scan lines per inch)
-**fine**|Fine resolution (196 scan lines per inch)
+| **Value** | **Description** |
+| --- | --- |
+| **normal** | Normal standard resolution (98 scan lines per inch) |
+| **fine** | Fine resolution (196 scan lines per inch) |
 
 
 **Blocklists Parameters:**
