@@ -197,6 +197,7 @@ For detailed examples, see Section 6 of this document. of this document.Request
 **Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
 **BusyRetries**||DateTime|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
 **HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
+**MustBeSentBeforeDate** | | DateTime |  Allows the user to specify a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
 
 ***FaxMessage Parameters:***
 This represents a single fax message being sent to a destination.
@@ -213,6 +214,7 @@ This represents a single fax message being sent to a destination.
 **Retries** | | Unsigned Integer | The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager. | Account Default
 **BusyRetries** | | DateTime | Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
 **HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
+**MustBeSentBeforeDate** | | DateTime |  Allows the user to specify a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
 
 ***FaxDocument Parameters:***
 Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
@@ -235,7 +237,7 @@ Represents a fax document to be sent through the system. Supported file types ar
 
 WARNING: The blocklist feature is inactive and non-functional in this (2.0.1) version of the Fax API.
 
-**Header Format:**
+**Header Format:iff**
 Determines the format of the header line that is printed on the top of the transmitted fax message.
 This is set to **rom %from%, To %to%|%a %b %d %H:%M %Y”**y default which produces the following:
 
