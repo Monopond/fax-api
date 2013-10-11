@@ -226,6 +226,22 @@ Represents a fax document to be sent through the system. Supported file types ar
 **FileName**|**X**|String|The document filename including extension. This is important as it is used to help identify the document MIME type.|
 **FileData**|**X**|Base64|The document encoded in Base64 format.|
 **Order** | | Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
+**DitheringTechnique** | | FaxDitheringTechnique | Applies a custom dithering method to their fax document before transmission. | 
+
+**FaxDitheringTechnique:**
+
+| Value | Fax Dithering Technique |
+| --- | --- |
+| **none** | No dithering. |
+| **normal** | Normal dithering.|
+| **turbo** | Turbo dithering.|
+| **darken** | Darken dithering.|
+| **darken_more** | Darken more dithering.|
+| **darken_extra** | Darken extra dithering.|
+| **ligthen** | Lighten dithering.|
+| **lighten_more** | Lighten more dithering. |
+| **crosshatch** | Crosshatch dithering. |
+| **DETAILED** | Detailed dithering. |
 
 **Resolution Levels:**
 
