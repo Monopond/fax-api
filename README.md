@@ -198,7 +198,7 @@ For detailed examples, see Section 6 of this document. of this document.Request
 **BusyRetries**||Unsigned Integer|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
 **HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
 **MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. WARNING: This feature is active only in version 2.1 and above. | 
-**MaxFaxPages** | | Unsigned Integer |  sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
+**MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
 
 ***FaxMessage Parameters:***
 This represents a single fax message being sent to a destination.
@@ -216,7 +216,7 @@ This represents a single fax message being sent to a destination.
 **BusyRetries** | | Unsigned Integer | Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
 **HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
 **MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. WARNING: This feature is active only in version 2.1 and above.  | 
-**MaxFaxPages** | | Unsigned Integer |  sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
+**MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
 
 ***FaxDocument Parameters:***
 Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
@@ -506,6 +506,20 @@ The response received from a ResumeFaxRequest is the same response you would rec
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
+##PreviewFaxDocument
+###Description
+This function provides you with a method to generate a preview of a saved document at different resolutions with various dithering settings. It returns a tiff data in base64 along with a page count.
+
+###Request
+**faxDocumentPreviewRequest Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** | **Default** |
+|--- | --- | --- | --- | ---|
+|**Resolution**|  | *Resolution* | A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters. | normal |
+|**DitheringTechnique**| | *FaxDitheringTechnique* | Applies a custom dithering method to their fax document before transmission. | |
+|**DocMergeData** | | *Array of MergeFields* | Each mergefield has a key and a value. The system will look for the keys in a document and replace them with their corresponding value. ||
+|**StampMergeData** | | *Array of MergeFields* | Each mergefield has a key a corressponding TextValue/ImageValue. The system will look for the keys in a document and replace them with their corresponding value. | |
 
 #4.Callback Service
 ##Description
