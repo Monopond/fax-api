@@ -517,9 +517,9 @@ This function provides you with a method to generate a preview of a saved docume
 | **Name** | **Required** | **Type** | **Description** | **Default** |
 |--- | --- | --- | --- | ---|
 |**Resolution**|  | *Resolution* | A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters. | normal |
-|**DitheringTechnique**| | *FaxDitheringTechnique* | Applies a custom dithering method to their fax document before transmission. | |
-|**DocMergeData** | | *Array of MergeFields* | Each mergefield has a key and a value. The system will look for the keys in a document and replace them with their corresponding value. ||
-|**StampMergeData** | | *Array of MergeFields* | Each mergefield has a key a corressponding TextValue/ImageValue. The system will look for the keys in a document and replace them with their corresponding value. | |
+|**DitheringTechnique**| | *FaxDitheringTechnique* | Applies a custom dithering method to the fax document before transmission. | |
+|**DocMergeData** | | *Array of DocMergeData MergeFields* | Each mergefield has a key and a value. The system will look for the keys in a document and replace them with their corresponding value. ||
+|**StampMergeData** | | *Array of StampMergeData MergeFields* | Each mergefield has a key a corressponding TextValue/ImageValue. The system will look for the keys in a document and replace them with their corresponding value. | |
 
 **DocMergeData Mergefield Parameters:**
 
@@ -535,7 +535,6 @@ This function provides you with a method to generate a preview of a saved docume
 **Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
 **TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
 **ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
-
 
  **StampMergeFieldKey Parameters:**
 
