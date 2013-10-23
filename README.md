@@ -521,6 +521,41 @@ This function provides you with a method to generate a preview of a saved docume
 |**DocMergeData** | | *Array of MergeFields* | Each mergefield has a key and a value. The system will look for the keys in a document and replace them with their corresponding value. ||
 |**StampMergeData** | | *Array of MergeFields* | Each mergefield has a key a corressponding TextValue/ImageValue. The system will look for the keys in a document and replace them with their corresponding value. | |
 
+**DocMergeData Mergefield Parameters:**
+
+**Name** | **Required** | **Type** | **Description** | **Default** 
+-----|-----|-----|-----|-----
+**Key** | **X** | String | A unique identifier used to determine which fields need replacing. |
+**Value** | **X** | String | The value that replaces the key. |
+
+**StampMergeData Mergefield Parameters:**
+
+**Name** | **Required** | **Type** | **Description** | **Default** 
+-----|-----|-----|-----|-----
+**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
+**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
+**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
+
+
+**StampMergeFieldKey Parameters:**
+**Name** | **Required** | **Type** | **Description** | **Default** 
+-----|-----|-----|-----|-----
+**xCoord** |  | *int* | X coordinate. |
+**yCoord** |  | *int* | X coordinate. |
+
+**StampMergeFieldTextValue Parameters:**
+**Name** | **Required** | **Type** | **Description** | **Default** 
+-----|-----|-----|-----|-----
+**fontName** |  | *String* | Font name to be used. |
+**fontSize** |  | *decimal* | Font size to be used. |
+
+**StampMergeFieldImageValue Parameters:**
+**Name** | **Required** | **Type** | **Description** | **Default** 
+-----|-----|-----|-----|-----
+**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
+**fileData** |  | *String* | The document encoded in Base64 format. |
+
+
 #4.Callback Service
 ##Description
 The callback service allows our platform to post fax results to you on fax message completion.
