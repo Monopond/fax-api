@@ -537,19 +537,22 @@ This function provides you with a method to generate a preview of a saved docume
 **ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
 
 
-**StampMergeFieldKey Parameters:**
-**Name** | **Required** | **Type** | **Description** | **Default** 
------|-----|-----|-----|-----
-**xCoord** |  | *int* | X coordinate. |
-**yCoord** |  | *int* | X coordinate. |
+ **StampMergeFieldKey Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** | **Default** | 
+|----|-----|-----|-----|----- |
+| **xCoord** |  | *int* | X coordinate. | |
+| **yCoord** |  | *int* | Y coordinate. | |
 
 **StampMergeFieldTextValue Parameters:**
+
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
 **fontName** |  | *String* | Font name to be used. |
 **fontSize** |  | *decimal* | Font size to be used. |
 
 **StampMergeFieldImageValue Parameters:**
+
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
