@@ -284,7 +284,9 @@ From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
 **%w**|Day of the week as a decimal (0 – 6) (Sunday being 0)
 **%%**|A literal % character
 
-TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”Response
+TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
+
+###Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
 
 **SOAP Faults**
@@ -509,6 +511,8 @@ You can find more details on these faults in Section 5 of this document.You can 
 
 ##PreviewFaxDocument
 ###Description
+WARNING: This feature is available in API version 2.1.
+
 This function provides you with a method to generate a preview of a saved document at different resolutions with various dithering settings. It returns a tiff data in base64 along with a page count.
 
 ###Request
@@ -525,8 +529,8 @@ This function provides you with a method to generate a preview of a saved docume
 
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
-**Key** | **X** | String | A unique identifier used to determine which fields need replacing. |
-**Value** | **X** | String | The value that replaces the key. |
+**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
+**Value** | | *String* | The value that replaces the key. |
 
 **StampMergeData Mergefield Parameters:**
 
@@ -540,15 +544,15 @@ This function provides you with a method to generate a preview of a saved docume
 
 | **Name** | **Required** | **Type** | **Description** | **Default** | 
 |----|-----|-----|-----|----- |
-| **xCoord** |  | *int* | X coordinate. | |
-| **yCoord** |  | *int* | Y coordinate. | |
+| **xCoord** |  | *Int* | X coordinate. | |
+| **yCoord** |  | *Int* | Y coordinate. | |
 
 **StampMergeFieldTextValue Parameters:**
 
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
 **fontName** |  | *String* | Font name to be used. |
-**fontSize** |  | *decimal* | Font size to be used. |
+**fontSize** |  | *Decimal* | Font size to be used. |
 
 **StampMergeFieldImageValue Parameters:**
 
@@ -556,6 +560,14 @@ This function provides you with a method to generate a preview of a saved docume
 -----|-----|-----|-----|-----
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 **fileData** |  | *String* | The document encoded in Base64 format. |
+
+ ###Response
+**FaxDocumentPreviewResponse**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**TiffPreview** | *String* | A preview version of the document encoded in Base64 format. 
+**NumberOfPages** | *Int* | Total number of pages in the document preview.
 
 ###SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
