@@ -561,7 +561,7 @@ This function provides you with a method to generate a preview of a saved docume
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 **fileData** |  | *String* | The document encoded in Base64 format. |
 
- ###Response
+###Response
 **FaxDocumentPreviewResponse**
 
 **Name** | **Type** | **Description** 
