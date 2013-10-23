@@ -557,6 +557,10 @@ This function provides you with a method to generate a preview of a saved docume
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 **fileData** |  | *String* | The document encoded in Base64 format. |
 
+###SOAP Faults
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+**DocumentRefDoesNotExistException**, **InternalServerException**, **UnsupportedDocumentContentType**, **MergeFieldDoesNotMatchDocumentTypeException**, **UnknownHostException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 #4.Callback Service
 ##Description
