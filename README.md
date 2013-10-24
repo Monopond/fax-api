@@ -561,6 +561,28 @@ This function provides you with a method to generate a preview of a saved docume
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 **fileData** |  | *String* | The document encoded in Base64 format. |
 
+**FaxDitheringTechnique:**
+
+| Value | Fax Dithering Technique |
+| --- | --- |
+| **none** | No dithering. |
+| **normal** | Normal dithering.|
+| **turbo** | Turbo dithering.|
+| **darken** | Darken dithering.|
+| **darken_more** | Darken more dithering.|
+| **darken_extra** | Darken extra dithering.|
+| **ligthen** | Lighten dithering.|
+| **lighten_more** | Lighten more dithering. |
+| **crosshatch** | Crosshatch dithering. |
+| **DETAILED** | Detailed dithering. |
+
+**Resolution Levels:**
+
+| **Value** | **Description** |
+| --- | --- |
+| **normal** | Normal standard resolution (98 scan lines per inch) |
+| **fine** | Fine resolution (196 scan lines per inch) |
+
 ###Response
 **FaxDocumentPreviewResponse**
 
