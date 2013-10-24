@@ -511,7 +511,7 @@ You can find more details on these faults in Section 5 of this document.You can 
 
 ##PreviewFaxDocument
 ###Description
-WARNING: This feature is available in API version 2.1.
+WARNING: This feature is only available in API version 2.1.
 
 This function provides you with a method to generate a preview of a saved document at different resolutions with various dithering settings. It returns a tiff data in base64 along with a page count.
 
@@ -595,6 +595,21 @@ This function provides you with a method to generate a preview of a saved docume
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **DocumentRefDoesNotExistException**, **InternalServerException**, **UnsupportedDocumentContentType**, **MergeFieldDoesNotMatchDocumentTypeException**, **UnknownHostException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
+##SaveFaxDocument
+###Description
+WARNING: This feature is only available in API version 2.1.
+
+This function allows you to upload a document and save it under a document reference (DocumentRef) for later use. (Note: These saved documents only last 30 days on the system.)
+
+###Request
+**saveFaxDocumentRequest Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** | **Default** |
+|--- | --- | --- | --- | ---|
+|**DocumentRef**| **X** | *String* | Unique identifier for the document that will be uploaded. | |
+|**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. | |
+| **FileData**|**X**|Base64|The document encoded in Base64 format.| |
 
 #4.Callback Service
 ##Description
