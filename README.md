@@ -559,7 +559,7 @@ This function provides you with a method to generate a preview of a saved docume
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
-**fileData** |  | *String* | The document encoded in Base64 format. |
+**fileData** |  | *Base64* | The document encoded in Base64 format. |
 
 **FaxDitheringTechnique:**
 
@@ -609,7 +609,7 @@ This function allows you to upload a document and save it under a document refer
 |--- | --- | --- | --- | ---|
 |**DocumentRef**| **X** | *String* | Unique identifier for the document that will be uploaded. | |
 |**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. | |
-| **FileData**|**X**|Base64|The document encoded in Base64 format.| |
+| **FileData**|**X**| *Base64* |The document encoded in Base64 format.| |
 
 #4.Callback Service
 ##Description
