@@ -603,17 +603,35 @@ WARNING: This feature is only available in API version 2.1.
 This function allows you to upload a document and save it under a document reference (DocumentRef) for later use. (Note: These saved documents only last 30 days on the system.)
 
 ###Request
-**saveFaxDocumentRequest Parameters:**
+**SaveFaxDocumentRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
 |--- | --- | --- | --- | ---|
-|**DocumentRef**| **X** | *String* | Unique identifier for the document that will be uploaded. | |
+|**DocumentRef**| **X** | *String* | Unique identifier for the document to be uploaded. | |
 |**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. | |
 | **FileData**|**X**| *Base64* |The document encoded in Base64 format.| |
 
 ###SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **DocumentRefAlreadyExistsException**, **DocumentContentTypeNotFoundException**, **InternalServerException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
+##DeleteFaxDocument
+###Description
+WARNING: This feature is only available in API version 2.1.
+
+This function removes a saved fax document from the system.
+
+###Request
+**DeleteFaxDocumentRequest Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** | **Default** |
+|--- | --- | --- | --- | ---|
+|**DocumentRef**| **X** | *String* | Unique identifier for the document to be deleted. | |
+
+###SOAP Faults
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+**DocumentRefDoesNotExistException**, **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 #4.Callback Service
