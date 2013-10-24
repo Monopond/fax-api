@@ -611,6 +611,11 @@ This function allows you to upload a document and save it under a document refer
 |**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. | |
 | **FileData**|**X**| *Base64* |The document encoded in Base64 format.| |
 
+###SOAP Faults
+This function will throw one of the following SOAP faults/exceptions if something went wrong:
+**DocumentRefAlreadyExistsException**, **DocumentContentTypeNotFoundException**, **InternalServerException**.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
 #4.Callback Service
 ##Description
 The callback service allows our platform to post fax results to you on fax message completion.
@@ -636,6 +641,10 @@ If an error occurs during a request on the Monopond Fax API the service will thr
 One or more of the arguments passed in the request were invalid. Each element that failed validation is included in the fault details along with the reason for failure.
 ###DocumentContentTypeNotFoundException
 There was an error while decoding the document provided; we were unable to determine its content type.
+###DocumentRefAlreadyExistsException
+There is already a document on your account with this DocumentRef.
+###DocumentContentTypeNotFoundException
+Content type could not be found for the document.
 ###NoMessagesFoundException
 Based on the references sent in the request no messages could be found that match the criteria.
 ###InternalServerException
