@@ -891,7 +891,7 @@ In the example below we are sending multiple documents in a single fax transmiss
     </soapenv:Header>
     <soapenv:Body>
         <v2:FaxStatusRequest>
-            <MessageRef>test-1-1-1</MessageRef>
+            <MessageRef>test-1-1-1a</MessageRef>
             <Verbosity>all</Verbosity>
         </v2:FaxStatusRequest>
     </soapenv:Body>
