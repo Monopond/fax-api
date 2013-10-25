@@ -559,7 +559,7 @@ This function provides you with a method to generate a preview of a saved docume
 **Name** | **Required** | **Type** | **Description** | **Default** 
 -----|-----|-----|-----|-----
 **fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
-**fileData** |  | *Base64* | The document encoded in Base64 format. |
+**fileData** |  | *String* | The document encoded in Base64 format. |
 
 **FaxDitheringTechnique:**
 
@@ -596,42 +596,178 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **DocumentRefDoesNotExistException**, **InternalServerException**, **UnsupportedDocumentContentType**, **MergeFieldDoesNotMatchDocumentTypeException**, **UnknownHostException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##SaveFaxDocument
+##FetchUnreadReceivedFaxes
 ###Description
-WARNING: This feature is only available in API version 2.1.
+**WARNING**: This feature is only available in API version 2.2.
 
-This function allows you to upload a document and save it under a document reference (DocumentRef) for later use. (Note: These saved documents only last 30 days on the system.)
+This function provides you with a method to retrieve unread received faxes with search criterias. It returns a list of fax messages with details matching the queries requested.
 
 ###Request
-**SaveFaxDocumentRequest Parameters:**
+**FetchUnreadReceivedFaxesRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
 |--- | --- | --- | --- | ---|
-|**DocumentRef**| **X** | *String* | Unique identifier for the document to be uploaded. | |
-|**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. | |
-| **FileData**|**X**| *Base64* |The document encoded in Base64 format.| |
+|**Limit**|  | Unsigned Integer | Limits the fax messages retrieved based on the search query. The maximum limit is **30**. | **10** |
+|**ReceivedAt**| | String | The phone number the fax message will be sent to. | |
+|**ReceivedBetween** | | *ReceivedBetween* | Date interval the fax was received. |&nbsp;|
+
+**ReceivedBetween Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**start** | DateTime | Start interval when the fax messagewas received.
+**end** | DateTime | End interval when the fax message was received.
+
+###Response
+**FetchUnreadReceivedFaxesResponse Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**ReceivedFaxes** | *Array of ReceivedFaxes* | List of FaxMessages describe each individual fax message and its details.
+**MoreResultsFetched** | Boolean | Indicates whether the fax messages retrieved were more than the limit.
+
+
+**ReceivedFax Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**messageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+**receivedFrom** | String | Transmitting Subscriber Identification (TSID) used to identify you as the sender of the fax.
+**receivedAt** | String | Direct Inward Dialing (DID) used to identify the recipient of the fax.
+**pages** | Unsigned Integer | Total pages sent inside the fax message.
+**resolution** | *FaxResolution* | Resolution setting of the fax document.  See the FaxResolution table above for possible fax resolution values.
+**totalFaxDuration** | Int | Total time spent in the transmission of the fax message.
+**status** | *ReceivedFaxStatus* | The current status of the fax message. See the ReceivedFaxStatus table above for possible fax status values.
+**cost** | Int | The total cost of the fax message.
+**read** | Boolean | Indicates whether the message has been read.
+**dateReceived** | DateTime | Date the fax was received.
+**TiffData** | String | The Tiff file included in the fax message encoded in Base64 Format.
+
+**FaxResolution:**
+
+| Value | Error Name |
+| --- | --- |
+| **normal** | Normal standard resolution (98 scan lines per inch) |
+| **fine** | Fine resolution (196 scan lines per inch) |
+
+
+**ReceivedFaxStatus:**
+
+| Value | Error Name |
+| --- | --- |
+| **RECEIVED** | The fax message was received. |
+| **HELD** | The fax message was held. |
+| **TO_CHARGE** | The fax message was in queue to be charged. |
+| **CHARGED** | The fax message was charged. |
+| **TO_FINALIZE** | The fax message was in queue to be finalized. |
+| **DONE** | The fax message process is done. |
 
 ###SOAP Faults
-This function will throw one of the following SOAP faults/exceptions if something went wrong:
-**DocumentRefAlreadyExistsException**, **DocumentContentTypeNotFoundException**, **InternalServerException**.
+This function will throw **NoMessagesFoundException** if something went wrong.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##DeleteFaxDocument
+##MarkReceivedFaxAsRead
 ###Description
-WARNING: This feature is only available in API version 2.1.
+**WARNING**: This feature is only available in API version 2.2.
 
-This function removes a saved fax document from the system.
+This function provides you with a method to retrieve unread received faxes with search criterias. It returns a list of fax messages with details matching the queries requested.
 
 ###Request
-**DeleteFaxDocumentRequest Parameters:**
+**MarkReceivedFaxAsReadRequest Parameters:**
 
-| **Name** | **Required** | **Type** | **Description** | **Default** |
+| **Name** | **Required** | **Type** | **Description** |
 |--- | --- | --- | --- | ---|
-|**DocumentRef**| **X** | *String* | Unique identifier for the document to be deleted. | |
+|**MessageRefs**| **X** | *Array of MessageRefs* | List of unique user-provided identifier. |
+
+**MessageRef Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**MessageRef** | Int | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+
+###Response
+**MarkReceivedFaxAsReadResponse Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**ReceivedFaxes** | *Array of ReceivedFaxes* | List of FaxMessages to describe each individual fax message and its details.
+
+
+**ReceivedFax Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**messageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+**read** | Boolean | Indicates whether the message has been read.
 
 ###SOAP Faults
-This function will throw one of the following SOAP faults/exceptions if something went wrong:
-**DocumentRefDoesNotExistException**, **InternalServerException**.
+This function will throw **NoMessagesFoundException** if something went wrong.
+You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
+
+##FetchReceivedFaxByMessageRef
+###Description
+**WARNING**: This feature is only available in API version 2.2.
+
+This function provides you with a method to retrieve unread received faxes with search criterias. It returns a list of fax messages with details matching the queries requested.
+
+###Request
+**FetchReceivedFaxByMessageRefRequest Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** |
+|--- | --- | --- | --- | ---|
+|**MessageRefs**| **X** | *Array of MessageRefs* | List of unique user-provided identifier. |
+
+**MessageRef Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**MessageRef** | Int | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+
+
+###Response
+**FetchReceivedFaxByMessageRefResponse Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**ReceivedFaxes** | *Array of ReceivedFaxes* | List of FaxMessages to describe each individual fax message and its details.
+
+**ReceivedFax Parameters:**
+
+**Name** | **Type** | **Description** 
+-----|-----|-----
+**messageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+**receivedFrom** | String | Transmitting Subscriber Identification (TSID) used to identify you as the sender of the fax.
+**receivedAt** | String | Direct Inward Dialing (DID) used to identify the recipient of the fax.
+**pages** | Int | Total pages sent inside the fax message.
+**resolution** | *FaxResolution* | Resolution setting of the fax document.  See the FaxResolution table above for possible fax resolution values.
+**totalFaxDuration** | Int | Total time spent in the transmission of the fax message.
+**status** | *ReceivedFaxStatus* | The current status of the fax message. See the ReceivedFaxStatus table above for possible fax status values.
+**cost** | Int | The total cost of the fax message.
+**read** | Boolean | Indicates whether the message has been read.
+**dateReceived** | DateTime | Date the fax was received.
+**TiffData** | String | The Tiff file included in the fax message encoded in Base64 Format.
+
+**FaxResolution:**
+
+| Value | Error Name |
+| --- | --- |
+| **normal** | Normal standard resolution (98 scan lines per inch) |
+| **fine** | Fine resolution (196 scan lines per inch) |
+
+
+**ReceivedFaxStatus:**
+
+| Value | Error Name |
+| --- | --- |
+| **RECEIVED** | The fax message was received. |
+| **HELD** | The fax message was held. |
+| **TO_CHARGE** | The fax message was in queue to be charged. |
+| **CHARGED** | The fax message was charged. |
+| **TO_FINALIZE** | The fax message was in queue to be finalized. |
+| **DONE** | The fax message process is done. |
+
+###SOAP Faults
+This function will throw **NoMessagesFoundException** if something went wrong.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 #4.Callback Service
@@ -659,10 +795,6 @@ If an error occurs during a request on the Monopond Fax API the service will thr
 One or more of the arguments passed in the request were invalid. Each element that failed validation is included in the fault details along with the reason for failure.
 ###DocumentContentTypeNotFoundException
 There was an error while decoding the document provided; we were unable to determine its content type.
-###DocumentRefAlreadyExistsException
-There is already a document on your account with this DocumentRef.
-###DocumentContentTypeNotFoundException
-Content type could not be found for the document.
 ###NoMessagesFoundException
 Based on the references sent in the request no messages could be found that match the criteria.
 ###InternalServerException
@@ -894,6 +1026,83 @@ In the example below we are sending multiple documents in a single fax transmiss
             <MessageRef>test-1-1-1</MessageRef>
             <Verbosity>all</Verbosity>
         </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+##FetchUnreadReceivedFaxes
+###Request with Limit, ReceivedAt and ReceivedBetween parameters
+
+In the example below we are retrieving received fax messages that are unread with the given date interval.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FetchUnreadReceivedFaxesRequest>
+            <Limit>20</Limit>
+            <ReceivedAt>61200001111</ReceivedAt>
+            <ReceivedBetween start="2013-10-21T09:00:00+10:00" end="2013-10-21T09:05:00+10:00" />
+        </v2:FetchUnreadReceivedFaxesRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+##MarkReceivedFax
+###Request with a List of MessageRef
+
+In the example below we are marking received fax messages as read with the given message reference criteria.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:MarkReceivedFaxAsReadRequest>
+            <MessageRefs>
+                <MessageRef>123</MessageRef>
+                <MessageRef>124</MessageRef>
+                <MessageRef>125</MessageRef>
+            </MessageRefs>
+        </v2:MarkReceivedFaxAsReadRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+##FetchReceivedFaxByMessageRef
+###Request with a List of MessageRef
+
+In the example below we are retrieving received fax messages with the given message reference criteria.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.2">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FetchReceivedFaxByMessageRefRequest>
+            <MessageRefs>
+                <MessageRef>123</MessageRef>
+            </MessageRefs>
+        </v2:FetchReceivedFaxByMessageRefRequest>
     </soapenv:Body>
 </soapenv:Envelope>
 ```
