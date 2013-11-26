@@ -615,7 +615,7 @@ This function provides you with a method to retrieve unread received faxes with 
 
 **Name** | **Type** | **Description** 
 -----|-----|-----
-**start** | DateTime | Start interval when the fax messagewas received.
+**start** | DateTime | Start interval when the fax message was received.
 **end** | DateTime | End interval when the fax message was received.
 
 ###Response
@@ -631,16 +631,16 @@ This function provides you with a method to retrieve unread received faxes with 
 
 **Name** | **Type** | **Description** 
 -----|-----|-----
-**messageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
-**receivedFrom** | String | Transmitting Subscriber Identification (TSID) used to identify you as the sender of the fax.
-**receivedAt** | String | Direct Inward Dialing (DID) used to identify the recipient of the fax.
-**pages** | Unsigned Integer | Total pages sent inside the fax message.
-**resolution** | *FaxResolution* | Resolution setting of the fax document.  See the FaxResolution table above for possible fax resolution values.
-**totalFaxDuration** | Int | Total time spent in the transmission of the fax message.
-**status** | *ReceivedFaxStatus* | The current status of the fax message. See the ReceivedFaxStatus table above for possible fax status values.
-**cost** | Int | The total cost of the fax message.
-**read** | Boolean | Indicates whether the message has been read.
-**dateReceived** | DateTime | Date the fax was received.
+**MessageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+**ReceivedFrom** | String | Transmitting Subscriber Identification (TSID) used to identify you as the sender of the fax.
+**ReceivedAt** | String | Direct Inward Dialing (DID) used to identify the recipient of the fax.
+**Pages** | Unsigned Integer | Total pages sent inside the fax message.
+**Resolution** | *FaxResolution* | Resolution setting of the fax document.  See the FaxResolution table above for possible fax resolution values.
+**TotalFaxDuration** | Int | Total time spent in the transmission of the fax message.
+**Status** | *ReceivedFaxStatus* | The current status of the fax message. See the ReceivedFaxStatus table above for possible fax status values.
+**Cost** | Int | The total cost of the fax message.
+**Read** | Boolean | Indicates whether the message has been read.
+**DateReceived** | DateTime | Date the fax was received.
 **TiffData** | String | The Tiff file included in the fax message encoded in Base64 Format.
 
 **FaxResolution:**
@@ -661,6 +661,7 @@ This function provides you with a method to retrieve unread received faxes with 
 | **CHARGED** | The fax message was charged. |
 | **TO_FINALIZE** | The fax message was in queue to be finalized. |
 | **DONE** | The fax message process is done. |
+| **NUMBER_NOT_FOUND** | The did of the fax message is not found. |
 
 ###SOAP Faults
 This function will throw **NoMessagesFoundException** if something went wrong.
@@ -697,8 +698,8 @@ This function provides you with a method to retrieve unread received faxes with 
 
 **Name** | **Type** | **Description** 
 -----|-----|-----
-**messageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
-**read** | Boolean | Indicates whether the message has been read.
+**MessageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+**Read** | Boolean | Indicates whether the message has been read.
 
 ###SOAP Faults
 This function will throw **NoMessagesFoundException** if something went wrong.
@@ -735,16 +736,16 @@ This function provides you with a method to retrieve unread received faxes with 
 
 **Name** | **Type** | **Description** 
 -----|-----|-----
-**messageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
-**receivedFrom** | String | Transmitting Subscriber Identification (TSID) used to identify you as the sender of the fax.
-**receivedAt** | String | Direct Inward Dialing (DID) used to identify the recipient of the fax.
-**pages** | Int | Total pages sent inside the fax message.
-**resolution** | *FaxResolution* | Resolution setting of the fax document.  See the FaxResolution table above for possible fax resolution values.
-**totalFaxDuration** | Int | Total time spent in the transmission of the fax message.
-**status** | *ReceivedFaxStatus* | The current status of the fax message. See the ReceivedFaxStatus table above for possible fax status values.
-**cost** | Int | The total cost of the fax message.
-**read** | Boolean | Indicates whether the message has been read.
-**dateReceived** | DateTime | Date the fax was received.
+**MessageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
+**ReceivedFrom** | String | Transmitting Subscriber Identification (TSID) used to identify you as the sender of the fax.
+**ReceivedAt** | String | Direct Inward Dialing (DID) used to identify the recipient of the fax.
+**Pages** | Int | Total pages sent inside the fax message.
+**Resolution** | *FaxResolution* | Resolution setting of the fax document.  See the FaxResolution table above for possible fax resolution values.
+**TotalFaxDuration** | Int | Total time spent in the transmission of the fax message.
+**Status** | *ReceivedFaxStatus* | The current status of the fax message. See the ReceivedFaxStatus table above for possible fax status values.
+**Cost** | Int | The total cost of the fax message.
+**Read** | Boolean | Indicates whether the message has been read.
+**DateReceived** | DateTime | Date the fax was received.
 **TiffData** | String | The Tiff file included in the fax message encoded in Base64 Format.
 
 **FaxResolution:**
@@ -765,6 +766,7 @@ This function provides you with a method to retrieve unread received faxes with 
 | **CHARGED** | The fax message was charged. |
 | **TO_FINALIZE** | The fax message was in queue to be finalized. |
 | **DONE** | The fax message process is done. |
+| **NUMBER_NOT_FOUND** | The did of the fax message is not found. |
 
 ###SOAP Faults
 This function will throw **NoMessagesFoundException** if something went wrong.
