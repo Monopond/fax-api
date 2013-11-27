@@ -191,7 +191,7 @@ For detailed examples, see Section 6 of this document. of this document.Request
 **FaxMessages**|**X**| Array of FaxMessage |FaxMessages describe each individual fax message and its destination. See below for details.|
 **SendFrom**||Alphanumeric String|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|Fax
 **Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
-**Resolution**||Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|normal
+**Resolution**||Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.|normal
 **ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
 **Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|
 **Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
@@ -209,7 +209,7 @@ This represents a single fax message being sent to a destination.
 **SendTo** | **X** | String | The phone number the fax message will be sent to. |
 **SendFrom** | | Alphanumeric String | A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters | Empty
 **Documents** | **X** | Array of FaxDocument | Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details. | 
-**Resolution** | | Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters | normal
+**Resolution** | | Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.| normal
 **ScheduledStartTime** | | DateTime | The date and time the transmission of the fax will start. | Start now
 **Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API. |
 **Retries** | | Unsigned Integer | The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager. | Account Default
@@ -310,11 +310,11 @@ There are multiple levels of verbosity available in the request; these are expla
 ###Request
 **FaxStatusRequest Parameters:**
 
-| **Name** | **Required** | **Type** | **Description** | **Default** |
+| **Name** | **Required** | **Type** | **Description** |
 |--- | --- | --- | --- | ---|
-|**BroadcastRef**|  | *String* | User-defined broadcast reference. | |
-|**SendRef**|  | *String* | User-defined send reference. | |
-|**MessageRef**|  | *String* | User-defined message reference. | |
+|**BroadcastRef**|  | *String* | User-defined broadcast reference. |
+|**SendRef**|  | *String* | User-defined send reference. |
+|**MessageRef**|  | *String* | User-defined message reference. |
 |**Verbosity**|  | *String* | Verbosity String The level of detail in the status response. Please see below for a list of possible values.| |
 
 **Verbosity Levels:**	
@@ -384,13 +384,13 @@ Contains the total count of how many faxes ended in each result, as well as some
 
 **FaxDetails:**
 
-| Name | Type | Verbosity | Description |
+| Name | Type | Verbosity |
 | --- | --- | --- | --- |
-| **sendFrom** | *Alphanumeric String* | *details* | |
-| **resolution** | *String* | *details* | |
-| **retries** | *Integer* | *details* | |
-| **busyRetries** | *Integer* | *details* | |
-| **headerFormat** | *String* | *details* | |
+| **sendFrom** | *Alphanumeric String* | *details* |
+| **resolution** | *String* | *details* |
+| **retries** | *Integer* | *details* |
+| **busyRetries** | *Integer* | *details* |
+| **headerFormat** | *String* | *details* |
 
 **FaxResults:**
 
@@ -446,11 +446,11 @@ When making a stop request you must provide at least a BroadcastRef, SendRef or 
 ###Request
 ####StopFaxRequest Parameters:
 
-| Name | Required | Type | Description | Default |
+| Name | Required | Type | Description |
 | --- | --- | --- | --- | --- |
-| **BroadcastRef** | | *String* | User-defined broadcast reference. |  |
-| **SendRef** |  | *String* | User-defined send reference. | |
-| **MessageRef** |  | *String* | User-defined message reference. | |
+| **BroadcastRef** | | *String* | User-defined broadcast reference. |
+| **SendRef** |  | *String* | User-defined send reference. |
+| **MessageRef** |  | *String* | User-defined message reference. |
 
 ###Response
 The response received from a StopFaxRequest is the same response you would receive when calling the FaxStatus method call with the “send” verbosity level.
@@ -471,11 +471,11 @@ When making a pause request, you must provide at least a BroadcastRef, SendRef o
 
 ###Request
 ####PauseFaxRequest Parameters:
-| Name | Required | Type | Description | Default |
-| --- | --- | --- | --- | --- |
-| **BroadcastRef** | | *String* | User-defined broadcast reference. | |
-| **SendRef** | | *String* | User-defined send reference. | |
-| **MessageRef** | | *String* | User-defined message reference. | |
+| Name | Required | Type | Description |
+| --- | --- | --- | --- |
+| **BroadcastRef** | | *String* | User-defined broadcast reference. |
+| **SendRef** | | *String* | User-defined send reference. |
+| **MessageRef** | | *String* | User-defined message reference. |
 
 ###Response
 The response received from a PauseFaxRequest is the same response you would receive when calling the FaxStatus method call with the ***“send”*** verbosity level. 
@@ -495,11 +495,11 @@ When making a resume request, you must provide at least a BroadcastRef, SendRef 
 
 ###Request
 ####ResumeFaxRequest Parameters:
-| Name | Required | Type | Description | Default |
-| --- | --- | --- | --- | --- |
-| **BroadcastRef** | | *String* | User-defined broadcast reference. | |
-| **SendRef** | | *String* | User-defined send reference. | |
-| **MessageRef** | | *String* | User-defined message reference. | |
+| Name | Required | Type | Description |
+| --- | --- | --- | --- |
+| **BroadcastRef** | | *String* | User-defined broadcast reference. |
+| **SendRef** | | *String* | User-defined send reference. |
+| **MessageRef** | | *String* | User-defined message reference. |
 
 ###Response
 The response received from a ResumeFaxRequest is the same response you would receive when calling the FaxStatus method call with the “send” verbosity level. 
@@ -516,50 +516,50 @@ WARNING: This feature is only available in API version 2.1.
 This function provides you with a method to generate a preview of a saved document at different resolutions with various dithering settings. It returns a tiff data in base64 along with a page count.
 
 ###Request
-**faxDocumentPreviewRequest Parameters:**
+**FaxDocumentPreviewRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
 |--- | --- | --- | --- | ---|
-|**Resolution**|  | *Resolution* | A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters. | normal |
+|**Resolution**|  | *Resolution* |Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.| normal |
 |**DitheringTechnique**| | *FaxDitheringTechnique* | Applies a custom dithering method to the fax document before transmission. | |
 |**DocMergeData** | | *Array of DocMergeData MergeFields* | Each mergefield has a key and a value. The system will look for the keys in a document and replace them with their corresponding value. ||
-|**StampMergeData** | | *Array of StampMergeData MergeFields* | Each mergefield has a key a corressponding TextValue/ImageValue. The system will look for the keys in a document and replace them with their corresponding value. | |
+|**StampMergeData** | | *Array of StampMergeData MergeFields* | Each mergefield has a key a corressponding TextValue/ImageValue. The system will look for the keys in a document and replace them with their corresponding value. | | |
 
 **DocMergeData Mergefield Parameters:**
 
-**Name** | **Required** | **Type** | **Description** | **Default** 
------|-----|-----|-----|-----
-**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
-**Value** | | *String* | The value that replaces the key. |
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
+|**Value** | | *String* | The value that replaces the key. |
 
 **StampMergeData Mergefield Parameters:**
 
-**Name** | **Required** | **Type** | **Description** | **Default** 
------|-----|-----|-----|-----
-**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
-**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
-**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
+|**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
+|**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
 
  **StampMergeFieldKey Parameters:**
 
-| **Name** | **Required** | **Type** | **Description** | **Default** | 
-|----|-----|-----|-----|----- |
-| **xCoord** |  | *Int* | X coordinate. | |
-| **yCoord** |  | *Int* | Y coordinate. | |
+| **Name** | **Required** | **Type** | **Description** |
+|----|-----|-----|-----|
+| **xCoord** |  | *Int* | X coordinate. |
+| **yCoord** |  | *Int* | Y coordinate. |
 
 **StampMergeFieldTextValue Parameters:**
 
-**Name** | **Required** | **Type** | **Description** | **Default** 
------|-----|-----|-----|-----
-**fontName** |  | *String* | Font name to be used. |
-**fontSize** |  | *Decimal* | Font size to be used. |
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fontName** |  | *String* | Font name to be used. |
+|**fontSize** |  | *Decimal* | Font size to be used. |
 
 **StampMergeFieldImageValue Parameters:**
 
-**Name** | **Required** | **Type** | **Description** | **Default** 
------|-----|-----|-----|-----
-**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
-**fileData** |  | *Base64* | The document encoded in Base64 format. |
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
+|**fileData** |  | *Base64* | The document encoded in Base64 format. |
 
 **FaxDitheringTechnique:**
 
@@ -605,10 +605,10 @@ This function allows you to upload a document and save it under a document refer
 ###Request
 **SaveFaxDocumentRequest Parameters:**
 
-| **Name** | **Required** | **Type** | **Description** | **Default** |
+| **Name** | **Required** | **Type** | **Description** |
 |--- | --- | --- | --- | ---|
-|**DocumentRef**| **X** | *String* | Unique identifier for the document to be uploaded. | |
-|**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. | |
+|**DocumentRef**| **X** | *String* | Unique identifier for the document to be uploaded. |
+|**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 | **FileData**|**X**| *Base64* |The document encoded in Base64 format.| |
 
 ###SOAP Faults
@@ -625,9 +625,9 @@ This function removes a saved fax document from the system.
 ###Request
 **DeleteFaxDocumentRequest Parameters:**
 
-| **Name** | **Required** | **Type** | **Description** | **Default** |
+| **Name** | **Required** | **Type** | **Description** |
 |--- | --- | --- | --- | ---|
-|**DocumentRef**| **X** | *String* | Unique identifier for the document to be deleted. | |
+|**DocumentRef**| **X** | *String* | Unique identifier for the document to be deleted. |
 
 ###SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
