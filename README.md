@@ -293,6 +293,7 @@ This represents a single fax message being sent to a destination.
 **HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
 **MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. WARNING: This feature is active only in version 2.1 and above.  | 
 **MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
+**CLI**| | String| Allows a customer called ID. Note: Must be enabled on the account before it can be used.
 
 ***FaxDocument Parameters:***
 Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
