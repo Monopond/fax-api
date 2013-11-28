@@ -181,7 +181,83 @@ This method is recommended for broadcasting as it takes advantage of the multipl
 
 When sending multiple faxes in batch it is recommended to group them into requests of around 600 fax messages for optimal performance. If you are sending the same document to multiple destinations it is strongly advised to only attach the document once in the root of the send request rather than attaching a document for each destination.
 
-For detailed examples, see Section 6 of this document. of this document.Request
+###Sending Microsoft Document With Merge Fields:
+
+WARNING: This feature is only available in API version 2.1.
+
+This request is used to send a Microsoft document with replaceable variables or merge fields. The merge field follows the pattern ```<mf:key>```.  If your key is “field1”, it should be typed as ```<mf:field1>``` in the document.
+
+The example below shows “field1” will be replaced by the value of “Test”.
+
+
+```xml
+<v2:SendFaxRequest>
+	<BroadcastRef>test-27</BroadcastRef>
+	<SendRef>test-2-1</SendRef>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<Resolution>fine</Resolution>
+		</FaxMessage>
+	</FaxMessages>
+	<Documents>
+		<Document>
+			<FileName>sample-docx-merge.docx</FileName>
+			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+			<DocMergeData>
+				<MergeField>
+					<Key>field1</Key>
+					<Value>Test</Value>
+				</MergeField>
+			</DocMergeData>
+		</Document>
+	</Documents>
+</v2:SendFaxRequest>
+```
+
+###Sending Tiff and PDF files with image and/or text stamping.
+
+WARNING: This feature is only available in API version 2.1.
+
+This request allows a PDF or TIFF to be stamped with an image or text, based on X-Y coordinates.
+
+The example below shows a PDF that will be stamped with the text “Hello” at xCoord=“1287” and yCoord=“421”, and an image at xCoord=“283” and yCoord=“120”
+
+```xml
+<v2:SendFaxRequest>
+	<BroadcastRef>test-27</BroadcastRef>
+	<SendRef>test-2-1</SendRef>
+	<Resolution>normal</Resolution>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+		</FaxMessage>
+	</FaxMessages>
+	<Documents>
+		<Document>
+			<FileName>sample-pdf.pdf</FileName>
+			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+			<StampMergeData>
+				<MergeField>
+					<Key xCoord="1287" yCoord="421"/>
+					<TextValue>Hello</TextValue>
+				</MergeField>
+				<MergeField>
+					<Key xCoord="283" yCoord="120"/>
+					<ImageValue width="100">
+						<FileName>anImage.jpg</FileName>
+						<FileData>imageDataInBaseSixtyFour==</FileData>
+					</ImageValue>
+				</MergeField>
+			</StampMergeData>
+		</Document>
+	</Documents>
+</v2:SendFaxRequest>
+```
+
+For detailed examples, see Section 6 of this document.
 
 ###SendFaxRequest Parameters:
 **Name**|**Required**|**Type**|**Description**|**Default**
@@ -227,6 +303,8 @@ Represents a fax document to be sent through the system. Supported file types ar
 **FileData**|**X**|Base64|The document encoded in Base64 format.|
 **Order** | | Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
 **DitheringTechnique** | | FaxDitheringTechnique | Applies a custom dithering method to their fax document before transmission. | 
+**DocMergeData**|||An Array of MergeFields|
+**StampMergeData**|||An Array of MergeFields|
 
 **FaxDitheringTechnique:**
 
@@ -285,6 +363,42 @@ From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
 **%%**|A literal % character
 
 TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
+
+**DocMergeData Parameters:**
+
+WARNING: This feature is only available in API version 2.1.
+
+**Name**|**Description**
+---|---
+**MergeField**| An array of MergeFields
+
+**MergeField Parameters:**
+
+**Name**|**Type**|**Description**
+---|---|---
+**Key**|String|The key that will be looked for in the document
+**Value**|String|The text value that will replace the key
+
+**StampMergeData Parameters:**
+
+WARNING: This feature is only available in API version 2.1.
+
+**Name**|**Description**
+---|---
+**MergeField**| An array of MergeFields
+
+**Name**|**Attribute**|**Type**|**Description**|**Default**
+---|---|---|---|---
+**Key**||||
+||xCoord|String|The x-coordinate|
+||yCoord|String|The y-coordinate|
+||fontName|String|The font to render the text width. If the specified font is not available, the default, Times-New-Roman is used|Times-New-Roman
+||fontSize|Number|The font size|12
+**ImageValue**||||
+||width|Number|The width of the image. If not specified, the width will be adjusted with respect to the height of the image to keep the aspect ratio|
+||height|Number|The height of the image. If not specified, the height will be adjusted with respect to the width of the image to keep the aspect ratio|
+**FileName**||String|The filename of the image to be stamped||
+**FileData**||Base64|The image date in base 64||
 
 ###Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
