@@ -32,9 +32,9 @@ The API is available as a SOAP Web Service. This service includes a WSDL which d
 
 To access the API, use the following URLs:
 
-Test WSDL: https://test.api.monopond.com/fax/soap/v2/?wsdl
+Test WSDL: https://test.api.monopond.com/fax/soap/v2.1/?wsdl
 
-Production WSDL: https://api.monopond.com/fax/soap/v2/?wsdl
+Production WSDL: https://api.monopond.com/fax/soap/v2.1/?wsdl
 
 #Building a Request
 ##SOAP Envelope 
