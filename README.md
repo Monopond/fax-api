@@ -193,7 +193,7 @@ For detailed examples, see Section 6 of this document. of this document.Request
 **Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
 **Resolution**||Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters|normal
 **ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
-**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|
+**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.1) version of the Fax API.|
 **Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
 **BusyRetries**||Unsigned Integer|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
 **HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
@@ -211,7 +211,7 @@ This represents a single fax message being sent to a destination.
 **Documents** | **X** | Array of FaxDocument | Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details. | 
 **Resolution** | | Resolution|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters | normal
 **ScheduledStartTime** | | DateTime | The date and time the transmission of the fax will start. | Start now
-**Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API. |
+**Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. WARNING: This feature is inactive and non-functional in this (2.1) version of the Fax API. |
 **Retries** | | Unsigned Integer | The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager. | Account Default
 **BusyRetries** | | Unsigned Integer | Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
 **HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
@@ -253,7 +253,7 @@ Represents a fax document to be sent through the system. Supported file types ar
 
 **Blocklists Parameters:**
 
-WARNING: The blocklist feature is inactive and non-functional in this (2.0.1) version of the Fax API.
+WARNING: The blocklist feature is inactive and non-functional in this (2.1) version of the Fax API.
 
 **Header Format:iff**
 Determines the format of the header line that is printed on the top of the transmitted fax message.
@@ -436,7 +436,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 ##StopFax
-WARNING: The StopFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
 
 ###Description
 Stops a fax message from sending. This fax message must either be paused, queued, starting or sending. Please note the fax cannot be stopped if the fax is currently in the process of being transmitted to the destination device.
@@ -462,7 +461,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 ##PauseFax
-WARNING: The PauseFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
 
 ###Description
 Pauses a fax message before it starts transmitting. This fax message must either be queued, starting or sending. Please note the fax cannot be paused if the message is currently being transmitted to the destination device.
@@ -486,10 +484,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 ##ResumeFax
-WARNING: The ResumeFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
-
-WARNING: This is a stub feature in API version 2.0.1 and currently does not perform any functionality.Description
-Resumes a paused fax message. This fax message must be in the paused status.
 
 When making a resume request, you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request. 
 
