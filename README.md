@@ -183,8 +183,6 @@ When sending multiple faxes in batch it is recommended to group them into reques
 
 ###Sending Microsoft Document With Merge Fields:
 
-WARNING: This feature is only available in API version 2.1.
-
 This request is used to send a Microsoft document with replaceable variables or merge fields. The merge field follows the pattern ```<mf:key>```.  If your key is “field1”, it should be typed as ```<mf:field1>``` in the document.
 
 The example below shows “field1” will be replaced by the value of “Test”.
@@ -217,8 +215,6 @@ The example below shows “field1” will be replaced by the value of “Test”
 ```
 
 ###Sending Tiff and PDF files with image and/or text stamping.
-
-WARNING: This feature is only available in API version 2.1.
 
 This request allows a PDF or TIFF to be stamped with an image or text, based on X-Y coordinates.
 
@@ -269,11 +265,11 @@ For detailed examples, see Section 6 of this document.
 **Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
 **Resolution**||Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.|normal
 **ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
-**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API.|
+**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details.WARNING: This feature is inactive and non-functional in this (2.1) version of the Fax API.|
 **Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
 **BusyRetries**||Unsigned Integer|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
 **HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
-**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. WARNING: This feature is active only in version 2.1 and above. | 
+**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
 **MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
 
 ***FaxMessage Parameters:***
@@ -287,11 +283,11 @@ This represents a single fax message being sent to a destination.
 **Documents** | **X** | Array of FaxDocument | Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details. | 
 **Resolution** | | Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.| normal
 **ScheduledStartTime** | | DateTime | The date and time the transmission of the fax will start. | Start now
-**Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. WARNING: This feature is inactive and non-functional in this (2.0.1) version of the Fax API. |
+**Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. WARNING: This feature is inactive and non-functional in this (2.1) version of the Fax API. |
 **Retries** | | Unsigned Integer | The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager. | Account Default
 **BusyRetries** | | Unsigned Integer | Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
 **HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
-**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. WARNING: This feature is active only in version 2.1 and above.  | 
+**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
 **MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
 **CLI**| | String| Allows a customer called ID. Note: Must be enabled on the account before it can be used.
 
@@ -332,7 +328,7 @@ Represents a fax document to be sent through the system. Supported file types ar
 
 **Blocklists Parameters:**
 
-WARNING: The blocklist feature is inactive and non-functional in this (2.0.1) version of the Fax API.
+WARNING: The blocklist feature is inactive and non-functional in this (2.1) version of the Fax API.
 
 **Header Format:iff**
 Determines the format of the header line that is printed on the top of the transmitted fax message.
@@ -367,8 +363,6 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 
 **DocMergeData Parameters:**
 
-WARNING: This feature is only available in API version 2.1.
-
 **Name**|**Description**
 ---|---
 **MergeField**| An array of MergeFields
@@ -381,8 +375,6 @@ WARNING: This feature is only available in API version 2.1.
 **Value**|String|The text value that will replace the key
 
 **StampMergeData Parameters:**
-
-WARNING: This feature is only available in API version 2.1.
 
 **Name**|**Description**
 ---|---
@@ -551,7 +543,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 ##StopFax
-WARNING: The StopFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
 
 ###Description
 Stops a fax message from sending. This fax message must either be paused, queued, starting or sending. Please note the fax cannot be stopped if the fax is currently in the process of being transmitted to the destination device.
@@ -577,7 +568,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 ##PauseFax
-WARNING: The PauseFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
 
 ###Description
 Pauses a fax message before it starts transmitting. This fax message must either be queued, starting or sending. Please note the fax cannot be paused if the message is currently being transmitted to the destination device.
@@ -601,10 +591,6 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
 ##ResumeFax
-WARNING: The ResumeFax feature is inactive and non-functional in this (2.0.1) version of the Fax API.
-
-WARNING: This is a stub feature in API version 2.0.1 and currently does not perform any functionality.Description
-Resumes a paused fax message. This fax message must be in the paused status.
 
 When making a resume request, you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request. 
 
@@ -626,7 +612,6 @@ You can find more details on these faults in Section 5 of this document.You can 
 
 ##PreviewFaxDocument
 ###Description
-WARNING: This feature is only available in API version 2.1.
 
 This function provides you with a method to generate a preview of a saved document at different resolutions with various dithering settings. It returns a tiff data in base64 along with a page count.
 
@@ -713,7 +698,6 @@ You can find more details on these faults in Section 5 of this document.You can 
 
 ##SaveFaxDocument
 ###Description
-WARNING: This feature is only available in API version 2.1.
 
 This function allows you to upload a document and save it under a document reference (DocumentRef) for later use. (Note: These saved documents only last 30 days on the system.)
 
@@ -733,7 +717,6 @@ You can find more details on these faults in Section 5 of this document.You can 
 
 ##DeleteFaxDocument
 ###Description
-WARNING: This feature is only available in API version 2.1.
 
 This function removes a saved fax document from the system.
 
