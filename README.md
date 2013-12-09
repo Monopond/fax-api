@@ -1,4 +1,6 @@
 #1.Introduction
+
+#####<font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
 ##Prerequisites
 To gain access to the system you must have a Monopond user account that is flagged with Fax API privileges. 
 Please note some features described in this document will require access controls to be enacted. Examples of this include enabling specific destinations, filtering options and/or retry settings.
@@ -32,9 +34,11 @@ The API is available as a SOAP Web Service. This service includes a WSDL which d
 
 To access the API, use the following URLs:
 
-Test WSDL: https://test.api.monopond.com/fax/soap/v2/?wsdl
+Test WSDL: https://test.api.monopond.com/fax/soap/v2.2/?wsdl
+######<font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
 
-Production WSDL: https://api.monopond.com/fax/soap/v2/?wsdl
+Production WSDL: https://api.monopond.com/fax/soap/v2.2/?wsdl
+######<font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
 
 #Building a Request
 ##SOAP Envelope 
