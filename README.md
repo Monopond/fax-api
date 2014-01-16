@@ -516,6 +516,7 @@ Contains the total count of how many faxes ended in each result, as well as some
 
 | Value | Error Name |
 | --- | --- |
+| **DOCUMENT_EXCEEDS_PAGE_LIMIT** | Document exceeds page limit |
 | **DOCUMENT_UNSUPPORTED** | Unsupported document type |
 | **DOCUMENT_FAILED_CONVERSION** | Document failed conversion |
 | **FUNDS_INSUFFICIENT** | Insufficient funds |
