@@ -181,12 +181,21 @@ This method is recommended for broadcasting as it takes advantage of the multipl
 
 When sending multiple faxes in batch it is recommended to group them into requests of around 600 fax messages for optimal performance. If you are sending the same document to multiple destinations it is strongly advised to only attach the document once in the root of the send request rather than attaching a document for each destination.
 
-###Sending Microsoft Document With Merge Fields:
+###Sending Microsoft Documents With DocMergeData:
+(This request only works in version 2.1(or higher) of the fax-api.)
 
-This request is used to send a Microsoft document with replaceable variables or merge fields. The merge field follows the pattern ```<mf:key>```.  If your key is “field1”, it should be typed as ```<mf:field1>``` in the document.
+This request is used to send a Microsoft document with replaceable variables or merge fields. The merge field follows the pattern ```<mf:key>```.  If your key is ```field1```, it should be typed as ```<mf:field1>``` in the document. Note that the key must be unique within the whole document. The screenshots below are examples of what the request does.
 
-The example below shows “field1” will be replaced by the value of “Test”.
+Original .doc file:
 
+![before](./img/DocMergeData/before.png)
+
+This is what the file looks like after the fields ```field1```,```field2``` and ```field3``` have been replaced with values ```lazy dog```, ```fat pig``` and ```fat pig```:
+
+![stamp](./img/DocMergeData/after.png)
+
+##### Sample Request
+The example below shows ```field1``` will be replaced by the value of ```Test```.
 
 ```xml
 <v2:SendFaxRequest>
@@ -214,9 +223,30 @@ The example below shows “field1” will be replaced by the value of “Test”
 </v2:SendFaxRequest>
 ```
 
-###Sending Tiff and PDF files with image and/or text stamping.
+For more details, see [DocMergeData parameters section](#docMergeDataParameters) of this document.
 
-This request allows a PDF or TIFF to be stamped with an image or text, based on X-Y coordinates.
+###Sending Tiff and PDF files with StampMergeData:
+(This request only works in version 2.1(or higher) of the fax-api.)
+
+This request allows a PDF or TIFF file to be stamped with an image or text, based on X-Y coordinates. The x and y coordinates (0,0) starts at the top left part of the document. The screenshots below are examples of what the request does.
+
+Original tiff file:
+
+![before](./img/StampMergeData/image_stamp/before.png)
+
+Sample stamp image:
+
+![stamp](./img/StampMergeData/image_stamp/stamp.png)
+
+This is what the tiff file looks like after stamping it with the image above:
+
+![after](./img/StampMergeData/image_stamp/after.png) 
+
+The same tiff file, but this time, with a text stamp:
+
+![after](./img/StampMergeData/text_stamp/after.png) 
+
+##### Sample Request
 
 The example below shows a PDF that will be stamped with the text “Hello” at xCoord=“1287” and yCoord=“421”, and an image at xCoord=“283” and yCoord=“120”
 
@@ -253,7 +283,7 @@ The example below shows a PDF that will be stamped with the text “Hello” at 
 </v2:SendFaxRequest>
 ```
 
-For detailed examples, see Section 6 of this document.
+For more details, see [StampMergeData parameters section](#stampMergeDataParameters) of this document.
 
 ###SendFaxRequest Parameters:
 **Name**|**Required**|**Type**|**Description**|**Default**
@@ -361,6 +391,8 @@ From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
 
 TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 
+<a name="docMergeDataParameters"></a> 
+
 **DocMergeData Parameters:**
 
 **Name**|**Description**
@@ -373,6 +405,8 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 ---|---|---
 **Key**|String|The key that will be looked for in the document
 **Value**|String|The text value that will replace the key
+
+<a name="stampMergeDataParameters"></a> 
 
 **StampMergeData Parameters:**
 
