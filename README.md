@@ -393,39 +393,43 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 
 <a name="docMergeDataParameters"></a> 
 
-**DocMergeData Parameters:**
+**DocMergeData Mergefield Parameters:**
 
-**Name**|**Description**
----|---
-**MergeField**| An array of MergeFields
-
-**MergeField Parameters:**
-
-**Name**|**Type**|**Description**
----|---|---
-**Key**|String|The key that will be looked for in the document
-**Value**|String|The text value that will replace the key
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
+|**Value** | | *String* | The value that replaces the key. |
 
 <a name="stampMergeDataParameters"></a> 
+**StampMergeData Mergefield Parameters:**
 
-**StampMergeData Parameters:**
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
+|**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
+|**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
 
-**Name**|**Description**
----|---
-**MergeField**| An array of MergeFields
+ **StampMergeFieldKey Parameters:**
 
-**Name**|**Attribute**|**Type**|**Description**|**Default**
----|---|---|---|---
-**Key**||||
-||xCoord|String|The x-coordinate|
-||yCoord|String|The y-coordinate|
-||fontName|String|The font to render the text width. If the specified font is not available, the default, Times-New-Roman is used|Times-New-Roman
-||fontSize|Number|The font size|12
-**ImageValue**||||
-||width|Number|The width of the image. If not specified, the width will be adjusted with respect to the height of the image to keep the aspect ratio|
-||height|Number|The height of the image. If not specified, the height will be adjusted with respect to the width of the image to keep the aspect ratio|
-**FileName**||String|The filename of the image to be stamped||
-**FileData**||Base64|The image date in base 64||
+| **Name** | **Required** | **Type** | **Description** |
+|----|-----|-----|-----|
+| **xCoord** |  | *Int* | X coordinate. |
+| **yCoord** |  | *Int* | Y coordinate. |
+
+**StampMergeFieldTextValue Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fontName** |  | *String* | Font name to be used. |
+|**fontSize** |  | *Decimal* | Font size to be used. |
+
+**StampMergeFieldImageValue Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
+|**fileData** |  | *Base64* | The document encoded in Base64 format. |
+
 
 ###Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
