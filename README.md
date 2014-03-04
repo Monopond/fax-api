@@ -1156,3 +1156,43 @@ In the example below we are sending multiple documents in a single fax transmiss
     </soapenv:Body>
 </soapenv:Envelope>
 ```
+
+##FaxDocumentPreview
+### Fax Document Preview request
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>test-doc-ref-preview-docx</DocumentRef>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with normal resolution
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>test-doc-ref-preview-tiff</DocumentRef>
+         <Resolution>normal</Resolution>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
