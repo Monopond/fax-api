@@ -1196,3 +1196,44 @@ In the example below we are sending multiple documents in a single fax transmiss
    </soapenv:Body>
 </soapenv:Envelope>
 ```
+
+### Fax Document Preview request with extra dark dithering technique
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-pdf</DocumentRef>
+         <DitheringTechnique>darken_extra</DitheringTechnique>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and turbo dithering technique
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-png</DocumentRef>
+         <Resolution>fine</Resolution>
+         <DitheringTechnique>turbo</DitheringTechnique>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
