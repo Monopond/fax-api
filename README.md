@@ -1293,3 +1293,170 @@ In the example below we are sending multiple documents in a single fax transmiss
    </soapenv:Body>
 </soapenv:Envelope>
 ```
+
+### Fax Document Preview request with fine resolution and StampMergeData Text field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-pdf</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test</TextValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and multiple StampMergeData Text fields
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-pdf</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test</TextValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test2</TextValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+
+### Fax Document Preview request with fine resolution and StampMergeData Image field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-tiff</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="223" yCoord="434"/>
+               <ImageValue width="100" height="100">
+                  <FileName>test.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and multiple StampMergeData Image fields
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-tiff</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="223" yCoord="434"/>
+               <ImageValue width="100" height="100">
+                  <FileName>test.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="100" yCoord="123"/>
+               <ImageValue width="200" height="200">
+                  <FileName>test2.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution, StampMergeData Text field and StampMergeData Image field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-tiff</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test2</TextValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="223" yCoord="434"/>
+               <ImageValue width="100" height="100">
+                  <FileName>test.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
