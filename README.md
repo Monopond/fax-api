@@ -1425,7 +1425,7 @@ hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
 </soapenv:Envelope>
 ```
 
-### Fax Document Preview request with fine resolution, StampMergeData Text field and StampMergeData Image field
+### Fax Document Preview request with fine resolution, multiple StampMergeData Text fields and StampMergeData Image field
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
    <soapenv:Header>
@@ -1441,6 +1441,10 @@ hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
          <DocumentRef>testdocrefprev-tiff</DocumentRef>
          <Resolution>fine</Resolution>
          <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test</TextValue>
+            </MergeField>
             <MergeField>
                <Key xCoord="123" yCoord="134"/>
                <TextValue fontName="Courier" fontSize="14">Test2</TextValue>
