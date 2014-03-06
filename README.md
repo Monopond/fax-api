@@ -961,7 +961,7 @@ Webdings-Regular
                         <Document>
                             <FileName>test.txt</FileName>
                             <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                            /Document>
+                            </Document>
                     </Documents>
                     <Resolution>normal</Resolution>
                     <Retries>0</Retries>
