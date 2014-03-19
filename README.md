@@ -783,11 +783,13 @@ Once you have deployed the web service, please contact your account manager with
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<FaxMessage status="done" sendTo="61011111111" broadcastRef="test-1" sendRef="test-1-1" messageRef="test-1-1-1">
-	<FaxResults>
-		<FaxResult dateCallEnded="2012-08-02T13:27:18+08:00" dateCallStarted="2012-08-02T13:26:51+08:00" scheduledStartTime="2012-08-02T13:26:49.299+08:00" totalFaxDuration="27" pages="1" cost="0.15" result="success" attempt="1"/>
-	</FaxResults>
-</FaxMessage>
+<FaxMessages>
+	<FaxMessage status="done" sendTo="61011111111" broadcastRef="test-1" sendRef="test-1-1" messageRef="test-1-1-1">
+		<FaxResults>
+			<FaxResult dateCallEnded="2012-08-02T13:27:18+08:00" dateCallStarted="2012-08-02T13:26:51+08:00" scheduledStartTime="2012-08-02T13:26:49.299+08:00" totalFaxDuration="27" pages="1" cost="0.15" result="success" attempt="1"/>
+		</FaxResults>
+	</FaxMessage>
+</FaxMessages>
 ```
 
 #5.More Information
