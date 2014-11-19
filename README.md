@@ -941,7 +941,7 @@ Webdings-Regular
 ###Sending a single fax message
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
         <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
@@ -981,7 +981,7 @@ The second fax message has overrides for resolution and busy retries so these va
 The third fax message has an override for the document so for this message that document will be used but all other settings will be inherited from the send request.
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
         <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
@@ -1036,7 +1036,7 @@ The third fax message has an override for the document so for this message that 
 In the example below we are sending multiple documents in a single fax transmission. These documents will be concatenated together, in the order specified, into a single transmissible fax message before being sent to the destination.
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
         <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
@@ -1079,7 +1079,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 ###Status request with “brief” verbosity
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
         <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
@@ -1100,7 +1100,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 ###Status request with “details” verbosity
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
         <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
@@ -1120,7 +1120,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 ###Status request with “results” verbosity
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
     <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
@@ -1141,7 +1141,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 ###Status request with “all” verbosity
 
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
     <soapenv:Header>
         <wsse:Security soapenv:mustUnderstand="1">
             <wsse:UsernameToken>
