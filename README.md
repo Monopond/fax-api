@@ -759,14 +759,19 @@ You can find more details on these faults in Section 5 of this document.You can 
 ##DeleteFaxDocument
 ###Description
 
-This function removes a saved fax document from the system.
+This function removes your fax document files from the Monopond system.
+
+You can either specify to remove a saved fax document via its DocumentRef or you can choose to remove all fax documents associated with a list of faxes by specifying a MessageRef, SendRef or BroadcastRef to query from.
 
 ###Request
 **DeleteFaxDocumentRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
 |--- | --- | --- | --- | ---|
-|**DocumentRef**| **X** | *String* | Unique identifier for the document to be deleted. |
+|**DocumentRef**| | *String* | Unique identifier for the document to be deleted. |
+|**MessageRef**| | *String* | User-defined message reference. |
+|**SendRef**| | *String* | User-defined send reference. |
+|**BroadcastRef**| | *String* | User-defined broadcast reference. |
 
 ###SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
