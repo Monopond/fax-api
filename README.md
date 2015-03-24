@@ -740,7 +740,7 @@ You can find more details on these faults in Section 5 of this document.You can 
 ##SaveFaxDocument
 ###Description
 
-This function allows you to upload a document and save it under a document reference (DocumentRef) for later use. (Note: These saved documents only last 5 days on the system.)
+This function allows you to upload a document and save it under a document reference (DocumentRef) for later use. (Note: These saved documents only last 10 days on the system.)
 
 ###Request
 **SaveFaxDocumentRequest Parameters:**
