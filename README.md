@@ -360,7 +360,14 @@ Represents a fax document to be sent through the system. Supported file types ar
 
 **WARNING: The blocklist feature is inactive and non-functional in this (2.1) version of the Fax API.**
 
-**Header Format:iff**
+| **Name** | **Required** | **Type** | **Description** |
+| --- | --- | --- | --- |
+| **smartblock** | false | boolean | Blocks sending to a number if it has consistently failed historically. |
+| **fps** | false | boolean | Wash numbers against the fps blocklist. |
+| **dncr** | false | boolean | Wash numbers against the dncr blocklist. |
+
+**Header Format:**
+
 Determines the format of the header line that is printed on the top of the transmitted fax message.
 This is set to **rom %from%, To %to%|%a %b %d %H:%M %Y”**y default which produces the following:
 
