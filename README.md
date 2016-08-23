@@ -225,10 +225,10 @@ The example below shows ```field1``` will be replaced by the value of ```Test```
 
 For more details, see [DocMergeData parameters section](#docMergeDataParameters) of this document.
 
-###Sending Tiff and PDF files with StampMergeData:
+###Sending Tiff files with StampMergeData:
 (This request only works in version 2.1(or higher) of the fax-api.)
 
-This request allows a PDF or TIFF file to be stamped with an image or text, based on X-Y coordinates. The x and y coordinates (0,0) starts at the top left part of the document. The screenshots below are examples of what the request does.
+This request allows a TIFF file to be stamped with an image or text, based on X-Y coordinates. The x and y coordinates (0,0) starts at the top left part of the document. The screenshots below are examples of what the request does.
 
 Original tiff file:
 
@@ -248,7 +248,7 @@ The same tiff file, but this time, with a text stamp:
 
 ##### Sample Request
 
-The example below shows a PDF that will be stamped with the text “Hello” at xCoord=“1287” and yCoord=“421”, and an image at xCoord=“283” and yCoord=“120”
+The example below shows a TIFF that will be stamped with the text “Hello” at xCoord=“1287” and yCoord=“421”, and an image at xCoord=“283” and yCoord=“120”
 
 ```xml
 <v2:SendFaxRequest>
@@ -263,8 +263,8 @@ The example below shows a PDF that will be stamped with the text “Hello” at 
 	</FaxMessages>
 	<Documents>
 		<Document>
-			<FileName>sample-pdf.pdf</FileName>
-			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+			<FileName>sample-tiff.tiff</FileName>
+			<FileData>TiffDataInBase64==</FileData>
 			<StampMergeData>
 				<MergeField>
 					<Key xCoord="1287" yCoord="421"/>
