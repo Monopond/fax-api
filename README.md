@@ -908,7 +908,6 @@ Palatino-Bold
 Palatino-BoldItalic
 Palatino-Italic
 Palatino-Roman
-Standard-Symbols-Regular
 Symbol
 Tahoma-Regular
 Times-Bold
