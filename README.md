@@ -1,47 +1,45 @@
-#1.Introduction
+# 1.Introduction
 
-#####<font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
-##Prerequisites
+##### <font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
+## Prerequisites
 To gain access to the system you must have a Monopond user account that is flagged with Fax API privileges. 
 Please note some features described in this document will require access controls to be enacted. Examples of this include enabling specific destinations, filtering options and/or retry settings.
 
 All of the above items can be organised through consulting with your account manager.
 
-##Overview of the Monopond Fax API
+## Overview of the Monopond Fax API
 This SOAP-based API brings you the ability to send faxes programmatically from your applications.
 
 Using this API you are able to both send a single document to a single destination and, or broadcast a single document to multiple destinations. In either scenario you can manage fax related parameters individually, such as:
 
--Enabling support for specific blocking filters:
 
-+ Australia: Do Not Call Register (DNCR)
-+ UK: Fax Preference Service (FPS)
+- Enabling support for specific blocking filters:
+	- Australia: Do Not Call Register (DNCR)
+	- UK: Fax Preference Service (FPS)
 
--Customising connection settings:
+- Customising connection settings:
+	 - Transmitting Subscriber Identification (TSID) string to identify you as the sender of the fax.
+	 - The number of retries when attempting to connect.
+	 - Resolution setting of the fax document.
+	 - The header format and content that appears at the top of the transmitted fax.
 
-+ Transmitting Subscriber Identification (TSID) string to identify you as the sender of the fax.
-+ The number of retries when attempting to connect.
-+ Resolution setting of the fax document.
-+ The header format and content that appears at the top of the transmitted fax.
+- Scheduling options:
+ 	- Specify the date and time you would like the transmission to start.
 
--Scheduling options:
-
-+ Specify the date and time you would like the transmission to start.
-
-#2.API Access and General Usage
-##API Web Service
+# 2.API Access and General Usage
+## API Web Service
 The API is available as a SOAP Web Service. This service includes a WSDL which describes the functionality available in the interface, and can be used by many programming tools (such as Apache Axis/WSDL2Java and Microsoft Visual Studio) to generate client code without the need of programming a library, thus making the Monopond Fax API programming language-agnostic and OS-independent.
 
 To access the API, use the following URLs:
 
 Test WSDL: https://test.api.monopond.com/fax/soap/v2.2/?wsdl
-######<font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
+###### <font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
 
 Production WSDL: https://api.monopond.com/fax/soap/v2.2/?wsdl
-######<font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
+###### <font color="red">WARNING: This version of 2.2 API is currently a work in progress and inactive.</font>
 
-#Building a Request
-##SOAP Envelope 
+# Building a Request
+## SOAP Envelope 
 If you are using the WSDL to generate your client you won’t need to worry about this per-se, but it is handy to know what is happening underneath the hood.
 
 The SOAP envelope provides a wrapper around each API request, defining the XML document as a SOAP message. The namespace definitions in this XML element are required. If they are missing, the server will generate a fault and discard the request.
@@ -59,7 +57,7 @@ An example of a SOAP envelope for the Monopond Fax API is shown below with the h
     </soapenv:Body>
 </soapenv:Envelope>
 ```
-##Authorisation Headers
+## Authorisation Headers
 The Monopond Fax API uses WS-Security to authorise users on the platform. The WS-Security specification allows users to authenticate against SOAP services using a variety of different models.
 When connecting to the Monopond Fax API you must use the UsernameToken security token format whichformat, which authenticates based on your Monopond username and password.
 
@@ -95,14 +93,14 @@ Alternatively if you are sending raw XML to the API you will need to apply the s
     </soapenv:Header>
 ...
 ```
-#3.Function Definitions
-##SendFax
-###Description
+# 3.Function Definitions
+## SendFax
+### Description
 This is the core function in the API allowing you to send faxes on the platform. 
 
 Your specific faxing requirements will dictate which send request type below should be used. The two common use cases would be the sending of a single fax document to one destination and the sending of a single fax document to multiple destinations.
 
-###Sending a single fax:
+### Sending a single fax:
 To send a fax to a single destination a request similar to the following example can be used:
 
 ```xml
@@ -124,7 +122,7 @@ To send a fax to a single destination a request similar to the following example
 </v2:SendFaxRequest>
 ```
 
-###Sending multiple faxes:
+### Sending multiple faxes:
 To send faxes to multiple destinations a request similar to the following example can be used. Please note the addition of another “FaxMessage”:
 
 ```xml
@@ -156,7 +154,7 @@ To send faxes to multiple destinations a request similar to the following exampl
 </v2:SendFaxRequest>
 ```
 
-###Sending faxes to multiple destinations with the same document (broadcasting):
+### Sending faxes to multiple destinations with the same document (broadcasting):
 To send the same fax content to multiple destinations (broadcasting) a request similar to the example below can be used.
 
 This method is recommended for broadcasting as it takes advantage of the multiple tiers in the send request. This eliminates the repeated parameters out of the individual fax message elements which are instead inherited from the parent send fax request. An example below shows “SendFrom” being used for both FaxMessages. While not shown in the example below further control can be achieved over individual fax elements to override the parameters set in the parent.
@@ -187,7 +185,7 @@ When sending multiple faxes in batch it is recommended to group them into reques
 
 For detailed examples, see Section 6 of this document. of this document.Request
 
-###SendFaxRequest Parameters:
+### SendFaxRequest Parameters:
 **Name**|**Required**|**Type**|**Description**|**Default**
 -----|-----|-----|-----|-----
 **BroadcastRef**||String|Allows the user to tag all faxes in this request with a user-defined broadcastreference. These faxes can then be retrieved at a later point based on this reference.|
@@ -290,7 +288,7 @@ From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
 
 TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 
-###Response
+### Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
 
 **SOAP Faults**
@@ -298,8 +296,8 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **InvalidArgumentsException, NoMessagesFoundException, DocumentContentTypeNotFoundException, or InternalServerException.**
 You can find more details on these faults in the next sSection 5 of this document.
 
-##FaxStatus
-###Description
+## FaxStatus
+### Description
 
 This function provides you with a method of retrieving the status, details and results of fax messages sent. While this is a legitimate method of retrieving results we strongly advise that you take advantage of our callback service (see Section 4), which will push these fax results to you as they are completed.
 
@@ -311,7 +309,7 @@ function will also accept a combination of these to further narrow the request q
 
 There are multiple levels of verbosity available in the request; these are explained in detail below. You can also find full examples in Section 6 of this document.
 
-###Request
+### Request
 **FaxStatusRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
@@ -331,7 +329,7 @@ There are multiple levels of verbosity available in the request; these are expla
 | **results** |Includes the results from ***“send”*** along with the sending results of the fax messages. |
 | **all** | all Includes the results from both ***“details”*** and ***“results”*** along with some extra uncommon fields. |
 
-###Response
+### Response
 The response received depends entirely on the verbosity level specified.
 
 **FaxStatusResponse:**
@@ -432,22 +430,22 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **FAX_NO_ANSWER** | No answer |
 | **FAX_UNKNOWN** | Unknown fax error |
 
-###SOAP Faults
+### SOAP Faults
 
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##StopFax
+## StopFax
 
-###Description
+### Description
 Stops a fax message from sending. This fax message must either be paused, queued, starting or sending. Please note the fax cannot be stopped if the fax is currently in the process of being transmitted to the destination device.
 
 When making a stop request you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request.
 
-###Request
-####StopFaxRequest Parameters:
+### Request
+#### StopFaxRequest Parameters:
 
 | Name | Required | Type | Description | Default |
 | --- | --- | --- | --- | --- |
@@ -455,65 +453,65 @@ When making a stop request you must provide at least a BroadcastRef, SendRef or 
 | **SendRef** |  | *String* | User-defined send reference. | |
 | **MessageRef** |  | *String* | User-defined message reference. | |
 
-###Response
+### Response
 The response received from a StopFaxRequest is the same response you would receive when calling the FaxStatus method call with the “send” verbosity level.
 
-###SOAP Faults
+### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##PauseFax
+## PauseFax
 
-###Description
+### Description
 Pauses a fax message before it starts transmitting. This fax message must either be queued, starting or sending. Please note the fax cannot be paused if the message is currently being transmitted to the destination device.
 
 When making a pause request, you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request. 
 
-###Request
-####PauseFaxRequest Parameters:
+### Request
+#### PauseFaxRequest Parameters:
 | Name | Required | Type | Description | Default |
 | --- | --- | --- | --- | --- |
 | **BroadcastRef** | | *String* | User-defined broadcast reference. | |
 | **SendRef** | | *String* | User-defined send reference. | |
 | **MessageRef** | | *String* | User-defined message reference. | |
 
-###Response
+### Response
 The response received from a PauseFaxRequest is the same response you would receive when calling the FaxStatus method call with the ***“send”*** verbosity level. 
 
-###SOAP Faults
+### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##ResumeFax
+## ResumeFax
 
 When making a resume request, you must provide at least a BroadcastRef, SendRef or MessageRef. The function will also accept a combination of these to further narrow down the request. 
 
-###Request
-####ResumeFaxRequest Parameters:
+### Request
+#### ResumeFaxRequest Parameters:
 | Name | Required | Type | Description | Default |
 | --- | --- | --- | --- | --- |
 | **BroadcastRef** | | *String* | User-defined broadcast reference. | |
 | **SendRef** | | *String* | User-defined send reference. | |
 | **MessageRef** | | *String* | User-defined message reference. | |
 
-###Response
+### Response
 The response received from a ResumeFaxRequest is the same response you would receive when calling the FaxStatus method call with the “send” verbosity level. 
 
-###SOAP Faults
+### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **InvalidArgumentsException**, **NoMessagesFoundException**, or **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##PreviewFaxDocument
-###Description
+## PreviewFaxDocument
+### Description
 WARNING: This feature is only available in API version 2.1 and above.
 
 This function provides you with a method to generate a preview of a saved document at different resolutions with various dithering settings. It returns a tiff data in base64 along with a page count.
 
-###Request
+### Request
 **faxDocumentPreviewRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
@@ -581,7 +579,7 @@ This function provides you with a method to generate a preview of a saved docume
 | **normal** | Normal standard resolution (98 scan lines per inch) |
 | **fine** | Fine resolution (196 scan lines per inch) |
 
-###Response
+### Response
 **FaxDocumentPreviewResponse**
 
 **Name** | **Type** | **Description** 
@@ -589,18 +587,18 @@ This function provides you with a method to generate a preview of a saved docume
 **TiffPreview** | *String* | A preview version of the document encoded in Base64 format. 
 **NumberOfPages** | *Int* | Total number of pages in the document preview.
 
-###SOAP Faults
+### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **DocumentRefDoesNotExistException**, **InternalServerException**, **UnsupportedDocumentContentType**, **MergeFieldDoesNotMatchDocumentTypeException**, **UnknownHostException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##FetchUnreadReceivedFaxes
-###Description
+## FetchUnreadReceivedFaxes
+### Description
 **WARNING**: This feature is only available in API version 2.2.
 
 This function provides you with a method to retrieve unread received faxes with search criterias. It returns a list of fax messages with details matching the queries requested.
 
-###Request
+### Request
 **FetchUnreadReceivedFaxesRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** | **Default** |
@@ -616,7 +614,7 @@ This function provides you with a method to retrieve unread received faxes with 
 **start** | DateTime | Start interval when the fax message was received.
 **end** | DateTime | End interval when the fax message was received.
 
-###Response
+### Response
 **FetchUnreadReceivedFaxesResponse Parameters:**
 
 **Name** | **Type** | **Description** 
@@ -661,21 +659,21 @@ This function provides you with a method to retrieve unread received faxes with 
 | **DONE** | The fax message process is done. |
 | **NUMBER_NOT_FOUND** | The did of the fax message is not found. |
 
-###SOAP Faults
+### SOAP Faults
 This function will throw **NoMessagesFoundException** if something went wrong.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##MarkReceivedFaxAsRead
-###Description
+## MarkReceivedFaxAsRead
+### Description
 **WARNING**: This feature is only available in API version 2.2.
 
 This function provides you with a method to retrieve unread received faxes with search criterias. It returns a list of fax messages with details matching the queries requested.
 
-###Request
+### Request
 **MarkReceivedFaxAsReadRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
-|--- | --- | --- | --- | ---|
+|--- | --- | --- | --- |
 |**MessageRefs**| **X** | *Array of MessageRefs* | List of unique user-provided identifier. |
 
 **MessageRef Parameters:**
@@ -684,7 +682,7 @@ This function provides you with a method to retrieve unread received faxes with 
 -----|-----|-----
 **MessageRef** | Int | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
 
-###Response
+### Response
 **MarkReceivedFaxAsReadResponse Parameters:**
 
 **Name** | **Type** | **Description** 
@@ -699,17 +697,17 @@ This function provides you with a method to retrieve unread received faxes with 
 **MessageRef** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
 **Read** | Boolean | Indicates whether the message has been read.
 
-###SOAP Faults
+### SOAP Faults
 This function will throw **NoMessagesFoundException** if something went wrong.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-##FetchReceivedFaxByMessageRef
-###Description
+## FetchReceivedFaxByMessageRef
+### Description
 **WARNING**: This feature is only available in API version 2.2.
 
 This function provides you with a method to retrieve unread received faxes with search criterias. It returns a list of fax messages with details matching the queries requested.
 
-###Request
+### Request
 **FetchReceivedFaxByMessageRefRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
@@ -723,7 +721,7 @@ This function provides you with a method to retrieve unread received faxes with 
 **MessageRef** | Int | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message.
 
 
-###Response
+### Response
 **FetchReceivedFaxByMessageRefResponse Parameters:**
 
 **Name** | **Type** | **Description** 
@@ -766,12 +764,12 @@ This function provides you with a method to retrieve unread received faxes with 
 | **DONE** | The fax message process is done. |
 | **NUMBER_NOT_FOUND** | The did of the fax message is not found. |
 
-###SOAP Faults
+### SOAP Faults
 This function will throw **NoMessagesFoundException** if something went wrong.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-#4.Callback Service
-##Description
+# 4.Callback Service
+## Description
 The callback service allows our platform to post fax results to you on fax message completion.
 
 To take advantage of this, you are required to write a simple web service to accept requests from our system, parse them and update the status of the faxes on your system.
@@ -788,28 +786,28 @@ Once you have deployed the web service, please contact your account manager with
 </FaxMessage>
 ```
 
-#5.More Information
-##Exceptions/SOAP Faults
+# 5.More Information
+## Exceptions/SOAP Faults
 If an error occurs during a request on the Monopond Fax API the service will throw a SOAP fault or exception. Each exception is listed in detail below. To see which exceptions match up to the function calls please refer to the function descriptions in the previous sectionSection 3.
-###InvalidArgumentsException
+### InvalidArgumentsException
 One or more of the arguments passed in the request were invalid. Each element that failed validation is included in the fault details along with the reason for failure.
-###DocumentContentTypeNotFoundException
+### DocumentContentTypeNotFoundException
 There was an error while decoding the document provided; we were unable to determine its content type.
-###NoMessagesFoundException
+### NoMessagesFoundException
 Based on the references sent in the request no messages could be found that match the criteria.
-###InternalServerException
+### InternalServerException
 An unusual error occurred on the platform. If this error occurs please contact support for further instruction.
 
-##General Parameters and File Formatting
-###File Encoding
+## General Parameters and File Formatting
+### File Encoding
 All files are encoded in the Base64 encoding specified in RFC 2045 - MIME (Multipurpose Internet Mail Extensions). The Base64 encoding is designed to represent arbitrary sequences of octets in a form that need not be humanly readable. A 65-character subset ([A-Za-z0-9+/=]) of US-ASCII is used, enabling 6 bits to be represented per printable character. For more information see http://tools.ietf.org/html/rfc2045 and http://en.wikipedia.org/wiki/Base64
 
-###Dates
+### Dates
 Dates are always passed in ISO-8601 format with time zone. For example: “2012-07-17T19:27:23+08:00”
 
-#6.API Examples
-##SendFax
-###Sending a single fax message
+# 6.API Examples
+## SendFax
+### Sending a single fax message
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
@@ -846,7 +844,7 @@ Dates are always passed in ISO-8601 format with time zone. For example: “2012-
 </soapenv:Envelope>
 ```
 
-###Sending multiple fax messages in a single request
+### Sending multiple fax messages in a single request
 In the example request below the first fax message contains no overriding parameters so it will inherit the parameters set in the parent send request.
 The second fax message has overrides for resolution and busy retries so these values will be used for that message only. With no overrides for the document or any other settings these will be inherited from the send request.
 The third fax message has an override for the document so for this message that document will be used but all other settings will be inherited from the send request.
@@ -903,7 +901,7 @@ The third fax message has an override for the document so for this message that 
 </soapenv:Envelope>
 ```
 
-###Sending multiple documents in a single fax message
+### Sending multiple documents in a single fax message
 In the example below we are sending multiple documents in a single fax transmission. These documents will be concatenated together, in the order specified, into a single transmissible fax message before being sent to the destination.
 
 ```xml
@@ -946,8 +944,8 @@ In the example below we are sending multiple documents in a single fax transmiss
  </soapenv:Body>
 </soapenv:Envelope>
 ```
-##FaxStatus
-###Status request with “brief” verbosity
+## FaxStatus
+### Status request with “brief” verbosity
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
@@ -968,7 +966,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 </soapenv:Envelope>
 ```
 
-###Status request with “details” verbosity
+### Status request with “details” verbosity
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
@@ -988,7 +986,7 @@ In the example below we are sending multiple documents in a single fax transmiss
     </soapenv:Body>
 </soapenv:Envelope>
 ```
-###Status request with “results” verbosity
+### Status request with “results” verbosity
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
@@ -1009,7 +1007,7 @@ In the example below we are sending multiple documents in a single fax transmiss
 </soapenv:Envelope>
 ```
 
-###Status request with “all” verbosity
+### Status request with “all” verbosity
 
 ```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2">
@@ -1030,8 +1028,8 @@ In the example below we are sending multiple documents in a single fax transmiss
 </soapenv:Envelope>
 ```
 
-##FetchUnreadReceivedFaxes
-###Request with Limit, ReceivedAt and ReceivedBetween parameters
+## FetchUnreadReceivedFaxes
+### Request with Limit, ReceivedAt and ReceivedBetween parameters
 
 In the example below we are retrieving received fax messages that are unread with the given date interval.
 
@@ -1055,8 +1053,8 @@ In the example below we are retrieving received fax messages that are unread wit
 </soapenv:Envelope>
 ```
 
-##MarkReceivedFax
-###Request with a List of MessageRef
+## MarkReceivedFax
+### Request with a List of MessageRef
 
 In the example below we are marking received fax messages as read with the given message reference criteria.
 
@@ -1082,8 +1080,8 @@ In the example below we are marking received fax messages as read with the given
 </soapenv:Envelope>
 ```
 
-##FetchReceivedFaxByMessageRef
-###Request with a List of MessageRef
+## FetchReceivedFaxByMessageRef
+### Request with a List of MessageRef
 
 In the example below we are retrieving received fax messages with the given message reference criteria.
 
