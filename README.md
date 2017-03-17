@@ -599,7 +599,7 @@ When making a stop request you must provide at least a BroadcastRef, SendRef or 
 #### StopFaxRequest Parameters:
 
 | Name | Required | Type | Description |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | 
 | **BroadcastRef** | | *String* | User-defined broadcast reference. |
 | **SendRef** |  | *String* | User-defined send reference. |
 | **MessageRef** |  | *String* | User-defined message reference. |
