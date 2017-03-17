@@ -711,7 +711,7 @@ This function provides you with a method to retrieve unread received faxes with 
 **FetchReceivedFaxByMessageRefRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
-|--- | --- | --- | --- | ---|
+|--- | --- | --- | --- |
 |**MessageRefs**| **X** | *Array of MessageRefs* | List of unique user-provided identifier. |
 
 **MessageRef Parameters:**
