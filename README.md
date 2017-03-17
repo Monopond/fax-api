@@ -462,11 +462,11 @@ There are multiple levels of verbosity available in the request; these are expla
 **FaxStatusRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
-|--- | --- | --- | --- | ---|
+|--- | --- | --- | --- | 
 |**BroadcastRef**|  | *String* | User-defined broadcast reference. |
 |**SendRef**|  | *String* | User-defined send reference. |
 |**MessageRef**|  | *String* | User-defined message reference. |
-|**Verbosity**|  | *String* | Verbosity String The level of detail in the status response. Please see below for a list of possible values.| |
+|**Verbosity**|  | *String* | Verbosity String The level of detail in the status response. Please see below for a list of possible values.| 
 
 **Verbosity Levels:**	
   
