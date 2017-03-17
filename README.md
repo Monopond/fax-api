@@ -752,10 +752,10 @@ This function allows you to upload a document and save it under a document refer
 **SaveFaxDocumentRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
-|--- | --- | --- | --- | ---|
+|--- | --- | --- | --- |
 |**DocumentRef**| **X** | *String* | Unique identifier for the document to be uploaded. |
 |**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
-| **FileData**|**X**| *Base64* |The document encoded in Base64 format.| |
+| **FileData**|**X**| *Base64* |The document encoded in Base64 format.| 
 
 ### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
@@ -773,7 +773,7 @@ You can either specify to remove a saved fax document via its DocumentRef or you
 **DeleteFaxDocumentRequest Parameters:**
 
 | **Name** | **Required** | **Type** | **Description** |
-|--- | --- | --- | --- | ---|
+|--- | --- | --- | --- | 
 |**DocumentRef**| | *String* | Unique identifier for the document to be deleted. |
 |**MessageRef**| | *String* | User-defined message reference. |
 |**SendRef**| | *String* | User-defined send reference. |
