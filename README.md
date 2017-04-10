@@ -286,7 +286,7 @@ The example below shows a TIFF that will be stamped with the text “Hello” at
 For more details, see [StampMergeData parameters section](#stampMergeDataParameters) of this document.
 
 
-##### Setting a Timezone in a Request
+#### Setting a Timezone in a Request
 The example below shows how to set a `Timezone` in the request for all faxmessages.
 
 ```xml
@@ -316,7 +316,7 @@ The example below shows how to set a `Timezone` in the request for all faxmessag
 </v2:SendFaxRequest>
 ```
 
-##### Setting a Timezone for each FaxMessage
+#### Setting a Timezone for each FaxMessage
 The example below shows how to set a `Timezone` in the request for each faxmessage.
 
 ```xml
