@@ -285,6 +285,66 @@ The example below shows a TIFF that will be stamped with the text “Hello” at
 
 For more details, see [StampMergeData parameters section](#stampMergeDataParameters) of this document.
 
+
+##### Setting a Timezone in a Request
+The example below shows how to set a `Timezone` in the request for all faxmessages.
+
+```xml
+<v2:SendFaxRequest>
+	<BroadcastRef>test-27</BroadcastRef>
+	<SendRef>test-2-1</SendRef>
+	<TimeZone>Australia/Melbourne</TimeZone>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<Resolution>fine</Resolution>
+		</FaxMessage>
+	</FaxMessages>
+	<Documents>
+		<Document>
+			<FileName>sample-docx-merge.docx</FileName>
+			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+			<DocMergeData>
+				<MergeField>
+					<Key>field1</Key>
+					<Value>Test</Value>
+				</MergeField>
+			</DocMergeData>
+		</Document>
+	</Documents>
+</v2:SendFaxRequest>
+```
+
+##### Setting a Timezone for each FaxMessage
+The example below shows how to set a `Timezone` in the request for each faxmessage.
+
+```xml
+<v2:SendFaxRequest>
+	<BroadcastRef>test-27</BroadcastRef>
+	<SendRef>test-2-1</SendRef>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<Resolution>fine</Resolution>
+			<TimeZone>Australia/Melbourne</TimeZone>
+		</FaxMessage>
+	</FaxMessages>
+	<Documents>
+		<Document>
+			<FileName>sample-docx-merge.docx</FileName>
+			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+			<DocMergeData>
+				<MergeField>
+					<Key>field1</Key>
+					<Value>Test</Value>
+				</MergeField>
+			</DocMergeData>
+		</Document>
+	</Documents>
+</v2:SendFaxRequest>
+```
 ### SendFaxRequest Parameters:
 
 **Name**|**Required**|**Type**|**Description**|**Default**
