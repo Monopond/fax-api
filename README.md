@@ -774,6 +774,38 @@ To set a MaxFaxPages for SendFaxRequest, a request must similar to the following
 To know more about MaxFaxPages you can check it here:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
+### Sending multiple faxes:
+To send faxes to multiple destinations a request similar to the following example can be used. Please note the addition of another “FaxMessage”:
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <SendFrom>Test Fax</SendFrom>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+        <FaxMessage>
+            <MessageRef>test-1-1-2</MessageRef>
+            <SendTo> 6022222222</SendTo>
+            <SendFrom>Test Fax</SendFrom>
+            <Documents>
+                <Document>
+             <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
