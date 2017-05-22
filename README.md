@@ -611,6 +611,49 @@ You can visit here the definition of Blocklists and its paremeters:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 * [Blocklists Parameters](#blocklists-parameters)
 
+### Sending a Fax with ScheduledStartTime in FaxMessage
+To set a ScheduledStartTime for FaxMessage, a request must similar to the following example below can be used.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <ScheduledStartTime>2017-03-25T12:00:00Z</ScheduledStartTime>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about ScheduledStartTime you can check it here:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with ScheduledStartTime in SendFaxRequest
+To set a ScheduledStartTime for SendFaxRequest, a request must similar to the following example below can be used.
+```xml
+<v2:SendFaxRequest>
+	<ScheduledStartTime>2017-03-25T12:00:00Z</ScheduledStartTime>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about ScheduledStartTime you can check it here:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
 ### SendFaxRequest Parameters
 
