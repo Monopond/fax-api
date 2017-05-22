@@ -370,7 +370,7 @@ To send fax with SendFrom in SendFaxRequest a request similar to the following e
 </v2:SendFaxRequest>
 ```
 You can visit here the definition of SendFrom:
-* [FaxMessage Parameters](#faxmessage-parameters)
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
 ### Assigning a HeaderFormat in FaxMessage
 Allows the header format that appears at the top of the transmitted fax to be changed, a request similar to the following example below.
@@ -465,7 +465,56 @@ Assigning a CLI in the SendFaxRequest, a request similar to the following exampl
 </v2:SendFaxRequest>
 ```
 You can visit here the definition of CLI:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
+### Sending a Fax with DNCR enabled in FaxMessage
+To send fax with DNCR in FaxMessage, a request must be similar to this following example.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Blocklists dncr="true" fps="false" smartblock="false" />
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
 * [FaxMessage Parameters](#faxmessage-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with DNCR enabled in SendFaxRequest
+To send fax with DNCR in SendFaxRequest, a request must be similar to this following example.
+```xml
+<v2:SendFaxRequest>
+	<Blocklists dncr="true" fps="false" smartblock="false" />
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
 
 ### SendFaxRequest Parameters
 
@@ -563,3 +612,11 @@ From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
 **%%**|A literal % character
 
 TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
+
+### Blocklists Parameters
+
+| **Name** | **Required** | **Type** | **Description** |
+| --- | --- | --- | --- |
+| **smartblock** | false | boolean | Blocks sending to a number if it has consistently failed in the past. |
+| **fps** | false | boolean | Wash numbers against the fps blocklist. |
+| **dncr** | false | boolean | Wash numbers against the dncr blocklist. |
