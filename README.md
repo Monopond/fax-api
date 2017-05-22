@@ -1600,3 +1600,534 @@ Verdana-Italic
 Verdana-Regular
 Webdings-Regular
 ```
+
+# 6.API Examples
+## SendFax
+### Sending a single fax message
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:SendFaxRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <SendRef>test-1-1</SendRef>
+            <FaxMessages>
+                <FaxMessage>
+                    <MessageRef>test-1-1-1</MessageRef>
+                    <SendTo>61011111111</SendTo>
+                    <SendFrom>Test Fax</SendFrom>
+                    <Documents>
+                        <Document>
+                            <FileName>test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                            </Document>
+                    </Documents>
+                    <Resolution>normal</Resolution>
+                    <Retries>0</Retries>
+                    <BusyRetries>2</BusyRetries>
+                </FaxMessage>
+            </FaxMessages>
+        </v2:SendFaxRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Sending multiple fax messages in a single request
+In the example request below the first fax message contains no overriding parameters so it will inherit the parameters set in the parent send request.
+The second fax message has overrides for resolution and busy retries so these values will be used for that message only. With no overrides for the document or any other settings these will be inherited from the send request.
+The third fax message has an override for the document so for this message that document will be used but all other settings will be inherited from the send request.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:SendFaxRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <SendRef>test-1-2</SendRef>
+            <FaxMessages>
+                <FaxMessage>
+                    <MessageRef>test-1-2-1</MessageRef>
+                    <SendTo>61011111111</SendTo>
+                </FaxMessage>
+                <FaxMessage>
+                    <MessageRef>test-1-2-2</MessageRef>
+                    <SendTo>61022222222</SendTo>
+                    <Resolution>fine</Resolution>
+                    <BusyRetries>3</BusyRetries>
+                </FaxMessage>
+                <FaxMessage>
+                    <MessageRef>test-1-2-3</MessageRef>
+                    <SendTo>61033333333</SendTo>
+                    <Documents>
+                        <Document>
+                            <FileName>another_test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhbm90aGVyIGZheA==</FileData>
+                        </Document>
+                    </Documents>
+                </FaxMessage>
+            </FaxMessages>
+            <SendFrom>Test Fax</SendFrom>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+            <Resolution>normal</Resolution>
+            <Retries>0</Retries>
+            <BusyRetries>2</BusyRetries>
+            <ScheduledStartTime>2012-04-30T19:02:00+08:00</ScheduledStartTime>
+        </v2:SendFaxRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Sending multiple documents in a single fax message
+In the example below we are sending multiple documents in a single fax transmission. These documents will be concatenated together, in the order specified, into a single transmissible fax message before being sent to the destination.
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:SendFaxRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <SendRef>test-1-1</SendRef>
+            <FaxMessages>
+                <FaxMessage>
+                    <MessageRef>test-1-1-1</MessageRef>
+                    <SendTo>61011111111</SendTo>
+                    <SendFrom>Test Fax</SendFrom>
+                    <Documents>
+                        <Document>
+                            <FileName>test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                            <Order>0</Order>
+                        </Document>
+                        <Document>
+                            <FileName>another_test.txt</FileName>
+                            <FileData>VGhpcyBpcyBhbm90aGVyIGZheA==</FileData>
+                            <Order>1</Order>
+                        </Document>
+                    </Documents>
+                    <Resolution>normal</Resolution>
+                    <Retries>0</Retries>
+                    <BusyRetries>2</BusyRetries>
+                </FaxMessage>
+            </FaxMessages>
+        </v2:SendFaxRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+```
+## FaxStatus
+### Status request with “brief” verbosity
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <BroadcastRef>test-1</BroadcastRef>
+            <Verbosity>brief</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Status request with “details” verbosity
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <SendRef>test-1-1</SendRef>
+            <Verbosity>details</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+### Status request with “results” verbosity
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+    <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <SendRef>test-1-2</SendRef>
+            <Verbosity>results</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Status request with “all” verbosity
+
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+    <soapenv:Header>
+        <wsse:Security soapenv:mustUnderstand="1">
+            <wsse:UsernameToken>
+                <wsse:Username>username</wsse:Username>
+                <wsse:Password>password</wsse:Password>
+            </wsse:UsernameToken>
+        </wsse:Security>
+    </soapenv:Header>
+    <soapenv:Body>
+        <v2:FaxStatusRequest>
+            <MessageRef>test-1-1-1a</MessageRef>
+            <Verbosity>all</Verbosity>
+        </v2:FaxStatusRequest>
+    </soapenv:Body>
+</soapenv:Envelope>
+```
+
+## FaxDocumentPreview
+### Fax Document Preview request
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>test-doc-ref-preview-docx</DocumentRef>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with normal resolution
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>test-doc-ref-preview-tiff</DocumentRef>
+         <Resolution>normal</Resolution>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with extra dark dithering technique
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-pdf</DocumentRef>
+         <DitheringTechnique>darken_extra</DitheringTechnique>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and turbo dithering technique
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-png</DocumentRef>
+         <Resolution>fine</Resolution>
+         <DitheringTechnique>turbo</DitheringTechnique>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and single DocMergeData field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-docxmf</DocumentRef>
+         <Resolution>fine</Resolution>
+         <DocMergeData>
+            <MergeField>
+               <Key>key1</Key>
+               <Value>test1</Value>
+            </MergeField>
+         </DocMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and multiple DocMergeData fields
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-docxmf</DocumentRef>
+         <Resolution>fine</Resolution>
+         <DocMergeData>
+            <MergeField>
+               <Key>key1</Key>
+               <Value>test1</Value>
+            </MergeField>
+            <MergeField>
+               <Key>key2</Key>
+               <Value>test2</Value>
+            </MergeField>
+         </DocMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and StampMergeData Text field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-pdf</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test</TextValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and multiple StampMergeData Text fields
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-pdf</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test</TextValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test2</TextValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+
+### Fax Document Preview request with fine resolution and StampMergeData Image field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-tiff</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="223" yCoord="434"/>
+               <ImageValue width="100" height="100">
+                  <FileName>test.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution and multiple StampMergeData Image fields
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-tiff</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="223" yCoord="434"/>
+               <ImageValue width="100" height="100">
+                  <FileName>test.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="100" yCoord="123"/>
+               <ImageValue width="200" height="200">
+                  <FileName>test2.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Fax Document Preview request with fine resolution, multiple StampMergeData Text fields and StampMergeData Image field
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:v2="https://api.monopond.com/fax/soap/v2.1">
+   <soapenv:Header>
+      <wsse:Security soapenv:mustUnderstand="1">
+         <wsse:UsernameToken>
+            <wsse:Username>username</wsse:Username>
+            <wsse:Password>password</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <v2:FaxDocumentPreviewRequest>
+         <DocumentRef>testdocrefprev-tiff</DocumentRef>
+         <Resolution>fine</Resolution>
+         <StampMergeData>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test</TextValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="123" yCoord="134"/>
+               <TextValue fontName="Courier" fontSize="14">Test2</TextValue>
+            </MergeField>
+            <MergeField>
+               <Key xCoord="223" yCoord="434"/>
+               <ImageValue width="100" height="100">
+                  <FileName>test.png</FileName>
+                  <FileData>iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBI
+WXMAAAsTAAALEwEAmpwYAAAAcklEQVQYV5WRQQrAIAwEPfmLnn2WL8w/+h/x4Mlml4gWUkoGlmDc
+GI0pbbKqqm7VsFgt/+JSNdV01Gyf5GUspUwRmb13RqyPAnaoy+hxFMDHu/EkD+TNDB8fw9YeyJt5
+hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
+               </ImageValue>
+            </MergeField>
+         </StampMergeData>
+      </v2:FaxDocumentPreviewRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
