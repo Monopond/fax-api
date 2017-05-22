@@ -638,11 +638,11 @@ To set a ScheduledStartTime for SendFaxRequest, a request must similar to the fo
 ```xml
 <v2:SendFaxRequest>
 	<ScheduledStartTime>2017-03-25T12:00:00Z</ScheduledStartTime>
-    <FaxMessages>
-        <FaxMessage>
-            <MessageRef>test-1-1-1</MessageRef>
-            <SendTo>6011111111</SendTo>
-            <Documents>
+	<FaxMessages>
+		<FaxMessage>
+    		<MessageRef>test-1-1-1</MessageRef>
+		    <SendTo>6011111111</SendTo>
+		    <Documents>
                 <Document>
                     <FileName>test.txt</FileName>
                     <FileData>VGhpcyBpcyBhIGZheA==</FileData>
