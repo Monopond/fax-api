@@ -360,19 +360,19 @@ Allows the header format that appears at the top of the transmitted fax to be ch
 ```xml
 <v2:SendFaxRequest>
 	<HeaderFormat>From %from%, To %to%|%a %b %d %H:%M %Y</HeaderFormat>
-    <FaxMessages>
-        <FaxMessage>
-            <MessageRef>test-1-1-1</MessageRef>
-            <SendTo>6011111111</SendTo>
-            <SendFrom>TSID</SendFrom>
-            <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<SendFrom>TSID</SendFrom>
+			<Documents>
+		    	<Document>
+			        <FileName>test.txt</FileName>
+			        <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+		    	</Document>
+			</Documents>
+		</FaxMessage>
+	</FaxMessages>
 </v2:SendFaxRequest>
 ```
 You need to visit here on how to setup a headerformat value:
