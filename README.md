@@ -262,6 +262,30 @@ To assign a fax to have a Resolution in the request similar to the following exa
 You can visit here the definition of Resolution:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
+### Sending a Fax with FaxDitheringTechnique in FaxDocument:
+To assign a fax to have a FaxDitheringTechnique in the request similar to the following example can be used. 
+```
+<v2:SendFaxRequest>
+    <Resolution>fine</Resolution>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+        
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                    <DitheringTechnique>normal</DitheringTechnique>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of FaxDitheringTechnique:
+* [FaxDitheringTechnique](#faxditheringtechnique)
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
@@ -312,3 +336,17 @@ Represents a fax document to be sent through the system. Supported file types ar
 **DocMergeData**|||An Array of MergeFields|
 **StampMergeData**|||An Array of MergeFields|
 
+### FaxDitheringTechnique
+
+| Value | Fax Dithering Technique |
+| --- | --- |
+| **none** | No dithering. |
+| **normal** | Normal dithering.|
+| **turbo** | Turbo dithering.|
+| **darken** | Darken dithering.|
+| **darken_more** | Darken more dithering.|
+| **darken_extra** | Darken extra dithering.|
+| **lighten** | Lighten dithering.|
+| **lighten_more** | Lighten more dithering. |
+| **crosshatch** | Crosshatch dithering. |
+| **DETAILED** | Detailed dithering. |
