@@ -806,6 +806,139 @@ To send faxes to multiple destinations a request similar to the following exampl
 </v2:SendFaxRequest>
 ```
 
+### Sending faxes to multiple destinations with the same document (broadcasting)
+To send the same fax content to multiple destinations (broadcasting) a request similar to the example below can be used.
+
+This method is recommended for broadcasting as it takes advantage of the multiple tiers in the send request. This eliminates the repeated parameters out of the individual fax message elements which are instead inherited from the parent send fax request. An example below shows “SendFrom” being used for both FaxMessages. While not shown in the example below further control can be achieved over individual fax elements to override the parameters set in the parent.
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+        </FaxMessage>
+        <FaxMessage>
+            <MessageRef>test-1-1-2</MessageRef>
+            <SendTo>6022222222</SendTo>
+        </FaxMessage>
+    </FaxMessages>
+    <Documents>
+        <Document>
+            <FileName>test.txt</FileName>
+            <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+        </Document>
+    </Documents>
+    <SendFrom>Test Fax</SendFrom>
+</v2:SendFaxRequest>
+```
+
+When sending multiple faxes in batch it is recommended to group them into requests of around 600 fax messages for optimal performance. If you are sending the same document to multiple destinations it is strongly advised to only attach the document once in the root of the send request rather than attaching a document for each destination.
+
+### Sending Microsoft Documents With DocMergeData:
+(This request only works in version 2.1(or higher) of the fax-api.)
+
+This request is used to send a Microsoft document with replaceable variables or merge fields. The merge field follows the pattern ```<mf:key>```.  If your key is ```field1```, it should be typed as ```<mf:field1>``` in the document. Note that the key must be unique within the whole document. The screenshots below are examples of what the request does.
+
+Original .doc file:
+
+![before](./img/DocMergeData/before.png)
+
+This is what the file looks like after the fields ```field1```,```field2``` and ```field3``` have been replaced with values ```lazy dog```, ```fat pig``` and ```fat pig```:
+
+![stamp](./img/DocMergeData/after.png)
+
+##### Sample Request
+The example below shows ```field1``` will be replaced by the value of ```Test```.
+
+```xml
+<v2:SendFaxRequest>
+	<BroadcastRef>test-27</BroadcastRef>
+	<SendRef>test-2-1</SendRef>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<Resolution>fine</Resolution>
+		</FaxMessage>
+	</FaxMessages>
+	<Documents>
+		<Document>
+			<FileName>sample-docx-merge.docx</FileName>
+			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+			<DocMergeData>
+				<MergeField>
+					<Key>field1</Key>
+					<Value>Test</Value>
+				</MergeField>
+			</DocMergeData>
+		</Document>
+	</Documents>
+</v2:SendFaxRequest>
+```
+
+For more details, see [DocMergeData parameters section](#docMergeDataParameters) of this document.
+
+### Sending Tiff files with StampMergeData:
+(This request only works in version 2.1(or higher) of the fax-api.)
+
+This request allows a TIFF file to be stamped with an image or text, based on X-Y coordinates. The x and y coordinates (0,0) starts at the top left part of the document. The screenshots below are examples of what the request does.
+
+Original tiff file:
+
+![before](./img/StampMergeData/image_stamp/before.png)
+
+Sample stamp image:
+
+![stamp](./img/StampMergeData/image_stamp/stamp.png)
+
+This is what the tiff file looks like after stamping it with the image above:
+
+![after](./img/StampMergeData/image_stamp/after.png) 
+
+The same tiff file, but this time, with a text stamp:
+
+![after](./img/StampMergeData/text_stamp/after.png) 
+
+##### Sample Request
+
+The example below shows a TIFF that will be stamped with the text “Hello” at xCoord=“1287” and yCoord=“421”, and an image at xCoord=“283” and yCoord=“120”
+
+```xml
+<v2:SendFaxRequest>
+	<BroadcastRef>test-27</BroadcastRef>
+	<SendRef>test-2-1</SendRef>
+	<Resolution>normal</Resolution>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+		</FaxMessage>
+	</FaxMessages>
+	<Documents>
+		<Document>
+			<FileName>sample-tiff.tiff</FileName>
+			<FileData>TiffDataInBase64==</FileData>
+			<StampMergeData>
+				<MergeField>
+					<Key xCoord="1287" yCoord="421"/>
+					<TextValue>Hello</TextValue>
+				</MergeField>
+				<MergeField>
+					<Key xCoord="283" yCoord="120"/>
+					<ImageValue width="100">
+						<FileName>anImage.jpg</FileName>
+						<FileData>imageDataInBaseSixtyFour==</FileData>
+					</ImageValue>
+				</MergeField>
+			</StampMergeData>
+		</Document>
+	</Documents>
+</v2:SendFaxRequest>
+```
+
+For more details, see [StampMergeData parameters section](#stampMergeDataParameters) of this document.
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
@@ -917,3 +1050,42 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 | **smartblock** | false | boolean | Blocks sending to a number if it has consistently failed in the past. |
 | **fps** | false | boolean | Wash numbers against the fps blocklist. |
 | **dncr** | false | boolean | Wash numbers against the dncr blocklist. |
+
+<a name="docMergeDataParameters"></a> 
+
+**DocMergeData Mergefield Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
+|**Value** | | *String* | The value that replaces the key. |
+
+<a name="stampMergeDataParameters"></a> 
+**StampMergeData Mergefield Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
+|**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
+|**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
+
+ **StampMergeFieldKey Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** |
+|----|-----|-----|-----|
+| **xCoord** |  | *Int* | X coordinate. |
+| **yCoord** |  | *Int* | Y coordinate. |
+
+**StampMergeFieldTextValue Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fontName** |  | *String* | Font name to be used. See list of supported font names [here](#list-of-supported-font-names-for-stampmergefield-textvalue). |
+|**fontSize** |  | *Decimal* | Font size to be used. |
+
+**StampMergeFieldImageValue Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
+|**fileData** |  | *Base64* | The document encoded in Base64 format. |
