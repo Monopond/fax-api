@@ -218,6 +218,50 @@ You can visit the following properties of Document and SendFaxRequest to know it
 * [FaxDocument Parameters](#faxdocument-parameters)
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
+### Sending a Fax with Resolution in FaxMessage
+To assign a fax to have a Resolution in the request similar to the following example can be used. 
+```
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Resolution>fine</Resolution>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of Resolution:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with Resolution in SendFaxRequest
+To assign a fax to have a Resolution in the request similar to the following example can be used. 
+```
+<v2:SendFaxRequest>
+    <Resolution>fine</Resolution>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of Resolution:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
