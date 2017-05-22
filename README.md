@@ -273,7 +273,6 @@ To assign a fax to have a FaxDitheringTechnique in the request similar to the fo
         <FaxMessage>
             <MessageRef>test-1-1-1</MessageRef>
             <SendTo>6011111111</SendTo>
-        
             <Documents>
                 <Document>
                     <FileName>test.txt</FileName>
@@ -302,7 +301,6 @@ The Timezone will be used to format the datetime display in the fax header, a re
                 <Document>
                     <FileName>test.txt</FileName>
                     <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                   
                 </Document>
             </Documents>
         </FaxMessage>
