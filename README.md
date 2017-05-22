@@ -336,7 +336,7 @@ Allows the header format that appears at the top of the transmitted fax to be ch
             <MessageRef>test-1-1-1</MessageRef>
             <SendTo>6011111111</SendTo>
             <SendFrom>TSID</SendFrom>
-		  	<HeaderFormat>From %from%, To %to%|%a %b %d %H:%M %Y</HeaderFormat>
+			<HeaderFormat>From %from%, To %to%|%a %b %d %H:%M %Y</HeaderFormat>
             <Documents>
                 <Document>
                     <FileName>test.txt</FileName>
