@@ -1209,6 +1209,8 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **scheduledStartTime** | *DateTime* | *results* | The date and time the fax is scheduled to start. |
 | **dateCallStarted** | *DateTime* | *results* | Date and time the fax started transmitting. |
 | **dateCallEnded** | *DateTime* | *results* | Date and time the fax finished transmitting. |
+| **dateDncrWashed** | *DateTime* | *results* | Date and time the fax number finished washing. |
+| **dncrTransactionId** | *String* | *results* | Transaction ID of washed fax number. |
 | **csi** | *String* | *results* | Caller Subscriber Information of the recepient. |
 
 **FaxError:**
