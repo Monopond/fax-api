@@ -125,7 +125,7 @@ You can visit the following properties of Document, FaxMessage, and SendFaxReque
 
 ### Sending a Fax with Retries inside a FaxMessage
 To set-up a fax to have retries a request similar to the following example can be used.
-```
+```xml
 <v2:SendFaxRequest>
     <FaxMessages>
         <FaxMessage>
@@ -149,7 +149,7 @@ You can visit the following properties of Document and FaxMessage to know its de
 
 ### Sending a Fax with Retries inside a SendFaxRequest
 To set-up a fax to have retries a request similar to the following example can be used.
-```
+```xml
 <v2:SendFaxRequest>
     <Retries>2</Retries>
     <FaxMessages>
@@ -173,7 +173,7 @@ You can visit the following properties of Document and SendFaxRequest to know it
 
 ### Sending a Fax with BusyRetries inside a FaxMessage
 To set-up a fax to have busyRetries a request similar to the following example can be used.
-```
+```xml
 <v2:SendFaxRequest>
     <FaxMessages>
         <FaxMessage>
@@ -197,7 +197,7 @@ You can visit the following properties of Document and FaxMessage to know its de
 ```
 ### Sending a Fax with BusyRetries inside a SendFaxRequest
 To set-up a fax to have busyRetries a request similar to the following example can be used.
-```
+```xml
 <v2:SendFaxRequest>
 	<BusyRetries>2</BusyRetries>
     <FaxMessages>
@@ -220,7 +220,7 @@ You can visit the following properties of Document and SendFaxRequest to know it
 
 ### Sending a Fax with Resolution in FaxMessage
 To assign a fax to have a Resolution in the request similar to the following example can be used. 
-```
+```xml
 <v2:SendFaxRequest>
     <FaxMessages>
         <FaxMessage>
@@ -242,7 +242,7 @@ You can visit here the definition of Resolution:
 
 ### Sending a Fax with Resolution in SendFaxRequest
 To assign a fax to have a Resolution in the request similar to the following example can be used. 
-```
+```xml
 <v2:SendFaxRequest>
     <Resolution>fine</Resolution>
     <FaxMessages>
@@ -264,7 +264,7 @@ You can visit here the definition of Resolution:
 
 ### Sending a Fax with FaxDitheringTechnique in FaxDocument:
 To assign a fax to have a FaxDitheringTechnique in the request similar to the following example can be used. 
-```
+```xml
 <v2:SendFaxRequest>
     <Resolution>fine</Resolution>
     <FaxMessages>
@@ -288,7 +288,7 @@ You can visit here the definition of FaxDitheringTechnique:
 
 ### Assigning a Timezone in FaxMessage
 The Timezone will be used to format the datetime display in the fax header, a request similar to the following example below.
-```
+```xml
 <v2:SendFaxRequest>
     <Resolution>fine</Resolution>
     <FaxMessages>
@@ -310,7 +310,7 @@ The Timezone will be used to format the datetime display in the fax header, a re
 
 ### Assigning a Timezone in SendFaxRequest
 The Timezone will be used to format the datetime display in the fax header, a request similar to the following example below.
-```
+```xml
 <v2:SendFaxRequest>
  	<TimeZone>Australia/Adelaide</TimeZone>
     <FaxMessages>
