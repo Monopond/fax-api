@@ -286,6 +286,48 @@ To assign a fax to have a FaxDitheringTechnique in the request similar to the fo
 You can visit here the definition of FaxDitheringTechnique:
 * [FaxDitheringTechnique](#faxditheringtechnique)
 
+### Assigning a Timezone in FaxMessage
+The Timezone will be used to format the datetime display in the fax header, a request similar to the following example below.
+```
+<v2:SendFaxRequest>
+    <Resolution>fine</Resolution>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+    		  <TimeZone>Australia/Adelaide</TimeZone>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                   
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+### Assigning a Timezone in SendFaxRequest
+The Timezone will be used to format the datetime display in the fax header, a request similar to the following example below.
+```
+<v2:SendFaxRequest>
+ 	<TimeZone>Australia/Adelaide</TimeZone>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
