@@ -327,6 +327,51 @@ The Timezone will be used to format the datetime display in the fax header, a re
     </FaxMessages>
 </v2:SendFaxRequest>
 ```
+
+### Assigning SendFrom in FaxMessage
+To send fax with SendFrom in FaxMessage a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <SendFrom>TSID</SendFrom>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of SendFrom:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Assigning SendFrom in SendFaxRequest
+To send fax with SendFrom in FaxMessage a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+	<SendFrom>TSID</SendFrom>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of SendFrom:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
 ### Assigning a HeaderFormat in FaxMessage
 Allows the header format that appears at the top of the transmitted fax to be changed, a request similar to the following example below.
 ```xml
@@ -359,12 +404,12 @@ You need to visit here on how to setup a headerformat value:
 Allows the header format that appears at the top of the transmitted fax to be changed, a request similar to the following example below.
 ```xml
 <v2:SendFaxRequest>
+	<SendFrom>TSID</SendFrom>
 	<HeaderFormat>From %from%, To %to%|%a %b %d %H:%M %Y</HeaderFormat>
 	<FaxMessages>
 		<FaxMessage>
 			<MessageRef>test-1-1-1</MessageRef>
 			<SendTo>6011111111</SendTo>
-			<SendFrom>TSID</SendFrom>
 			<Documents>
 		    	<Document>
 			        <FileName>test.txt</FileName>
