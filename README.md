@@ -169,6 +169,45 @@ You can visit the following properties of Document and SendFaxRequest to know it
 * [FaxDocument Parameters](#faxdocument-parameters)
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
+### Sending a Fax with BusyRetries inside a FaxMessage
+To set-up a fax to have busyRetries a request similar to the following example can be used.
+```
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <BusyRetries>2</BusyRetries>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+### Sending a Fax with BusyRetries inside a SendFaxRequest
+To set-up a fax to have busyRetries a request similar to the following example can be used.
+```
+<v2:SendFaxRequest>
+	<BusyRetries>2</BusyRetries>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
