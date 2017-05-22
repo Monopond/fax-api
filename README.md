@@ -423,6 +423,50 @@ Allows the header format that appears at the top of the transmitted fax to be ch
 You need to visit here on how to setup a headerformat value:
 * [Header Format](#header-format)
 
+### Assigning CLI in FaxMessage
+Assigning a CLI in the FaxMessage, a request similar to the following example below.
+```xml
+<v2:SendFaxRequest>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<CLI>123</CLI>
+			<Documents>
+		    	<Document>
+			        <FileName>test.txt</FileName>
+			        <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+		    	</Document>
+			</Documents>
+		</FaxMessage>
+	</FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of CLI:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Assigning CLI in SendFaxRequest
+Assigning a CLI in the SendFaxRequest, a request similar to the following example below.
+```xml
+<v2:SendFaxRequest>
+	<CLI>123</CLI>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<Documents>
+		    	<Document>
+			        <FileName>test.txt</FileName>
+			        <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+		    	</Document>
+			</Documents>
+		</FaxMessage>
+	</FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of CLI:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
