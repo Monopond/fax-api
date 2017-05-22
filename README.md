@@ -123,7 +123,7 @@ You can visit the following properties of Document, FaxMessage, and SendFaxReque
 * [FaxMessage Parameters](#faxmessage-parameters)
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
-### Sending a Fax with Retries inside FaxMessage
+### Sending a Fax with Retries inside a FaxMessage
 To set-up a fax to have retries a request similar to the following example can be used.
 ```
 <v2:SendFaxRequest>
@@ -146,7 +146,7 @@ You can visit the following properties of Document and FaxMessage to know its de
 * [FaxDocument Parameters](#faxdocument-parameters)
 * [FaxMessage Parameters](#faxmessage-parameters)
 
-### Sending a Fax with Retries inside SendFaxRequest
+### Sending a Fax with Retries inside a SendFaxRequest
 To set-up a fax to have retries a request similar to the following example can be used.
 ```
 <v2:SendFaxRequest>
