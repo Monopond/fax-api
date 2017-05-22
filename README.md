@@ -351,7 +351,7 @@ You can visit here the definition of SendFrom:
 * [FaxMessage Parameters](#faxmessage-parameters)
 
 ### Assigning SendFrom in SendFaxRequest
-To send fax with SendFrom in FaxMessage a request similar to the following example can be used.
+To send fax with SendFrom in SendFaxRequest a request similar to the following example can be used.
 ```xml
 <v2:SendFaxRequest>
 	<SendFrom>TSID</SendFrom>
