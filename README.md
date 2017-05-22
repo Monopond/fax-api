@@ -655,6 +655,60 @@ To set a ScheduledStartTime for SendFaxRequest, a request must similar to the fo
 To know more about ScheduledStartTime you can check it here:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
+### Sending a Fax with MustBeSentBeforeDate in FaxMessage
+To set a MustBeSentBeforeDate for FaxMessage, a request must similar to the following example below can be used.
+```xml
+<v2:SendFaxRequest>
+	<FaxMessages>
+		<FaxMessage>
+    		<MessageRef>test-1-1-1</MessageRef>
+		    <SendTo>6011111111</SendTo>
+		    <MustBeSentBeforeDate>2013-09-05T21:30:17+10:00</MustBeSentBeforeDate>
+		    <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about MustBeSentBeforeDate you can check it here:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with MustBeSentBeforeDate in SendFaxRequest
+To set a MustBeSentBeforeDate for SendFaxRequest, a request must similar to the following example below can be used.
+```xml
+<v2:SendFaxRequest>
+	<MustBeSentBeforeDate>2013-09-05T21:30:17+10:00</MustBeSentBeforeDate>
+	<FaxMessages>
+		<FaxMessage>
+    		<MessageRef>test-1-1-1</MessageRef>
+		    <SendTo>6011111111</SendTo>
+		    <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+        <FaxMessage>
+    		<MessageRef>test-1-1-2</MessageRef>
+		    <SendTo>6011111112</SendTo>
+		    <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about MustBeSentBeforeDate you can check it here:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
 ### SendFaxRequest Parameters
 
 **Name**|**Required**|**Type**|**Description**|**Default**
