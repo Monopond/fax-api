@@ -237,8 +237,9 @@ To assign a fax to have a Resolution in the request similar to the following exa
     </FaxMessages>
 </v2:SendFaxRequest>
 ```
-You can visit here the definition of Resolution:
+You can visit here the definition of Resolution and its values:
 * [FaxMessage Parameters](#faxmessage-parameters)
+* [Resolution Levels](#resolution-levels)
 
 ### Sending a Fax with Resolution in SendFaxRequest
 To assign a fax to have a Resolution in the request similar to the following example can be used. 
@@ -259,8 +260,9 @@ To assign a fax to have a Resolution in the request similar to the following exa
     </FaxMessages>
 </v2:SendFaxRequest>
 ```
-You can visit here the definition of Resolution:
+You can visit here the definition of Resolution and its values:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+* [Resolution Levels](#resolution-levels)
 
 ### Sending a Fax with FaxDitheringTechnique in FaxDocument:
 To assign a fax to have a FaxDitheringTechnique in the request similar to the following example can be used. 
@@ -774,7 +776,7 @@ To set a MaxFaxPages for SendFaxRequest, a request must similar to the following
 To know more about MaxFaxPages you can check it here:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
-### Sending multiple faxes:
+### Sending Multiple Faxes
 To send faxes to multiple destinations a request similar to the following example can be used. Please note the addition of another “FaxMessage”:
 
 ```xml
@@ -870,6 +872,13 @@ Represents a fax document to be sent through the system. Supported file types ar
 | **lighten_more** | Lighten more dithering. |
 | **crosshatch** | Crosshatch dithering. |
 | **DETAILED** | Detailed dithering. |
+
+### Resolution Levels
+
+| **Value** | **Description** |
+| --- | --- |
+| **normal** | Normal standard resolution (98 scan lines per inch) |
+| **fine** | Fine resolution (196 scan lines per inch) |
 
 ### Header Format
 
