@@ -515,6 +515,102 @@ You can visit here the definition of Blocklists and its paremeters:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 * [Blocklists Parameters](#blocklists-parameters)
 
+### Sending a Fax with FPS enabled in FaxMessage
+To send fax with FPS in FaxMessage, a request must be similar to this following example.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Blocklists dncr="false" fps="true" smartblock="false" />
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with FPS enabled in SendFaxRequest
+To send fax with FPS in SendFaxRequest, a request must be similar to this following example.
+```xml
+<v2:SendFaxRequest>
+	<Blocklists dncr="false" fps="true" smartblock="false" />
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with Smartblock enabled in FaxMessage
+To send fax with Smartblock in FaxMessage, a request must be similar to this following example.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Blocklists dncr="false" fps="false" smartblock="true" />
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with Smartblock enabled in SendFaxRequest
+To send fax with Smartblock in SendFaxRequest, a request must be similar to this following example.
+```xml
+<v2:SendFaxRequest>
+	<Blocklists dncr="false" fps="false" smartblock="true" />
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
 
 ### SendFaxRequest Parameters
 
