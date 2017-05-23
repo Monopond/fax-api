@@ -189,12 +189,12 @@ To set-up a fax to have busyRetries a request similar to the following example c
         </FaxMessage>
     </FaxMessages>
 </v2:SendFaxRequest>
+```
 
 You can visit the following properties of Document and FaxMessage to know its definitions:
 * [FaxDocument Parameters](#faxdocument-parameters)
 * [FaxMessage Parameters](#faxmessage-parameters)
 
-```
 ### Sending a Fax with BusyRetries inside a SendFaxRequest
 To set-up a fax to have busyRetries a request similar to the following example can be used.
 ```xml
