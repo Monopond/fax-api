@@ -219,7 +219,7 @@ You can visit the following properties of Document and SendFaxRequest to know it
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
 ### Sending a Fax with Resolution in FaxMessage
-To assign a fax to have a Resolution in the request similar to the following example can be used. 
+To assign the fax resolution, a request similar to the following example can be used. 
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -237,38 +237,16 @@ To assign a fax to have a Resolution in the request similar to the following exa
     </FaxMessages>
 </v2:SendFaxRequest>
 ```
-You can visit here the definition of Resolution and its values:
+You can visit the definition of Resolution and its values here:
 * [FaxMessage Parameters](#faxmessage-parameters)
 * [Resolution Levels](#resolution-levels)
 
-### Sending a Fax with Resolution in SendFaxRequest
-To assign a fax to have a Resolution in the request similar to the following example can be used. 
-```xml
-<v2:SendFaxRequest>
-    <Resolution>fine</Resolution>
-    <FaxMessages>
-        <FaxMessage>
-            <MessageRef>test-1-1-1</MessageRef>
-            <SendTo>6011111111</SendTo>
-            <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-```
-You can visit here the definition of Resolution and its values:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-* [Resolution Levels](#resolution-levels)
-
 ### Sending a Fax with FaxDitheringTechnique in FaxDocument:
-To assign a fax to have a FaxDitheringTechnique in the request similar to the following example can be used. 
+
+To set the fax FaxDitheringTechnique, a request similar to the following example can be used. 
+
 ```xml
 <v2:SendFaxRequest>
-    <Resolution>fine</Resolution>
     <FaxMessages>
         <FaxMessage>
             <MessageRef>test-1-1-1</MessageRef>
@@ -284,19 +262,20 @@ To assign a fax to have a FaxDitheringTechnique in the request similar to the fo
     </FaxMessages>
 </v2:SendFaxRequest>
 ```
-You can visit here the definition of FaxDitheringTechnique:
+You can visit the definition of FaxDitheringTechnique here:
 * [FaxDitheringTechnique](#faxditheringtechnique)
 
 ### Assigning a Timezone in FaxMessage
-The Timezone will be used to format the datetime display in the fax header, a request similar to the following example below.
+
+The Timezone is used to format the datetime display in the fax header.
+
 ```xml
 <v2:SendFaxRequest>
-    <Resolution>fine</Resolution>
     <FaxMessages>
         <FaxMessage>
             <MessageRef>test-1-1-1</MessageRef>
             <SendTo>6011111111</SendTo>
-    		  <TimeZone>Australia/Adelaide</TimeZone>
+	    <TimeZone>Australia/Adelaide</TimeZone>
             <Documents>
                 <Document>
                     <FileName>test.txt</FileName>
@@ -309,10 +288,12 @@ The Timezone will be used to format the datetime display in the fax header, a re
 ```
 
 ### Assigning a Timezone in SendFaxRequest
-The Timezone will be used to format the datetime display in the fax header, a request similar to the following example below.
+
+The Timezone is used to format the datetime display in the fax header. Applying it to the SendFaxRequest will apply this to all FaxMessages in the request.
+
 ```xml
 <v2:SendFaxRequest>
- 	<TimeZone>Australia/Adelaide</TimeZone>
+    <TimeZone>Australia/Adelaide</TimeZone>
     <FaxMessages>
         <FaxMessage>
             <MessageRef>test-1-1-1</MessageRef>
@@ -329,7 +310,9 @@ The Timezone will be used to format the datetime display in the fax header, a re
 ```
 
 ### Assigning SendFrom in FaxMessage
+
 To send fax with SendFrom in FaxMessage a request similar to the following example can be used.
+
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -354,7 +337,7 @@ You can visit here the definition of SendFrom:
 To send fax with SendFrom in SendFaxRequest a request similar to the following example can be used.
 ```xml
 <v2:SendFaxRequest>
-	<SendFrom>TSID</SendFrom>
+    <SendFrom>TSID</SendFrom>
     <FaxMessages>
         <FaxMessage>
             <MessageRef>test-1-1-1</MessageRef>
@@ -373,7 +356,9 @@ You can visit here the definition of SendFrom:
 * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
 ### Assigning a HeaderFormat in FaxMessage
-Allows the header format that appears at the top of the transmitted fax to be changed, a request similar to the following example below.
+
+Allows the header format that appears at the top of the transmitted fax to be changed.
+
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -397,11 +382,13 @@ This is the sample output of fax header using the header format above in the req
 	From TSID, To 6011111111 Wed Apr 26 09:33 2017 1 of 1
 ```
 
-You need to visit here on how to setup a headerformat value:
+For more information, visit the following on how to setup the HeaderFormat value:
 * [Header Format](#header-format)
 
 ### Assigning a HeaderFormat in SendFaxRequest
-Allows the header format that appears at the top of the transmitted fax to be changed, a request similar to the following example below.
+
+Allows the header format that appears at the top of the transmitted fax to be changed.
+
 ```xml
 <v2:SendFaxRequest>
 	<SendFrom>TSID</SendFrom>
@@ -420,11 +407,13 @@ Allows the header format that appears at the top of the transmitted fax to be ch
 	</FaxMessages>
 </v2:SendFaxRequest>
 ```
-You need to visit here on how to setup a headerformat value:
+For more information, visit the following on how to setup the HeaderFormat value:
 * [Header Format](#header-format)
 
 ### Assigning CLI in FaxMessage
+
 Assigning a CLI in the FaxMessage, a request similar to the following example below.
+
 ```xml
 <v2:SendFaxRequest>
 	<FaxMessages>
@@ -445,30 +434,10 @@ Assigning a CLI in the FaxMessage, a request similar to the following example be
 You can visit here the definition of CLI:
 * [FaxMessage Parameters](#faxmessage-parameters)
 
-### Assigning CLI in SendFaxRequest
-Assigning a CLI in the SendFaxRequest, a request similar to the following example below.
-```xml
-<v2:SendFaxRequest>
-	<CLI>123</CLI>
-	<FaxMessages>
-		<FaxMessage>
-			<MessageRef>test-1-1-1</MessageRef>
-			<SendTo>6011111111</SendTo>
-			<Documents>
-		    	<Document>
-			        <FileName>test.txt</FileName>
-			        <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-		    	</Document>
-			</Documents>
-		</FaxMessage>
-	</FaxMessages>
-</v2:SendFaxRequest>
-```
-You can visit here the definition of CLI:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-
 ### Sending a Fax with DNCR enabled in FaxMessage
-To send fax with DNCR in FaxMessage, a request must be similar to this following example.
+
+To check if a number is on the Do Not Call Register (Australian) before the fax is sent:
+
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -491,32 +460,10 @@ You can visit here the definition of Blocklists and its paremeters:
 * [FaxMessage Parameters](#faxmessage-parameters)
 * [Blocklists Parameters](#blocklists-parameters)
 
-### Sending a Fax with DNCR enabled in SendFaxRequest
-To send fax with DNCR in SendFaxRequest, a request must be similar to this following example.
-```xml
-<v2:SendFaxRequest>
-	<Blocklists dncr="true" fps="false" smartblock="false" />
-    <FaxMessages>
-        <FaxMessage>
-            <MessageRef>test-1-1-1</MessageRef>
-            <SendTo>6011111111</SendTo>
-            <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-
-```
-You can visit here the definition of Blocklists and its paremeters:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-* [Blocklists Parameters](#blocklists-parameters)
-
 ### Sending a Fax with FPS enabled in FaxMessage
-To send fax with FPS in FaxMessage, a request must be similar to this following example.
+
+To check if a number is on the FPS blacklist (UK) before the fax is sent:
+
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -539,32 +486,10 @@ You can visit here the definition of Blocklists and its paremeters:
 * [FaxMessage Parameters](#faxmessage-parameters)
 * [Blocklists Parameters](#blocklists-parameters)
 
-### Sending a Fax with FPS enabled in SendFaxRequest
-To send fax with FPS in SendFaxRequest, a request must be similar to this following example.
-```xml
-<v2:SendFaxRequest>
-	<Blocklists dncr="false" fps="true" smartblock="false" />
-    <FaxMessages>
-        <FaxMessage>
-            <MessageRef>test-1-1-1</MessageRef>
-            <SendTo>6011111111</SendTo>
-            <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-
-```
-You can visit here the definition of Blocklists and its paremeters:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-* [Blocklists Parameters](#blocklists-parameters)
-
 ### Sending a Fax with Smartblock enabled in FaxMessage
-To send fax with Smartblock in FaxMessage, a request must be similar to this following example.
+
+To check if a number is on the Smartblock list before the fax is sent:
+
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -587,32 +512,10 @@ You can visit here the definition of Blocklists and its paremeters:
 * [FaxMessage Parameters](#faxmessage-parameters)
 * [Blocklists Parameters](#blocklists-parameters)
 
-### Sending a Fax with Smartblock enabled in SendFaxRequest
-To send fax with Smartblock in SendFaxRequest, a request must be similar to this following example.
-```xml
-<v2:SendFaxRequest>
-	<Blocklists dncr="false" fps="false" smartblock="true" />
-    <FaxMessages>
-        <FaxMessage>
-            <MessageRef>test-1-1-1</MessageRef>
-            <SendTo>6011111111</SendTo>
-            <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-
-```
-You can visit here the definition of Blocklists and its paremeters:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-* [Blocklists Parameters](#blocklists-parameters)
-
 ### Sending a Fax with ScheduledStartTime in FaxMessage
-To set a ScheduledStartTime for FaxMessage, a request must similar to the following example below can be used.
+
+To set a ScheduledStartTime for the FaxMessage, a request similar to the following can be used.
+
 ```xml
 <v2:SendFaxRequest>
     <FaxMessages>
@@ -633,30 +536,10 @@ To set a ScheduledStartTime for FaxMessage, a request must similar to the follow
 To know more about ScheduledStartTime you can check it here:
 * [FaxMessage Parameters](#faxmessage-parameters)
 
-### Sending a Fax with ScheduledStartTime in SendFaxRequest
-To set a ScheduledStartTime for SendFaxRequest, a request must similar to the following example below can be used.
-```xml
-<v2:SendFaxRequest>
-	<ScheduledStartTime>2017-03-25T12:00:00Z</ScheduledStartTime>
-	<FaxMessages>
-		<FaxMessage>
-    		<MessageRef>test-1-1-1</MessageRef>
-		    <SendTo>6011111111</SendTo>
-		    <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-```
-To know more about ScheduledStartTime you can check it here:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-
 ### Sending a Fax with MustBeSentBeforeDate in FaxMessage
-To set a MustBeSentBeforeDate for FaxMessage, a request must similar to the following example below can be used.
+
+To set a MustBeSentBeforeDate for FaxMessage, a request similar to the following can be used.
+
 ```xml
 <v2:SendFaxRequest>
 	<FaxMessages>
@@ -677,40 +560,10 @@ To set a MustBeSentBeforeDate for FaxMessage, a request must similar to the foll
 To know more about MustBeSentBeforeDate you can check it here:
 * [FaxMessage Parameters](#faxmessage-parameters)
 
-### Sending a Fax with MustBeSentBeforeDate in SendFaxRequest
-To set a MustBeSentBeforeDate for SendFaxRequest, a request must similar to the following example below can be used.
-```xml
-<v2:SendFaxRequest>
-	<MustBeSentBeforeDate>2013-09-05T21:30:17+10:00</MustBeSentBeforeDate>
-	<FaxMessages>
-		<FaxMessage>
-    		<MessageRef>test-1-1-1</MessageRef>
-		    <SendTo>6011111111</SendTo>
-		    <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-        <FaxMessage>
-    		<MessageRef>test-1-1-2</MessageRef>
-		    <SendTo>6011111112</SendTo>
-		    <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-```
-To know more about MustBeSentBeforeDate you can check it here:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
-
 ### Sending a Fax with MaxFaxPages in FaxMessage
-To set a MaxFaxPages for FaxMessage, a request must similar to the following example below can be used.
+
+To set a MaxFaxPages for FaxMessage, a request similar to the following can be used.
+
 ```xml
 <v2:SendFaxRequest>
 	<FaxMessages>
@@ -741,38 +594,6 @@ To set a MaxFaxPages for FaxMessage, a request must similar to the following exa
 ```
 To know more about MaxFaxPages you can check it here:
 * [FaxMessage Parameters](#faxmessage-parameters)
-
-### Sending a Fax with MaxFaxPages in SendFaxRequest
-To set a MaxFaxPages for SendFaxRequest, a request must similar to the following example below can be used.
-```xml
-<v2:SendFaxRequest>
-	<MaxFaxPages>1</MaxFaxPages>
-	<FaxMessages>
-		<FaxMessage>
-    		<MessageRef>test-1-1-1</MessageRef>
-		    <SendTo>6011111111</SendTo>
-		    <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-        <FaxMessage>
-    		<MessageRef>test-1-1-2</MessageRef>
-		    <SendTo>6011111112</SendTo>
-		    <Documents>
-                <Document>
-                    <FileName>test.txt</FileName>
-                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
-                </Document>
-            </Documents>
-        </FaxMessage>
-    </FaxMessages>
-</v2:SendFaxRequest>
-```
-To know more about MaxFaxPages you can check it here:
-* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
 
 ### Sending Multiple Faxes
 To send faxes to multiple destinations a request similar to the following example can be used. Please note the addition of another “FaxMessage”:
