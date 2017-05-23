@@ -107,8 +107,6 @@ To send a fax to a single destination a request similar to the following example
         <FaxMessage>
             <MessageRef>test-1-1-1</MessageRef>
             <SendTo>6011111111</SendTo>
-            <SendFrom>Test Fax</SendFrom>
-            <Resolution>normal</Resolution>
             <Documents>
                 <Document>
                     <FileName>test.txt</FileName>
@@ -120,7 +118,484 @@ To send a fax to a single destination a request similar to the following example
 </v2:SendFaxRequest>
 ```
 
-### Sending multiple faxes:
+You can visit the following properties of Document, FaxMessage, and SendFaxRequest to know its definitions:
+* [FaxDocument Parameters](#faxdocument-parameters)
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
+### Sending a Fax with Retries inside a FaxMessage
+To set-up a fax to have retries a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Retries>2</Retries>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+You can visit the following properties of Document and FaxMessage to know its definitions:
+* [FaxDocument Parameters](#faxdocument-parameters)
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with Retries inside a SendFaxRequest
+To set-up a fax to have retries a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+    <Retries>2</Retries>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+You can visit the following properties of Document and SendFaxRequest to know its definitions:
+* [FaxDocument Parameters](#faxdocument-parameters)
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
+### Sending a Fax with BusyRetries inside a FaxMessage
+To set-up a fax to have busyRetries a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <BusyRetries>2</BusyRetries>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+You can visit the following properties of Document and FaxMessage to know its definitions:
+* [FaxDocument Parameters](#faxdocument-parameters)
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with BusyRetries inside a SendFaxRequest
+To set-up a fax to have busyRetries a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+	<BusyRetries>2</BusyRetries>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit the following properties of Document and SendFaxRequest to know its definitions:
+* [FaxDocument Parameters](#faxdocument-parameters)
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
+### Sending a Fax with Resolution in FaxMessage
+To assign the fax resolution, a request similar to the following example can be used. 
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Resolution>fine</Resolution>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit the definition of Resolution and its values here:
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [Resolution Levels](#resolution-levels)
+
+### Sending a Fax with FaxDitheringTechnique in FaxDocument:
+
+To set the fax FaxDitheringTechnique, a request similar to the following example can be used. 
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                    <DitheringTechnique>normal</DitheringTechnique>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit the definition of FaxDitheringTechnique here:
+* [FaxDitheringTechnique](#faxditheringtechnique)
+
+### Assigning a Timezone in FaxMessage
+
+The Timezone is used to format the datetime display in the fax header.
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+	    <TimeZone>Australia/Adelaide</TimeZone>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+### Assigning a Timezone in SendFaxRequest
+
+The Timezone is used to format the datetime display in the fax header. Applying it to the SendFaxRequest will apply this to all FaxMessages in the request.
+
+```xml
+<v2:SendFaxRequest>
+    <TimeZone>Australia/Adelaide</TimeZone>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+
+### Assigning SendFrom in FaxMessage
+
+To send fax with SendFrom in FaxMessage a request similar to the following example can be used.
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <SendFrom>TSID</SendFrom>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of SendFrom:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Assigning SendFrom in SendFaxRequest
+To send fax with SendFrom in SendFaxRequest a request similar to the following example can be used.
+```xml
+<v2:SendFaxRequest>
+    <SendFrom>TSID</SendFrom>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of SendFrom:
+* [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+
+### Assigning a HeaderFormat in FaxMessage
+
+Allows the header format that appears at the top of the transmitted fax to be changed.
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <SendFrom>TSID</SendFrom>
+            <HeaderFormat>From %from%, To %to%|%a %b %d %H:%M %Y</HeaderFormat>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+This is the sample output of fax header using the header format above in the request:
+```
+	From TSID, To 6011111111 Wed Apr 26 09:33 2017 1 of 1
+```
+
+For more information, visit the following on how to setup the HeaderFormat value:
+* [Header Format](#header-format)
+
+### Assigning a HeaderFormat in SendFaxRequest
+
+Allows the header format that appears at the top of the transmitted fax to be changed.
+
+```xml
+<v2:SendFaxRequest>
+	<SendFrom>TSID</SendFrom>
+	<HeaderFormat>From %from%, To %to%|%a %b %d %H:%M %Y</HeaderFormat>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<Documents>
+		    	<Document>
+			        <FileName>test.txt</FileName>
+			        <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+		    	</Document>
+			</Documents>
+		</FaxMessage>
+	</FaxMessages>
+</v2:SendFaxRequest>
+```
+For more information, visit the following on how to setup the HeaderFormat value:
+* [Header Format](#header-format)
+
+### Assigning CLI in FaxMessage
+
+Assigning a CLI in the FaxMessage, a request similar to the following example below.
+
+```xml
+<v2:SendFaxRequest>
+	<FaxMessages>
+		<FaxMessage>
+			<MessageRef>test-1-1-1</MessageRef>
+			<SendTo>6011111111</SendTo>
+			<CLI>123</CLI>
+			<Documents>
+		    	<Document>
+			        <FileName>test.txt</FileName>
+			        <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+		    	</Document>
+			</Documents>
+		</FaxMessage>
+	</FaxMessages>
+</v2:SendFaxRequest>
+```
+You can visit here the definition of CLI:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with DNCR enabled in FaxMessage
+
+To check if a number is on the Do Not Call Register (Australian) before the fax is sent:
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Blocklists dncr="true" fps="false" smartblock="false" />
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with FPS enabled in FaxMessage
+
+To check if a number is on the FPS blacklist (UK) before the fax is sent:
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Blocklists dncr="false" fps="true" smartblock="false" />
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with Smartblock enabled in FaxMessage
+
+To check if a number is on the Smartblock list before the fax is sent:
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <Blocklists dncr="false" fps="false" smartblock="true" />
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+
+```
+You can visit here the definition of Blocklists and its paremeters:
+* [FaxMessage Parameters](#faxmessage-parameters)
+* [Blocklists Parameters](#blocklists-parameters)
+
+### Sending a Fax with ScheduledStartTime in FaxMessage
+
+To set a ScheduledStartTime for the FaxMessage, a request similar to the following can be used.
+
+```xml
+<v2:SendFaxRequest>
+    <FaxMessages>
+        <FaxMessage>
+            <MessageRef>test-1-1-1</MessageRef>
+            <SendTo>6011111111</SendTo>
+            <ScheduledStartTime>2017-03-25T12:00:00Z</ScheduledStartTime>
+            <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about ScheduledStartTime you can check it here:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with MustBeSentBeforeDate in FaxMessage
+
+To set a MustBeSentBeforeDate for FaxMessage, a request similar to the following can be used.
+
+```xml
+<v2:SendFaxRequest>
+	<FaxMessages>
+		<FaxMessage>
+    		<MessageRef>test-1-1-1</MessageRef>
+		    <SendTo>6011111111</SendTo>
+		    <MustBeSentBeforeDate>2013-09-05T21:30:17+10:00</MustBeSentBeforeDate>
+		    <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about MustBeSentBeforeDate you can check it here:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending a Fax with MaxFaxPages in FaxMessage
+
+To set a MaxFaxPages for FaxMessage, a request similar to the following can be used.
+
+```xml
+<v2:SendFaxRequest>
+	<FaxMessages>
+		<FaxMessage>
+    		<MessageRef>test-1-1-1</MessageRef>
+		    <SendTo>6011111111</SendTo>
+		    <MaxFaxPages>1</MaxFaxPages>
+		    <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+        <FaxMessage>
+    		<MessageRef>test-1-1-2</MessageRef>
+		    <SendTo>6011111112</SendTo>
+		    <MaxFaxPages>1</MaxFaxPages>
+		    <Documents>
+                <Document>
+                    <FileName>test.txt</FileName>
+                    <FileData>VGhpcyBpcyBhIGZheA==</FileData>
+                </Document>
+            </Documents>
+        </FaxMessage>
+    </FaxMessages>
+</v2:SendFaxRequest>
+```
+To know more about MaxFaxPages you can check it here:
+* [FaxMessage Parameters](#faxmessage-parameters)
+
+### Sending Multiple Faxes
 To send faxes to multiple destinations a request similar to the following example can be used. Please note the addition of another “FaxMessage”:
 
 ```xml
@@ -152,7 +627,7 @@ To send faxes to multiple destinations a request similar to the following exampl
 </v2:SendFaxRequest>
 ```
 
-### Sending faxes to multiple destinations with the same document (broadcasting):
+### Sending faxes to multiple destinations with the same document (broadcasting)
 To send the same fax content to multiple destinations (broadcasting) a request similar to the example below can be used.
 
 This method is recommended for broadcasting as it takes advantage of the multiple tiers in the send request. This eliminates the repeated parameters out of the individual fax message elements which are instead inherited from the parent send fax request. An example below shows “SendFrom” being used for both FaxMessages. While not shown in the example below further control can be achieved over individual fax elements to override the parameters set in the parent.
@@ -285,218 +760,6 @@ The example below shows a TIFF that will be stamped with the text “Hello” at
 
 For more details, see [StampMergeData parameters section](#stampMergeDataParameters) of this document.
 
-
-#### Setting a Timezone in a Request
-The example below shows how to set a `Timezone` in the request for all faxmessages.
-
-```xml
-<v2:SendFaxRequest>
-	<BroadcastRef>test-27</BroadcastRef>
-	<SendRef>test-2-1</SendRef>
-	<TimeZone>Australia/Melbourne</TimeZone>
-	<FaxMessages>
-		<FaxMessage>
-			<MessageRef>test-1-1-1</MessageRef>
-			<SendTo>6011111111</SendTo>
-			<Resolution>fine</Resolution>
-		</FaxMessage>
-	</FaxMessages>
-	<Documents>
-		<Document>
-			<FileName>sample-docx-merge.docx</FileName>
-			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
-			<DocMergeData>
-				<MergeField>
-					<Key>field1</Key>
-					<Value>Test</Value>
-				</MergeField>
-			</DocMergeData>
-		</Document>
-	</Documents>
-</v2:SendFaxRequest>
-```
-
-#### Setting a Timezone for each FaxMessage
-The example below shows how to set a `Timezone` in the request for each faxmessage.
-
-```xml
-<v2:SendFaxRequest>
-	<BroadcastRef>test-27</BroadcastRef>
-	<SendRef>test-2-1</SendRef>
-	<FaxMessages>
-		<FaxMessage>
-			<MessageRef>test-1-1-1</MessageRef>
-			<SendTo>6011111111</SendTo>
-			<Resolution>fine</Resolution>
-			<TimeZone>Australia/Melbourne</TimeZone>
-		</FaxMessage>
-	</FaxMessages>
-	<Documents>
-		<Document>
-			<FileName>sample-docx-merge.docx</FileName>
-			<FileData>VGhpcyBpcyBhIGZheA==</FileData>
-			<DocMergeData>
-				<MergeField>
-					<Key>field1</Key>
-					<Value>Test</Value>
-				</MergeField>
-			</DocMergeData>
-		</Document>
-	</Documents>
-</v2:SendFaxRequest>
-```
-### SendFaxRequest Parameters:
-
-**Name**|**Required**|**Type**|**Description**|**Default**
------|-----|-----|-----|-----
-**BroadcastRef**||String|Allows the user to tag all faxes in this request with a user-defined broadcastreference. These faxes can then be retrieved at a later point based on this reference.|
-**SendRef**||String|Similar to the BroadcastRef, this allows the user to tag all faxes in this request with a send reference. The SendRef is used to represent all faxes in this request only, so naturally it must be unique.|
-**FaxMessages**|**X**| Array of FaxMessage |FaxMessages describe each individual fax message and its destination. See below for details.|
-**SendFrom**||Alphanumeric String|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 20 characters|Fax
-**Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
-**Resolution**||Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.|normal
-**ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
-**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details. |
-**Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
-**BusyRetries**||Unsigned Integer|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
-**HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
-**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
-**MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
-
-***FaxMessage Parameters:***
-This represents a single fax message being sent to a destination.
-
-**Name** | **Required** | **Type** | **Description** | **Default** 
------|-----|-----|-----|-----
-**MessageRef** | **X** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message. |
-**SendTo** | **X** | String | The phone number the fax message will be sent to. |
-**SendFrom** | | Alphanumeric String | A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters | Empty
-**Documents** | **X** | Array of FaxDocument | Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details. | 
-**Resolution** | | Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.| normal
-**ScheduledStartTime** | | DateTime | The date and time the transmission of the fax will start. | Start now
-**Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. |
-**Retries** | | Unsigned Integer | The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager. | Account Default
-**BusyRetries** | | Unsigned Integer | Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
-**HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
-**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
-**MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
-**CLI**| | String| Allows a customer called ID. Note: Must be enabled on the account before it can be used.
-
-***FaxDocument Parameters:***
-Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
-
-**Name**|**Required**|**Type**|**Description**|**Default**
------|-----|-----|-----|-----
-**FileName**|**X**|String|The document filename including extension. This is important as it is used to help identify the document MIME type.|
-**FileData**|**X**|Base64|The document encoded in Base64 format.|
-**Order** | | Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
-**DitheringTechnique** | | FaxDitheringTechnique | Applies a custom dithering method to their fax document before transmission. | 
-**DocMergeData**|||An Array of MergeFields|
-**StampMergeData**|||An Array of MergeFields|
-
-**FaxDitheringTechnique:**
-
-| Value | Fax Dithering Technique |
-| --- | --- |
-| **none** | No dithering. |
-| **normal** | Normal dithering.|
-| **turbo** | Turbo dithering.|
-| **darken** | Darken dithering.|
-| **darken_more** | Darken more dithering.|
-| **darken_extra** | Darken extra dithering.|
-| **lighten** | Lighten dithering.|
-| **lighten_more** | Lighten more dithering. |
-| **crosshatch** | Crosshatch dithering. |
-| **DETAILED** | Detailed dithering. |
-
-**Resolution Levels:**
-
-| **Value** | **Description** |
-| --- | --- |
-| **normal** | Normal standard resolution (98 scan lines per inch) |
-| **fine** | Fine resolution (196 scan lines per inch) |
-
-
-**Blocklists Parameters:**
-
-| **Name** | **Required** | **Type** | **Description** |
-| --- | --- | --- | --- |
-| **smartblock** | false | boolean | Blocks sending to a number if it has consistently failed in the past. |
-| **fps** | false | boolean | Wash numbers against the fps blocklist. |
-| **dncr** | false | boolean | Wash numbers against the dncr blocklist. |
-
-**Header Format:**
-
-Determines the format of the header line that is printed on the top of the transmitted fax message.
-This is set to **rom %from%, To %to%|%a %b %d %H:%M %Y”**y default which produces the following:
-
-From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
-
-**Value** | **Description**
---- | ---
-**%from%**|The value of the **SendFrom** field in the message.
-**%to%**|The value of the **SendTo** field in the message.
-**%a**|Weekday name (abbreviated)
-**%A**|Weekday name
-**%b**|Month name (abbreviated)
-**%B**|Month name
-**%d**|Day of the month as a decimal (01 – 31)
-**%m**|Month as a decimal (01 – 12)
-**%y**|Year as a decimal (abbreviated)
-**%Y**|Year as a decimal
-**%H**|Hour as a decimal using a 24-hour clock (00 – 23)
-**%I**|Hour as a decimal using a 12-hour clock (01 – 12)
-**%M**|Minute as a decimal (00 – 59)
-**%S**|Second as a decimal (00 – 59)
-**%p**|AM or PM
-**%j**|Day of the year as a decimal (001 – 366)
-**%U**|Week of the year as a decimal (Monday as first day of the week) (00 – 53)
-**%W**|Day of the year as a decimal (001 – 366)
-**%w**|Day of the week as a decimal (0 – 6) (Sunday being 0)
-**%%**|A literal % character
-
-TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
-
-<a name="docMergeDataParameters"></a> 
-
-**DocMergeData Mergefield Parameters:**
-
-|**Name** | **Required** | **Type** | **Description** |
-|-----|-----|-----|-----|
-|**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
-|**Value** | | *String* | The value that replaces the key. |
-
-<a name="stampMergeDataParameters"></a> 
-**StampMergeData Mergefield Parameters:**
-
-|**Name** | **Required** | **Type** | **Description** |
-|-----|-----|-----|-----|
-|**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
-|**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
-|**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
-
- **StampMergeFieldKey Parameters:**
-
-| **Name** | **Required** | **Type** | **Description** |
-|----|-----|-----|-----|
-| **xCoord** |  | *Int* | X coordinate. |
-| **yCoord** |  | *Int* | Y coordinate. |
-
-**StampMergeFieldTextValue Parameters:**
-
-|**Name** | **Required** | **Type** | **Description** |
-|-----|-----|-----|-----|
-|**fontName** |  | *String* | Font name to be used. See list of supported font names [here](#list-of-supported-font-names-for-stampmergefield-textvalue). |
-|**fontSize** |  | *Decimal* | Font size to be used. |
-
-**StampMergeFieldImageValue Parameters:**
-
-|**Name** | **Required** | **Type** | **Description** |
-|-----|-----|-----|-----|
-|**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
-|**fileData** |  | *Base64* | The document encoded in Base64 format. |
-
-
 ### Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
 
@@ -615,6 +878,8 @@ Contains the total count of how many faxes ended in each result, as well as some
 | **scheduledStartTime** | *DateTime* | *results* | The date and time the fax is scheduled to start. |
 | **dateCallStarted** | *DateTime* | *results* | Date and time the fax started transmitting. |
 | **dateCallEnded** | *DateTime* | *results* | Date and time the fax finished transmitting. |
+| **dateDncrWashed** | *DateTime* | *results* | Date and time the fax number finished washing. |
+| **dncrTransactionId** | *String* | *results* | Transaction ID of washed fax number. |
 | **csi** | *String* | *results* | Caller Subscriber Information of the recepient. |
 
 **FaxError:**
@@ -1537,3 +1802,154 @@ hE8O3Tk0DfA7Z22STj5/EEboAQkdzRww99lBAAAAAElFTkSuQmCC</FileData>
    </soapenv:Body>
 </soapenv:Envelope>
 ```
+
+### SendFaxRequest Parameters
+
+**Name**|**Required**|**Type**|**Description**|**Default**
+-----|-----|-----|-----|-----
+**BroadcastRef**||String|Allows the user to tag all faxes in this request with a user-defined broadcastreference. These faxes can then be retrieved at a later point based on this reference.|
+**SendRef**||String|Similar to the BroadcastRef, this allows the user to tag all faxes in this request with a send reference. The SendRef is used to represent all faxes in this request only, so naturally it must be unique.|
+**FaxMessages**|**X**| Array of FaxMessage |FaxMessages describe each individual fax message and its destination. See below for details.|
+**SendFrom**||Alphanumeric String|A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 20 characters|Fax
+**Documents**|**X**|Array of FaxDocument|Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details.|
+**Resolution**||Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.|normal
+**ScheduledStartTime**||DateTime|The date and time the transmission of the fax will start.|Current time (immediate sending)
+**Blocklists**||Blocklists|The blocklists that will be checked and filtered against before sending the message. See below for details. |
+**Retries**||Unsigned Integer|The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager.|Account Default
+**BusyRetries**||Unsigned Integer|Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Each account has a maximum number of busy retries that can be changed by consultation with your account manager.|Account default
+**HeaderFormat**||String|Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field.| From: X, To: X
+**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
+**MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
+
+### FaxMessage Parameters
+This represents a single fax message being sent to a destination.
+
+**Name** | **Required** | **Type** | **Description** | **Default** 
+-----|-----|-----|-----|-----
+**MessageRef** | **X** | String | A unique user-provided identifier that is used to identify the fax message. This can be used at a later point to retrieve the results of the fax message. |
+**SendTo** | **X** | String | The phone number the fax message will be sent to. |
+**SendFrom** | | Alphanumeric String | A customisable string used to identify the sender of the fax. Also known as the Transmitting Subscriber Identification (TSID). The maximum string length is 32 characters | Empty
+**Documents** | **X** | Array of FaxDocument | Each FaxDocument object describes a fax document to be sent. Multiple documents can be defined here which will be concatenated and sent in the same message. See below for details. | 
+**Resolution** | | Resolution|Resolution setting of the fax document. Refer to the resolution table below for possible resolution values.| normal
+**ScheduledStartTime** | | DateTime | The date and time the transmission of the fax will start. | Start now
+**Blocklists** | | Blocklists | The blocklists that will be checked and filtered against before sending the message. See below for details. |
+**Retries** | | Unsigned Integer | The number of times to retry sending the fax if it fails. Each account has a maximum number of retries that can be changed by consultation with your account manager. | Account Default
+**BusyRetries** | | Unsigned Integer | Certain fax errors such as “NO_ANSWER” or “BUSY” are not included in the above retries limit and can be set separately. Please consult with your account manager in regards to maximum value.|account default
+**HeaderFormat** | | String | Allows the header format that appears at the top of the transmitted fax to be changed. See below for an explanation of how to format this field. | From： X, To: X
+**MustBeSentBeforeDate** | | DateTime |  Specifies a time the fax must be delivered by. Once the specified time is reached the fax will be cancelled across the system. | 
+**MaxFaxPages** | | Unsigned Integer |  Sets a limit on the amount of pages allowed in a single fax transmission. Especially useful if the user is blindly submitting their customer's documents to the platform. | 20
+**CLI**| | String| Allows a customer called ID. Note: Must be enabled on the account before it can be used.
+
+
+### FaxDocument Parameters
+Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
+
+**Name**|**Required**|**Type**|**Description**|**Default**
+-----|-----|-----|-----|-----
+**FileName**|**X**|String|The document filename including extension. This is important as it is used to help identify the document MIME type.|
+**FileData**|**X**|Base64|The document encoded in Base64 format.|
+**Order** | | Integer|If multiple documents are defined on a message this value will determine the order in which they will be transmitted.|0
+**DitheringTechnique** | | FaxDitheringTechnique | Applies a custom dithering method to their fax document before transmission. | 
+**DocMergeData**|||An Array of MergeFields|
+**StampMergeData**|||An Array of MergeFields|
+
+### FaxDitheringTechnique
+
+| Value | Fax Dithering Technique |
+| --- | --- |
+| **none** | No dithering. |
+| **normal** | Normal dithering.|
+| **turbo** | Turbo dithering.|
+| **darken** | Darken dithering.|
+| **darken_more** | Darken more dithering.|
+| **darken_extra** | Darken extra dithering.|
+| **lighten** | Lighten dithering.|
+| **lighten_more** | Lighten more dithering. |
+| **crosshatch** | Crosshatch dithering. |
+| **DETAILED** | Detailed dithering. |
+
+### Resolution Levels
+
+| **Value** | **Description** |
+| --- | --- |
+| **normal** | Normal standard resolution (98 scan lines per inch) |
+| **fine** | Fine resolution (196 scan lines per inch) |
+
+### Header Format
+
+Determines the format of the header line that is printed on the top of the transmitted fax message.
+This is set to **rom %from%, To %to%|%a %b %d %H:%M %Y”**y default which produces the following:
+
+From TSID, To 61022221234 Mon Aug 28 15:32 2012 1 of 1
+
+**Value** | **Description**
+--- | ---
+**%from%**|The value of the **SendFrom** field in the message.
+**%to%**|The value of the **SendTo** field in the message.
+**%a**|Weekday name (abbreviated)
+**%A**|Weekday name
+**%b**|Month name (abbreviated)
+**%B**|Month name
+**%d**|Day of the month as a decimal (01 – 31)
+**%m**|Month as a decimal (01 – 12)
+**%y**|Year as a decimal (abbreviated)
+**%Y**|Year as a decimal
+**%H**|Hour as a decimal using a 24-hour clock (00 – 23)
+**%I**|Hour as a decimal using a 12-hour clock (01 – 12)
+**%M**|Minute as a decimal (00 – 59)
+**%S**|Second as a decimal (00 – 59)
+**%p**|AM or PM
+**%j**|Day of the year as a decimal (001 – 366)
+**%U**|Week of the year as a decimal (Monday as first day of the week) (00 – 53)
+**%W**|Day of the year as a decimal (001 – 366)
+**%w**|Day of the week as a decimal (0 – 6) (Sunday being 0)
+**%%**|A literal % character
+
+TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
+
+### Blocklists Parameters
+
+| **Name** | **Required** | **Type** | **Description** |
+| --- | --- | --- | --- |
+| **smartblock** | false | boolean | Blocks sending to a number if it has consistently failed in the past. |
+| **fps** | false | boolean | Wash numbers against the fps blocklist. |
+| **dncr** | false | boolean | Wash numbers against the dncr blocklist. |
+
+<a name="docMergeDataParameters"></a> 
+
+**DocMergeData Mergefield Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** | | *String* | A unique identifier used to determine which fields need replacing. |
+|**Value** | | *String* | The value that replaces the key. |
+
+<a name="stampMergeDataParameters"></a> 
+**StampMergeData Mergefield Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**Key** |  | *StampMergeFieldKey* | Contains x and y coordinates where the ImageValue or TextValue should be placed. |
+|**TextValue** |  | *StampMergeFieldTextValue* | The text value that replaces the key. |
+|**ImageValue** |  | *StampMergeFieldImageValue* | The image value that replaces the key. |
+
+ **StampMergeFieldKey Parameters:**
+
+| **Name** | **Required** | **Type** | **Description** |
+|----|-----|-----|-----|
+| **xCoord** |  | *Int* | X coordinate. |
+| **yCoord** |  | *Int* | Y coordinate. |
+
+**StampMergeFieldTextValue Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fontName** |  | *String* | Font name to be used. See list of supported font names [here](#list-of-supported-font-names-for-stampmergefield-textvalue). |
+|**fontSize** |  | *Decimal* | Font size to be used. |
+
+**StampMergeFieldImageValue Parameters:**
+
+|**Name** | **Required** | **Type** | **Description** |
+|-----|-----|-----|-----|
+|**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
+|**fileData** |  | *Base64* | The document encoded in Base64 format. |
