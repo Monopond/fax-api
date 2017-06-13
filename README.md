@@ -1103,7 +1103,6 @@ You can either specify to remove a saved fax document via its DocumentRef or you
 |**MessageRef**| | *String* | User-defined message reference. |
 |**SendRef**| | *String* | User-defined send reference. |
 |**BroadcastRef**| | *String* | User-defined broadcast reference. |
-|**MessageRefs**| | *String* | List of messageRef. |
 
 ### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
