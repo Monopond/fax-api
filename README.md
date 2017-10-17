@@ -1842,7 +1842,7 @@ This represents a single fax message being sent to a destination.
 
 
 ### FaxDocument Parameters
-Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, RTF, DOC, DOCX, XLS, XLSX, PPT, PPTX.
+Represents a fax document to be sent through the system. Supported file types are: PDF, TIFF, PNG, JPG, GIF, TXT, PS, DOC, DOCX, XLS, XLSX, PPT, PPTX.
 
 **Name**|**Required**|**Type**|**Description**|**Default**
 -----|-----|-----|-----|-----
