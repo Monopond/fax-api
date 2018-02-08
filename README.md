@@ -34,7 +34,7 @@ To access the API, use the following URLs:
 
 Test WSDL: https://test.api.monopond.com/fax/soap/v2.1/?wsdl
 
-Production WSDL: https://api.monopond.com/fax/soap/v2.1/?wsdl
+Production WSDL: https://faxapi.monopond.com/api/fax/v2.1?wsdl
 
 # Building a Request
 ## SOAP Envelope 
