@@ -1082,6 +1082,15 @@ This function allows you to upload a document and save it under a document refer
 |**FileName**| **X** | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 | **FileData**|**X**| *Base64* |The document encoded in Base64 format.| 
 
+### Sample Request
+```
+<v2:SaveFaxDocumentRequest>
+	<DocumentRef>sample-documentref</DocumentRef>
+	<FileName>sample.txt</FileName>
+	<FileData>VGhpcyBpcyBhIGZheA==</FileData>
+</v2:SaveFaxDocumentRequest>
+```
+
 ### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **DocumentRefAlreadyExistsException**, **DocumentContentTypeNotFoundException**, **InternalServerException**.
