@@ -1083,7 +1083,7 @@ This function allows you to upload a document and save it under a document refer
 | **FileData**|**X**| *Base64* |The document encoded in Base64 format.| 
 
 ### Sample Request
-```
+```xml
 <v2:SaveFaxDocumentRequest>
 	<DocumentRef>sample-documentref</DocumentRef>
 	<FileName>sample.txt</FileName>
