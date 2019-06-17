@@ -1,15 +1,16 @@
 Table of Contents
 =================
 
-   * [1.Introduction](#1introduction)
+   * [Table of Contents](#table-of-contents)
+   * [I. Introduction](#i-introduction)
       * [Prerequisites](#prerequisites)
       * [Overview of the Monopond Fax API](#overview-of-the-monopond-fax-api)
-   * [2.API Access and General Usage](#2api-access-and-general-usage)
+   * [II. API Access and General Usage](#ii-api-access-and-general-usage)
       * [API Web Service](#api-web-service)
-   * [Building a Request](#building-a-request)
-      * [SOAP Envelope](#soap-envelope)
-      * [Authorisation Headers](#authorisation-headers)
-   * [3.Function Definitions](#3function-definitions)
+      * [Building a Request](#building-a-request)
+         * [SOAP Envelope](#soap-envelope)
+         * [Authorisation Headers](#authorisation-headers)
+   * [III. Function Definitions](#iii-function-definitions)
       * [SendFax](#sendfax)
          * [Description](#description)
          * [Sending a single fax:](#sending-a-single-fax)
@@ -35,62 +36,57 @@ Table of Contents
          * [Sending Multiple Faxes](#sending-multiple-faxes)
          * [Sending faxes to multiple destinations with the same document (broadcasting)](#sending-faxes-to-multiple-destinations-with-the-same-document-broadcasting)
          * [Sending Microsoft Documents With DocMergeData:](#sending-microsoft-documents-with-docmergedata)
-               * [Sample Request](#sample-request)
          * [Sending Tiff files with StampMergeData:](#sending-tiff-files-with-stampmergedata)
-               * [Sample Request](#sample-request-1)
          * [Response](#response)
+         * [SOAP Faults](#soap-faults)
       * [FaxStatus](#faxstatus)
          * [Description](#description-1)
          * [Request](#request)
          * [Response](#response-1)
-         * [SOAP Faults](#soap-faults)
+         * [SOAP Faults](#soap-faults-1)
       * [StopFax](#stopfax)
          * [Description](#description-2)
          * [Request](#request-1)
-            * [StopFaxRequest Parameters:](#stopfaxrequest-parameters)
          * [Response](#response-2)
-         * [SOAP Faults](#soap-faults-1)
+         * [SOAP Faults](#soap-faults-2)
       * [PauseFax](#pausefax)
          * [Description](#description-3)
          * [Request](#request-2)
-            * [PauseFaxRequest Parameters:](#pausefaxrequest-parameters)
          * [Response](#response-3)
-         * [SOAP Faults](#soap-faults-2)
+         * [SOAP Faults](#soap-faults-3)
       * [ResumeFax](#resumefax)
          * [Request](#request-3)
-            * [ResumeFaxRequest Parameters:](#resumefaxrequest-parameters)
          * [Response](#response-4)
-         * [SOAP Faults](#soap-faults-3)
+         * [SOAP Faults](#soap-faults-4)
       * [FaxDocumentPreview](#faxdocumentpreview)
          * [Description](#description-4)
          * [Request](#request-4)
          * [Response](#response-5)
-         * [SOAP Faults](#soap-faults-4)
+         * [SOAP Faults](#soap-faults-5)
       * [SaveFaxDocument](#savefaxdocument)
          * [Description](#description-5)
          * [Request](#request-5)
          * [Sample Request](#sample-request-2)
-         * [SOAP Faults](#soap-faults-5)
+         * [SOAP Faults](#soap-faults-6)
       * [DeleteFaxDocument](#deletefaxdocument)
          * [Description](#description-6)
          * [Request](#request-6)
-         * [SOAP Faults](#soap-faults-6)
-   * [4. Outbound Callback Service](#4-outbound-callback-service)
+         * [SOAP Faults](#soap-faults-7)
+   * [IV. Outbound Callback Service](#iv-outbound-callback-service)
       * [Description](#description-7)
-   * [5. Inbound Callback Service](#5-inbound-callback-service)
+      * [Request](#request-7)
+   * [V. Inbound Callback Service](#v-inbound-callback-service)
       * [Description](#description-8)
-      * [Create or Update Callback Settings](#create-or-update-callback-settings)
-         * [Request](#request-7)
-         * [Sample Request](#sample-request-3)
-            * [Create callback settings](#create-callback-settings)
-         * [Response](#response-6)
-            * [Success](#success)
-      * [Get Callback Settings](#get-callback-settings)
-      * [Request](#request-8)
-      * [Response](#response-7)
-            * [Successful](#successful)
-            * [Failed](#failed)
-   * [6.More Information](#6more-information)
+      * [Callback Settings](#callback-settings)
+         * [Setting the callback settings](#setting-the-callback-settings)
+            * [Request](#request-8)
+            * [Response](#response-6)
+         * [Getting the callback settings](#getting-the-callback-settings)
+            * [Request](#request-9)
+            * [Response](#response-7)
+         * [Buying a Fax Number](#buying-a-fax-number)
+         * [Sending a Fax](#sending-a-fax)
+   * [VI. More Information](#vi-more-information)
       * [Exceptions/SOAP Faults](#exceptionssoap-faults)
          * [InvalidArgumentsException](#invalidargumentsexception)
          * [DocumentContentTypeNotFoundException](#documentcontenttypenotfoundexception)
@@ -102,7 +98,7 @@ Table of Contents
          * [File Encoding](#file-encoding)
          * [Dates](#dates)
       * [List of Supported font names for StampMergeField TextValue](#list-of-supported-font-names-for-stampmergefield-textvalue)
-   * [6.API Examples](#6api-examples)
+   * [VII. API Examples](#vii-api-examples)
       * [SendFax](#sendfax-1)
          * [Sending a single fax message](#sending-a-single-fax-message)
          * [Sending multiple fax messages in a single request](#sending-multiple-fax-messages-in-a-single-request)
@@ -1253,7 +1249,7 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **DocumentRefDoesNotExistException**, **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-# 4. Outbound Callback Service
+# IV. Outbound Callback Service
 ## Description
 The outbound callback service allows our platform to post fax results to you on fax message completion.
 
@@ -1273,7 +1269,7 @@ Once you have deployed the web service, please contact your account manager with
 </FaxMessages>
 ```
 
-# 5. Inbound Callback Service
+# V. Inbound Callback Service
 ## Description
 The inbound callback service allows our platform to post fax results to you on fax message completion.
 
@@ -1364,7 +1360,7 @@ Allows you to set the fax callback settings for the team.
 |`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
 |`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
 
-#### Buying a Fax Number
+### Buying a Fax Number
 ![Screenshot from 2019-06-17 13-35-42](https://user-images.githubusercontent.com/6060338/59583069-c444f780-910c-11e9-8990-776ad3a6fb74.png)
 
   1) Select a country
@@ -1377,11 +1373,11 @@ Allows you to set the fax callback settings for the team.
   2) Requested numbers are listed here.
   3) Proceed to checkout. This will calculate all the fees for the requested numbers.
 
-#### Sending a Fax
+### Sending Fax to a Fax Number
 
   1) **TODO**
 
-# 6.More Information
+# VI. More Information
 ## Exceptions/SOAP Faults
 If an error occurs during a request on the Monopond Fax API the service will throw a SOAP fault or exception. Each exception is listed in detail below. To see which exceptions match up to the function calls please refer to the function descriptions in the previous sectionSection 3.
 ### InvalidArgumentsException
@@ -1505,7 +1501,7 @@ Verdana-Regular
 Webdings-Regular
 ```
 
-# 6.API Examples
+# VII. API Examples
 ## SendFax
 ### Sending a single fax message
 
