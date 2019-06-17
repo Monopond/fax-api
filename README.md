@@ -1,4 +1,5 @@
 # 1.Introduction
+
 ## Prerequisites
 To gain access to the system you must have a Monopond user account that is flagged with Fax API privileges. 
 Please note some features described in this document will require access controls to be enacted. Examples of this include enabling specific destinations, filtering options and/or retry settings.
@@ -63,7 +64,7 @@ Applying these security headers will differ based on your API integration/connec
 
 When using the WSDL to generate your SOAP client you may use a WS-Security library from your programming language to apply the headers to this SOAP service. Below is an example of applying these headers in Java using WSS4J interceptors:
 
-```java
+```class
 Map<String,Object> outProps = new HashMap<String,Object>();
 outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
 outProps.put(WSHandlerConstants.USER, ”username”);
@@ -1118,9 +1119,9 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **DocumentRefDoesNotExistException**, **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-# 4.Callback Service
+# 4. Outbound Callback Service
 ## Description
-The callback service allows our platform to post fax results to you on fax message completion.
+The outbound callback service allows our platform to post fax results to you on fax message completion.
 
 To take advantage of this, you are required to write a simple web service to accept requests from our system, parse them and update the status of the faxes on your system.
 
@@ -1138,7 +1139,97 @@ Once you have deployed the web service, please contact your account manager with
 </FaxMessages>
 ```
 
-# 5.More Information
+# 5. Inbound Callback Service
+## Description
+The inbound callback service allows our platform to post fax results to you on fax message completion.
+
+To take advantage of this, you are required to write a simple web service to accept requests from our system, parse them and update the status of the faxes on your system.
+
+Once you have deployed the web service, please contact your account manager with the web service URL so they can attach it to your account. Once it is active, a request similar to the following will be posted to you on fax message completion:
+
+Allows you to set the fax callback settings for the team.
+
+**API Features**
+* [Create or Update Callback Settings](#create-or-update-callback-settings)
+* [Get Callback Settings](#get-callback-settings)
+
+## Create or Update Callback Settings
+
+### Request
+* URL: `/api/v1/incoming-fax-callback/settings`
+* Method: `POST`
+* Body: 
+  ```json5
+  {
+	"callbackUrl": "https://callback.com",
+	"enabled": true
+  }
+  ```
+
+| Property name  | Value  |  Description | Notes |
+|:------------:|:-------|:---------|:----------- |
+|`callbackUrl` |String | The callback url to be set   | 
+|`enabled` |Boolean | The identifier if the settings will be used or not.| required   | 
+
+### Sample Request
+#### Create callback settings
+```json5
+{
+	"callbackUrl": "https://callback.com",
+	"enabled": true
+}
+```
+
+### Response
+#### Success
+* Http Status: `200`
+* Body:
+```json5
+{
+    "teamId": 5,
+    "callbackUrl": "https://callback.com",
+    "enabled": false,
+    "_entityType": "CallbackSettings"
+}
+```
+
+## Get Callback Settings
+
+## Request
+* URL: `/api/v1/incoming-fax-callback/settings`
+* Method: `GET`
+
+## Response
+#### Successful
+* Http Status: `200`
+* Body:
+```json5
+{
+    "teamId": 5,
+    "callbackUrl": "https://callback.com",
+    "enabled": false,
+    "_entityType": "CallbackSettings"
+}
+```
+#### Failed
+* Http Status: `404`
+* Body:
+```json5
+{
+    "errorCode": "RESOURCE_NOT_FOUND",
+    "errorMessage": "The targeted resource could not be found."
+}
+```
+
+| Variable             | Type        | Nullable  | Description |
+|--------------------- |:-----------:|:---------:| ----------- |
+|`teamId`             |Number       | **NO**    |The team id of the logged in user.|
+|`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
+|`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
+
+
+
+# 6.More Information
 ## Exceptions/SOAP Faults
 If an error occurs during a request on the Monopond Fax API the service will throw a SOAP fault or exception. Each exception is listed in detail below. To see which exceptions match up to the function calls please refer to the function descriptions in the previous sectionSection 3.
 ### InvalidArgumentsException
