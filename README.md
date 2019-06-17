@@ -132,7 +132,7 @@ Table of Contents
          * [Header Format](#header-format)
          * [Blocklists Parameters](#blocklists-parameters)
 
-# 1.Introduction
+# I. Introduction
 
 ## Prerequisites
 To gain access to the system you must have a Monopond user account that is flagged with Fax API privileges. 
@@ -161,7 +161,7 @@ Scheduling options:
 
 + Specify the date and time you would like the transmission to start.
 
-# 2.API Access and General Usage
+# II. API Access and General Usage
 ## API Web Service
 The API is available as a SOAP Web Service. This service includes a WSDL which describes the functionality available in the interface, and can be used by many programming tools (such as Apache Axis/WSDL2Java and Microsoft Visual Studio) to generate client code without the need of programming a library, thus making the Monopond Fax API programming language-agnostic and OS-independent.
 
@@ -171,8 +171,8 @@ Test WSDL: https://test.api.monopond.com/fax/soap/v2.1/?wsdl
 
 Production WSDL: https://faxapi.monopond.com/api/fax/v2.1?wsdl
 
-# Building a Request
-## SOAP Envelope 
+## Building a Request
+### SOAP Envelope 
 If you are using the WSDL to generate your client you won’t need to worry about this per-se, but it is handy to know what is happening underneath the hood.
 
 The SOAP envelope provides a wrapper around each API request, defining the XML document as a SOAP message. The namespace definitions in this XML element are required. If they are missing, the server will generate a fault and discard the request.
@@ -190,7 +190,7 @@ An example of a SOAP envelope for the Monopond Fax API is shown below with the h
     </soapenv:Body>
 </soapenv:Envelope>
 ```
-## Authorisation Headers
+### Authorisation Headers
 The Monopond Fax API uses WS-Security to authorise users on the platform. The WS-Security specification allows users to authenticate against SOAP services using a variety of different models.
 When connecting to the Monopond Fax API you must use the UsernameToken security token format whichformat, which authenticates based on your Monopond username and password.
 
@@ -198,7 +198,7 @@ Applying these security headers will differ based on your API integration/connec
 
 When using the WSDL to generate your SOAP client you may use a WS-Security library from your programming language to apply the headers to this SOAP service. Below is an example of applying these headers in Java using WSS4J interceptors:
 
-```class
+```java
 Map<String,Object> outProps = new HashMap<String,Object>();
 outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
 outProps.put(WSHandlerConstants.USER, ”username”);
@@ -226,7 +226,7 @@ Alternatively if you are sending raw XML to the API you will need to apply the s
     </soapenv:Header>
 ...
 ```
-# 3.Function Definitions
+# III. Function Definitions
 ## SendFax
 ### Description
 This is the core function in the API allowing you to send faxes on the platform. 
@@ -843,7 +843,7 @@ This request allows a TIFF file to be stamped with an image or text, based on X-
 Original tiff file:
 
 ![before](./img/StampMergeData/image_stamp/before.png)
-
+3
 Sample stamp image:
 
 ![stamp](./img/StampMergeData/image_stamp/stamp.png)
@@ -898,7 +898,7 @@ For more details, see [StampMergeData parameters section](#stampMergeDataParamet
 ### Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
 
-**SOAP Faults**
+### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **InvalidArgumentsException, NoMessagesFoundException, DocumentContentTypeNotFoundException, or InternalServerException.**
 You can find more details on these faults in the next sSection 5 of this document.
@@ -1261,7 +1261,7 @@ To take advantage of this, you are required to write a simple web service to acc
 
 Once you have deployed the web service, please contact your account manager with the web service URL so they can attach it to your account. Once it is active, a request similar to the following will be posted to you on fax message completion:
 
-
+## Request
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <FaxMessages>
@@ -1287,9 +1287,9 @@ Allows you to set the fax callback settings for the team.
 * [Create or Update Callback Settings](#create-or-update-callback-settings)
 * [Get Callback Settings](#get-callback-settings)
 
-## Create or Update Callback Settings
-
-### Request
+## Callback Settings
+### Setting the callback settings
+#### Request
 * URL: `/api/v1/incoming-fax-callback/settings`
 * Method: `POST`
 * Body: 
@@ -1305,8 +1305,9 @@ Allows you to set the fax callback settings for the team.
 |`callbackUrl` |String | The callback url to be set   | 
 |`enabled` |Boolean | The identifier if the settings will be used or not.| required   | 
 
-### Sample Request
-#### Create callback settings
+##### Sample Request
+
+**Create callback settings**
 ```json5
 {
 	"callbackUrl": "https://callback.com",
@@ -1314,8 +1315,8 @@ Allows you to set the fax callback settings for the team.
 }
 ```
 
-### Response
-#### Success
+#### Response
+##### Success
 * Http Status: `200`
 * Body:
 ```json5
@@ -1327,14 +1328,15 @@ Allows you to set the fax callback settings for the team.
 }
 ```
 
-## Get Callback Settings
+### Getting the callback settings
 
-## Request
+#### Request
 * URL: `/api/v1/incoming-fax-callback/settings`
 * Method: `GET`
 
-## Response
-#### Successful
+#### Response
+
+**Successful**
 * Http Status: `200`
 * Body:
 ```json5
@@ -1345,7 +1347,8 @@ Allows you to set the fax callback settings for the team.
     "_entityType": "CallbackSettings"
 }
 ```
-#### Failed
+
+**Failed**
 * Http Status: `404`
 * Body:
 ```json5
@@ -1360,8 +1363,6 @@ Allows you to set the fax callback settings for the team.
 |`teamId`             |Number       | **NO**    |The team id of the logged in user.|
 |`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
 |`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
-
-
 
 # 6.More Information
 ## Exceptions/SOAP Faults
