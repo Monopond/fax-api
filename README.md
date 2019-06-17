@@ -1271,13 +1271,15 @@ Once you have deployed the web service, please contact your account manager with
 
 # V. Inbound Callback Service
 ## Description
-The inbound callback service allows our platform to post fax results to you upon fax message completion.
+The inbound callback service allows you to receive documents that have been faxed to your fax number directly to your email inbox. Whenever a fax is received, we send an email to each of the recipients in this list with the fax document attached as TIFF.
+The service allows our platform to post fax results to you via http callback by enabling the callback url in you inbound callback settings.
 
-You should set the callback settings either in UI or via API.
+To use this, you can either access the portal and configure you inbound callback settings or send via API requests with Monopond User account authorization.
 
 ## Callback Settings
 ### Setting the callback settings
-#### Request
+#### via API
+##### Request
 * URL: `/api/v1/incoming-fax-callback/settings`
 * Method: `POST`
 * Body: 
@@ -1293,7 +1295,7 @@ You should set the callback settings either in UI or via API.
 |`callbackUrl` |String | The callback url to be set   | 
 |`enabled` |Boolean | The identifier if the settings will be used or not.| required   | 
 
-##### Sample Request
+####### Sample Request
 
 **Create callback settings**
 ```json5
@@ -1303,8 +1305,9 @@ You should set the callback settings either in UI or via API.
 }
 ```
 
-#### Response
-##### Success
+##### Response
+
+**Successful**
 * Http Status: `200`
 * Body:
 ```json5
@@ -1318,11 +1321,11 @@ You should set the callback settings either in UI or via API.
 
 ### Getting the callback settings
 
-#### Request
+##### Request
 * URL: `/api/v1/incoming-fax-callback/settings`
 * Method: `GET`
 
-#### Response
+##### Response
 
 **Successful**
 * Http Status: `200`
@@ -1352,6 +1355,31 @@ You should set the callback settings either in UI or via API.
 |`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
 |`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
 
+#### via Portal
+
+##### Configure your inbound callback settings
+
+  1) On the Sidebar menu:
+    - Go to, `Fax` > `Settings` > `Incoming Fax`
+  2) Unlock the panel first: (_located at the top right side of the panel_)
+  ![image](https://user-images.githubusercontent.com/6060338/59594796-23176a80-9127-11e9-909c-cc8eff0566b6.png)
+  3) Enable the callback settings to be able to use the feature.
+  ![image](https://user-images.githubusercontent.com/6060338/59594959-75588b80-9127-11e9-8e5b-6db06ad0693a.png)
+  4) Then set the desired callback url to the input box
+    - This is a sample json request that we will attach to the specified url:
+    ```json5
+    {
+      "messageRef": "0987665543",
+      "faxNumber": "12345677",
+      "status": "RELAYED",
+      "pages": 2,
+      "tsi": "tsi1234",
+      "cli": "cli1234",
+      "dateReceived": "2019-05-15 13:27:55",
+      "tiffDocumentUrl": "http://testtoken.cloudfront.net/test/info/file/4c19aca717d3?Expires=1559033055&Signature"
+    }
+    ```
+
 ### Buying a Fax Number
 ![Screenshot from 2019-06-17 13-35-42](https://user-images.githubusercontent.com/6060338/59583069-c444f780-910c-11e9-8990-776ad3a6fb74.png)
 
@@ -1365,20 +1393,9 @@ You should set the callback settings either in UI or via API.
   2) Requested numbers are listed here.
   3) Proceed to checkout. This will calculate all the fees for the requested numbers.
 
-![image](https://user-images.githubusercontent.com/6060338/59592487-b7330300-9122-11e9-9da6-62b96c06d1f9.png)
-
-  - You
-![image](https://user-images.githubusercontent.com/6060338/59592209-29efae80-9122-11e9-8b8f-e7ba29a6e95b.png)
-
-  - Update the 
 ### Sending Fax to a Fax Number
 
   1) **TODO**
-
-### Receiving Fax to a Fax Number
-
-  - Must own number
-  - Must have one customer assigned to receive fax from number
 
 # VI. More Information
 ## Exceptions/SOAP Faults
