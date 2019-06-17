@@ -1271,17 +1271,9 @@ Once you have deployed the web service, please contact your account manager with
 
 # V. Inbound Callback Service
 ## Description
-The inbound callback service allows our platform to post fax results to you on fax message completion.
+The inbound callback service allows our platform to post fax results to you upon fax message completion.
 
-To take advantage of this, you are required to write a simple web service to accept requests from our system, parse them and update the status of the faxes on your system.
-
-Once you have deployed the web service, please contact your account manager with the web service URL so they can attach it to your account. Once it is active, a request similar to the following will be posted to you on fax message completion:
-
-Allows you to set the fax callback settings for the team.
-
-**API Features**
-* [Create or Update Callback Settings](#create-or-update-callback-settings)
-* [Get Callback Settings](#get-callback-settings)
+You should set the callback settings either in UI or via API.
 
 ## Callback Settings
 ### Setting the callback settings
@@ -1373,9 +1365,20 @@ Allows you to set the fax callback settings for the team.
   2) Requested numbers are listed here.
   3) Proceed to checkout. This will calculate all the fees for the requested numbers.
 
+![image](https://user-images.githubusercontent.com/6060338/59592487-b7330300-9122-11e9-9da6-62b96c06d1f9.png)
+
+  - You
+![image](https://user-images.githubusercontent.com/6060338/59592209-29efae80-9122-11e9-8b8f-e7ba29a6e95b.png)
+
+  - Update the 
 ### Sending Fax to a Fax Number
 
   1) **TODO**
+
+### Receiving Fax to a Fax Number
+
+  - Must own number
+  - Must have one customer assigned to receive fax from number
 
 # VI. More Information
 ## Exceptions/SOAP Faults
