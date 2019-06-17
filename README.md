@@ -1362,6 +1362,22 @@ Allows you to set the fax callback settings for the team.
 |`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
 
 
+#### Buying a Fax Number
+![Screenshot from 2019-06-17 13-35-42](https://user-images.githubusercontent.com/6060338/59583069-c444f780-910c-11e9-8990-776ad3a6fb74.png)
+
+  1) Select a country
+  2) Select a city or state
+  
+![Screenshot from 2019-06-17 14-57-19](https://user-images.githubusercontent.com/6060338/59586182-de82d380-9114-11e9-8ea4-bc1952e68cb6.png)
+
+  1) Available fax numbers are shown in this area for the specified location.
+    - You can request up to 10 available numbers.
+  2) Requested numbers are listed here.
+  3) Proceed to checkout. This will calculate all the fees for the requested numbers.
+
+#### Sending a Fax
+
+  1) **TODO**
 
 # 6.More Information
 ## Exceptions/SOAP Faults
