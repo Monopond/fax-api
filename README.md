@@ -92,7 +92,7 @@ Table of Contents
       * [Fax Number Settings](#fax-number-settings)
          * [Description](#description-11)
             * [Update Incoming Fax Number Settings](#update-incoming-fax-number-settings)
-            * [Incoming Fax umber Settings Request Body](#incoming-fax-umber-settings-request-body)
+            * [Incoming Fax Number Settings Request Body](#incoming-fax-number-settings-request-body)
             * [User Simplified Entity](#user-simplified-entity)
          * [Receiving Fax](#receiving-fax)
    * [VI. More Information](#vi-more-information)
@@ -1590,7 +1590,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
 ##### Response
 **Successful**
 * Http Status: `200 OK`
-* Response: [Incoming Fax umber Settings Request Body](#incoming-fax-number-settings-request-body)
+* Response: [Incoming Fax Number Settings Request Body](#incoming-fax-number-settings-request-body)
 
 **Failed**
 * Http Status: `422 UNPROCESSABLE_ENTITY`
@@ -1622,7 +1622,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
     }
     ```
   
-#### Incoming Fax umber Settings Request Body
+#### Incoming Fax Number Settings Request Body
 
 ```
 {
