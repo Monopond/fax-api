@@ -89,7 +89,7 @@ Table of Contents
             * [Unsubscribe Phone Number](#unsubscribe-phone-number)
             * [Unsubscribe Inactive Phone Number](#unsubscribe-inactive-phone-number)
             * [Phone Number Subscription User Request Response Body](#phone-number-subscription-user-request-response-body)
-      * [Inbound Fax Number](#inbound-fax-number)
+      * [Fax Number Settings](#fax-number-settings)
          * [Description](#description-11)
             * [Update Incoming Fax Number Settings](#update-incoming-fax-number-settings)
             * [Incoming Fax umber Settings Request Body](#incoming-fax-umber-settings-request-body)
@@ -1559,7 +1559,7 @@ To know more about Number Subscription Request you can check it here:
 }
 ```
 
-## Inbound Fax Number
+## Fax Number Settings
 ### Description
 You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
 
