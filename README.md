@@ -1394,7 +1394,7 @@ To know more about CallbackSettings you can check it here:
 
 ## Fax Number
 ### Description
-You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
+You will need a number to send the fax to. These API functions allows to subscribe and unsubscribe phone numbers. Subscription to a phone number plan is required before you can subscribe to a number.
 
 ### Buying a Fax Number
 #### Subscribe Phone Numbers
@@ -1432,6 +1432,7 @@ To know more about Number Subscription Request you can check it here:
 }
 ```
 
+**Failed**
 * Http Status: `422`
 * Reason: "Subscription is under processing status."
 ```json
@@ -1560,14 +1561,16 @@ To know more about Number Subscription Request you can check it here:
 
 ## Fax Number Settings
 ### Description
-#### Settings the fax number senders and recipients
+These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax.
+
+#### Setting the fax number senders and recipients
 You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
 
 **Prerequisites**
 * You have bought at least one number
 * You have one user assigned to receive fax from that number.
 
-#### Update Incoming Fax Number Settings
+#### Update Inbound Fax Number Settings
 ##### Request
 * URL: `/api/v1/incoming-fax/number-settings/{number}`
 * Method: `POST`
