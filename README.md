@@ -75,7 +75,7 @@ Table of Contents
    * [IV. Outbound Callback Service](#iv-outbound-callback-service)
       * [Description](#description-7)
       * [Request](#request-7)
-   * [V. Inbound Service](#v-inbound-service)
+   * [V. Inbound Fax Service](#v-inbound-fax-service)
       * [Description](#description-8)
       * [Callback Settings](#callback-settings)
          * [Description](#description-9)
@@ -1283,7 +1283,7 @@ Once you have deployed the web service, please contact your account manager with
 </FaxMessages>
 ```
 
-# V. Inbound Service
+# V. Inbound Fax Service
 ## Description
 The inbound service allows you to receive documents that have been faxed to your fax number directly to your email inbox. Whenever a fax is received, we send an email to each of the recipients in this list with the fax document attached as **TIFF**, **PDF** or **PNG**.
 The service also allows our platform to post fax results to you via http callback by enabling the callback url in your inbound callback settings.
