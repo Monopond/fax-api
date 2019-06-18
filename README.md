@@ -78,14 +78,23 @@ Table of Contents
    * [V. Inbound Callback Service](#v-inbound-callback-service)
       * [Description](#description-8)
       * [Callback Settings](#callback-settings)
+         * [Description](#description-9)
          * [Setting the callback settings](#setting-the-callback-settings)
-            * [Request](#request-8)
-            * [Response](#response-6)
          * [Getting the callback settings](#getting-the-callback-settings)
-            * [Request](#request-9)
-            * [Response](#response-7)
+      * [Fax Number](#fax-number)
+         * [Description](#description-10)
          * [Buying a Fax Number](#buying-a-fax-number)
-         * [Sending a Fax](#sending-a-fax)
+            * [Subscribe Phone Numbers](#subscribe-phone-numbers)
+            * [Show User Subscription Request](#show-user-subscription-request)
+            * [Unsubscribe Phone Number](#unsubscribe-phone-number)
+            * [Unsubscribe Inactive Phone Number](#unsubscribe-inactive-phone-number)
+            * [Phone Number Subscription User Request Response Body](#phone-number-subscription-user-request-response-body)
+      * [Inbound Fax Number](#inbound-fax-number)
+         * [Description](#description-11)
+            * [Update Incoming Fax Number Settings](#update-incoming-fax-number-settings)
+            * [Incoming Fax umber Settings Request Body](#incoming-fax-umber-settings-request-body)
+            * [User Simplified Entity](#user-simplified-entity)
+         * [Receiving Fax](#receiving-fax)
    * [VI. More Information](#vi-more-information)
       * [Exceptions/SOAP Faults](#exceptionssoap-faults)
          * [InvalidArgumentsException](#invalidargumentsexception)
@@ -127,6 +136,10 @@ Table of Contents
          * [Resolution Levels](#resolution-levels)
          * [Header Format](#header-format)
          * [Blocklists Parameters](#blocklists-parameters)
+      * [Inbound Fax Callback](#inbound-fax-callback)
+         * [Callback Settings Parameters](#callback-settings-parameters)
+         * [Number Subscription Request Parameters](#number-subscription-request-parameters)
+
 
 # I. Introduction
 
@@ -1295,7 +1308,8 @@ This is a necessary function allowing you to set the callback url for your callb
       "enabled": true
   }
   ```
-* To know more about CallbackSettings you can check it here:
+
+To know more about CallbackSettings you can check it here:
  * [Callback Settings Parameters](#callback-settings-parameters)
 
 ##### Response
@@ -1386,20 +1400,6 @@ You will need a number to send the fax to. These API functions allows to buy a f
 ### Buying a Fax Number
 #### Subscribe Phone Numbers
 ##### Request
-* URL: `/api/v1/incoming-fax-callback/settings`
-* Method: `POST`
-* Headers:
-  * Accept: `application/json`
-  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
-* Body: 
-  ```json5
-  {
-      "callbackUrl": "https://callback.com",
-      "enabled": true
-  }
-  ```
-
-##### Request
 * URL: `/api/v1/number-subscription-request`
 * Method: `POST`
 * Headers:
@@ -1414,7 +1414,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
   }
   ```
 
-* To know more about Number Subscription Request you can check it here:
+To know more about Number Subscription Request you can check it here:
  * [Number Subscription Request Parameters](#number-subscription-request-parameters)
 
 ##### Response
@@ -1457,7 +1457,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
 |:------------:|:-------|:---------|:----------- |
 |**userRequestId** | true |Long | ID of subscription user request.  |
 
-### Response
+##### Response
 **Successful**
 * Http Status: `200 OK`
 * Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
@@ -1488,7 +1488,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
 |:------------:|:-------|:---------|:----------- |
 |**number** | true |String | Phone Number to unsubscribe.  |
 
-### Response
+##### Response
 **Successful**
 * Http Status: `200 OK`
 * Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
@@ -1529,7 +1529,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
 |:------------:|:-------|:---------|:----------- |
 |**number** | true |String | Phone Number to unsubscribe.  |
 
-### Response
+##### Response
 **Successful**
 * Http Status: `200 OK`
 * Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
@@ -1563,6 +1563,10 @@ You will need a number to send the fax to. These API functions allows to buy a f
 ### Description
 You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
 
+**Prerequisites**
+* You have bought at least one number
+* You have one user assigned to receive fax from that number.
+
 #### Update Incoming Fax Number Settings
 ##### Request
 * URL: `/api/v1/incoming-fax/number-settings/{number}`
@@ -1583,7 +1587,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
     }
     ```
 
-### Response
+##### Response
 **Successful**
 * Http Status: `200 OK`
 * Response: [Incoming Fax umber Settings Request Body](#incoming-fax-number-settings-request-body)
@@ -1632,7 +1636,7 @@ You will need a number to send the fax to. These API functions allows to buy a f
 }
 ```
   
-### User Simplified Entity
+#### User Simplified Entity
 ```
 {
     "id": "116e784c-5a89-4773-a1e7-ca655ae46491",
@@ -1659,11 +1663,6 @@ You will need a number to send the fax to. These API functions allows to buy a f
     - You can request up to 10 available numbers.
   2) Requested numbers are listed here.
   3) Proceed to checkout. This will calculate all the fees for the requested numbers.
-
-### Receiving Fax
-  **Prerequisites**
-  * You have bought at least one number
-  * You have one user assigned to receive fax from that number
 
 # VI. More Information
 ## Exceptions/SOAP Faults
@@ -2471,6 +2470,7 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 |**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 |**fileData** |  | *Base64* | The document encoded in Base64 format. |
 
+## Inbound Fax Callback
 ### Callback Settings Parameters
 
 |**Name** | **Required** | **Type** | **Description** |
