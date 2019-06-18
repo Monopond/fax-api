@@ -75,25 +75,28 @@ Table of Contents
    * [IV. Outbound Callback Service](#iv-outbound-callback-service)
       * [Description](#description-7)
       * [Request](#request-7)
-   * [V. Inbound Callback Service](#v-inbound-callback-service)
+   * [V. Inbound Service](#v-inbound-service)
       * [Description](#description-8)
       * [Callback Settings](#callback-settings)
          * [Description](#description-9)
+         * [Expected callback request](#expected-callback-request)
+           * [Description](#description-10)
          * [Setting the callback settings](#setting-the-callback-settings)
          * [Getting the callback settings](#getting-the-callback-settings)
       * [Fax Number](#fax-number)
-         * [Description](#description-10)
-         * [Buying a Fax Number](#buying-a-fax-number)
-            * [Subscribe Phone Numbers](#subscribe-phone-numbers)
-            * [Show User Subscription Request](#show-user-subscription-request)
-            * [Unsubscribe Phone Number](#unsubscribe-phone-number)
-            * [Unsubscribe Inactive Phone Number](#unsubscribe-inactive-phone-number)
-            * [Phone Number Subscription User Request Response Body](#phone-number-subscription-user-request-response-body)
-      * [Fax Number Settings](#fax-number-settings)
          * [Description](#description-11)
-            * [Update Incoming Fax Number Settings](#update-incoming-fax-number-settings)
+            * [Subscribe Fax Numbers](#subscribe-fax-numbers)
+            * [Show User Subscription Request](#show-user-subscription-request)
+            * [Unsubscribe Fax Number](#unsubscribe-fax-number)
+            * [Unsubscribe Inactive Fax Number](#unsubscribe-inactive-fax-number)
+            * [Fax Number Subscription User Request Response Body](#fax-number-subscription-user-request-response-body)
+      * [Fax Number Settings](#fax-number-settings)
+         * [Description](#description-12)
+            * [Setting the fax number senders and recipients](#setting-the-fax-number-senders-and-recipients)
+            * [Update Inbound Fax Number Settings](#update-inbound-fax-number-settings)
             * [Incoming Fax Number Settings Request Body](#incoming-fax-number-settings-request-body)
             * [User Simplified Entity](#user-simplified-entity)
+         * [via Portal](#via-portal-1)
    * [VI. More Information](#vi-more-information)
       * [Exceptions/SOAP Faults](#exceptionssoap-faults)
          * [InvalidArgumentsException](#invalidargumentsexception)
@@ -138,7 +141,6 @@ Table of Contents
       * [Inbound Fax Callback](#inbound-fax-callback)
          * [Callback Settings Parameters](#callback-settings-parameters)
          * [Number Subscription Request Parameters](#number-subscription-request-parameters)
-
 
 # I. Introduction
 
@@ -1281,9 +1283,9 @@ Once you have deployed the web service, please contact your account manager with
 </FaxMessages>
 ```
 
-# V. Inbound Callback Service
+# V. Inbound Service
 ## Description
-The inbound callback service allows you to receive documents that have been faxed to your fax number directly to your email inbox. Whenever a fax is received, we send an email to each of the recipients in this list with the fax document attached as **TIFF**, **PDF** or **PNG**.
+The inbound service allows you to receive documents that have been faxed to your fax number directly to your email inbox. Whenever a fax is received, we send an email to each of the recipients in this list with the fax document attached as **TIFF**, **PDF** or **PNG**.
 The service also allows our platform to post fax results to you via http callback by enabling the callback url in your inbound callback settings.
 
 To use this, you can either access the portal and configure your inbound callback settings or send via API requests with Monopond User account authorization.
@@ -1291,6 +1293,34 @@ To use this, you can either access the portal and configure your inbound callbac
 ## Callback Settings
 ### Description
 This is a necessary function allowing you to set the callback url for your callback request.
+
+### Expected callback request
+#### Description
+The callback request will be sent to your specified callback url via POST request. This is a sample json request that we will attach to your callback url:
+
+```json5
+{
+  "messageRef": "1987665543",
+  "faxNumber": "12345677",
+  "status": "RELAYED",
+  "pages": 2,
+  "tsi": "tsi1234",
+  "cli": "cli1234",
+  "dateReceived": "2019-05-15 13:27:55",
+  "tiffDocumentUrl": "http://testtoken.cloudfront.net/test/info/file/4c19aca717d3?Expires=1559033055&Signature"
+}
+```
+
+|**Name** | **Type** | **Description** |
+|:------------:|:---------|:----------- |
+|**messageRef** |Long | The inbound fax message reference. The unique identifier for the fax messages sent. |
+|**faxNumber** | List | The sender's fax number.|
+|**status** | String | The status of the inbound fax message, (e.g. RELAYED, ON_HOLD) |
+|**pages** | Integer | The number of pages of the fax document.|
+|**tsi**  | String | The transmitting subscriber identification, used to identify the sender of the fax. |
+|**cli**  | String | The customer calling line identification. This will help the receiver to identify the caller|
+|**dateReceived** | String | The date received (UTC) for the inbound fax message to our system. |
+|**tiffDocumentUrl**  | String | A url of the tiff document that will expire after 24 hours. |
 
 ### Setting the callback settings
 #### via API
@@ -1377,27 +1407,12 @@ To know more about CallbackSettings you can check it here:
   ![image](https://user-images.githubusercontent.com/6060338/59594959-75588b80-9127-11e9-8e5b-6db06ad0693a.png)
   4) Then set the desired callback url to the input box. You can also use this area to update the callback url for your team.
   ![image](https://user-images.githubusercontent.com/6060338/59597663-ed758000-912c-11e9-923c-d89a3424a228.png)
-    - This is a sample json request that we will attach to your specified callback url:
-
-        ```json5
-        {
-          "messageRef": "0987665543",
-          "faxNumber": "12345677",
-          "status": "RELAYED",
-          "pages": 2,
-          "tsi": "tsi1234",
-          "cli": "cli1234",
-          "dateReceived": "2019-05-15 13:27:55",
-          "tiffDocumentUrl": "http://testtoken.cloudfront.net/test/info/file/4c19aca717d3?Expires=1559033055&Signature"
-        }
-        ```
 
 ## Fax Number
 ### Description
-You will need a number to send the fax to. These API functions allows to subscribe and unsubscribe phone numbers. Subscription to a phone number plan is required before you can subscribe to a number.
+You will need a number to send the fax to. These API functions allows to subscribe and unsubscribe fax numbers. Subscription to a fax number plan is required before you can subscribe to a number.
 
-### Buying a Fax Number
-#### Subscribe Phone Numbers
+#### Subscribe Fax Numbers
 ##### Request
 * URL: `/api/v1/number-subscription-request`
 * Method: `POST`
@@ -1419,7 +1434,7 @@ To know more about Number Subscription Request you can check it here:
 ##### Response
 **Successful**
 * Http Status: `200 OK`
-* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
 
 **Failed**
 * Http Status: `404 RESOURCE_NOT_FOUND`
@@ -1460,7 +1475,7 @@ To know more about Number Subscription Request you can check it here:
 ##### Response
 **Successful**
 * Http Status: `200 OK`
-* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
 
 **Failed**
 * Http Status: `404 RESOURCE_NOT_FOUND`
@@ -1473,7 +1488,7 @@ To know more about Number Subscription Request you can check it here:
     }
     ```
 
-#### Unsubscribe Phone Number
+#### Unsubscribe Fax Number
 ##### Request
 * URL: `/api/v1/number-subscription/${number}/unsubscribe`
 * Method: `POST`
@@ -1486,16 +1501,16 @@ To know more about Number Subscription Request you can check it here:
 
 |**Name** | **Required** | **Type** | **Description** |
 |:------------:|:-------|:---------|:----------- |
-|**number** | true |String | Phone Number to unsubscribe.  |
+|**number** | true |String | Fax Number to unsubscribe.  |
 
 ##### Response
 **Successful**
 * Http Status: `200 OK`
-* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
 
-**Failed - No phone number plan subscription**
+**Failed - No fax number plan subscription**
 * Http Status: `422 UNPROCESSABLE_ENTITY`
-* Reason: "The team is not subscribed to a phone number plan."
+* Reason: "The team is not subscribed to a fax number plan."
 * Response:
     ```json
     {
@@ -1503,9 +1518,9 @@ To know more about Number Subscription Request you can check it here:
       "errorMessage": "You are not subscribed to a fax number plan."
     }
     ```
-**Failed - Not subscribed to phone number**
+**Failed - Not subscribed to fax number**
 * Http Status: `422 UNPROCESSABLE_ENTITY`
-* Reason: "The team is not subscribed to the phone number to unsubscribe."
+* Reason: "The team is not subscribed to the fax number to unsubscribe."
 * Response:
     ```json
     {
@@ -1514,7 +1529,7 @@ To know more about Number Subscription Request you can check it here:
     }
     ```
 
-#### Unsubscribe Inactive Phone Number
+#### Unsubscribe Inactive Fax Number
 ##### Request
 * URL: `/api/v1/number-subscription/${number}/unsubscribe-inactive`
 * Method: `POST`
@@ -1527,14 +1542,14 @@ To know more about Number Subscription Request you can check it here:
 
 |**Name** | **Required** | **Type** | **Description** |
 |:------------:|:-------|:---------|:----------- |
-|**number** | true |String | Phone Number to unsubscribe.  |
+|**number** | true |String | Fax Number to unsubscribe.  |
 
 ##### Response
 **Successful**
 * Http Status: `200 OK`
-* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
 
-#### Phone Number Subscription User Request Response Body
+#### Fax Number Subscription User Request Response Body
 ```json5
 {
   "id": 2,
@@ -1561,12 +1576,11 @@ To know more about Number Subscription Request you can check it here:
 
 ## Fax Number Settings
 ### Description
-These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax.
+These API functions allows you to subscribe to a fax number and set number settings to add multiple recipient email addresses with fax attachment.
 
 #### Setting the fax number senders and recipients
-You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
-
 **Prerequisites**
+* Subscription to a fax number plan is required before you can subscribe to a number.
 * You have bought at least one number
 * You have one user assigned to receive fax from that number.
 
@@ -2485,5 +2499,5 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 
 |**Name** | **Required** | **Type** | **Description** |
 |:------------:|:-------|:---------|:----------- |
-|**productSubscriptionId** | true |Long | The product subscription ID to reference.  |
-|**numberIds** | true | List | List of phone number IDs to subscribe.|
+|**productSubscriptionId** | true |Long | The subscription id to reference.  |
+|**numberIds** | true | List | List of fax number IDs to subscribe.|
