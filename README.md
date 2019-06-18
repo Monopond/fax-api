@@ -1295,26 +1295,13 @@ This is a necessary function allowing you to set the callback url for your callb
       "enabled": true
   }
   ```
-
-    | Property name  | Value  |  Description | Notes |
-    |:------------:|:-------|:---------|:----------- |
-    |`callbackUrl` |String | The callback url to be set   | 
-    |`enabled` |Boolean | The identifier if the settings will be used or not.| required   | 
-
-####### Sample Request
-
-**Create callback settings**
-```json5
-{
-	"callbackUrl": "https://callback.com",
-	"enabled": true
-}
-```
+* To know more about CallbackSettings you can check it here:
+ * [Callback Settings Parameters](#callback-settings-parameters)
 
 ##### Response
 
 **Successful**
-* Http Status: `200`
+* Http Status: `200 OK`
 * Body:
 ```json5
 {
@@ -1332,12 +1319,12 @@ This is a necessary function allowing you to set the callback url for your callb
 * Method: `GET`
 * Headers:
   * Accept: `application/json`
-  * Authorization: Bearer `AUTH_TOKEN` (Login `access_token` fetched upon login)
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
 
 ##### Response
 
 **Successful**
-* Http Status: `200`
+* Http Status: `200 OK`
 * Body:
 ```json5
 {
@@ -1348,6 +1335,12 @@ This is a necessary function allowing you to set the callback url for your callb
 }
 ```
 
+| Variable             | Type        | Nullable  | Description |
+|--------------------- |:-----------:|:---------:| ----------- |
+|`teamId`             |Number       | **NO**    |The team id of the logged in user.|
+|`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
+|`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
+
 **Failed**
 * Http Status: `404`
 * Body:
@@ -1357,12 +1350,6 @@ This is a necessary function allowing you to set the callback url for your callb
     "errorMessage": "The targeted resource could not be found."
 }
 ```
-
-| Variable             | Type        | Nullable  | Description |
-|--------------------- |:-----------:|:---------:| ----------- |
-|`teamId`             |Number       | **NO**    |The team id of the logged in user.|
-|`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
-|`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
 
 #### via Portal
 
@@ -1394,43 +1381,50 @@ This is a necessary function allowing you to set the callback url for your callb
 
 ## Fax Number
 ### Description
-You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax.
+You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
 
 ### Buying a Fax Number
 #### Subscribe Phone Numbers
 ##### Request
-* [[Authentication|API: Authentication#user-login]]: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* URL: `/api/v1/incoming-fax-callback/settings`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+* Body: 
+  ```json5
+  {
+      "callbackUrl": "https://callback.com",
+      "enabled": true
+  }
+  ```
+
+##### Request
 * URL: `/api/v1/number-subscription-request`
 * Method: `POST`
-* Headers (Required):
-```
-Authorization: Bearer {access_token}
-```
-| Variable  | Type        | Required  | Description |
-|---------- |:-----------:|:---------:| ----------- |
-|`access_token` |String | **YES**   |The token granted from [[logging in|API: Authentication#user-login]]|
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  ```json5
+  {
+     "productSubscriptionId": 4,
+     "numberIds": [1, 2]
+  }
+  ```
 
-* Body
-```json
-{
-   "productSubscriptionId": 4,
-   "numberIds": [1, 2]
-}
-```
-
-| Key  | Type        | Required  | Description |
-|---------- |:-----------:|:---------:| ----------- |
-|`productSubscriptionId`| Long | **YES** | The product subscription ID to reference. | 
-|`numberIds`| List | **YES** | List of phone number IDs to subscribe. | 
+* To know more about Number Subscription Request you can check it here:
+ * [Number Subscription Request Parameters](#number-subscription-request-parameters)
 
 ##### Response
 **Successful**
-* Http Status: `200`
+* Http Status: `200 OK`
 * Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
 
-#### Resource Not Found
-##### Specified plan does not exist
-* Http Status: `404`
+**Failed**
+* Http Status: `404 RESOURCE_NOT_FOUND`
+* Reason: "Specified plan does not exist."
 * Response:
 ```json
 {
@@ -1439,9 +1433,8 @@ Authorization: Bearer {access_token}
 }
 ```
 
-#### Still Processing Subscription
-##### Subscription is under processing status
 * Http Status: `422`
+* Reason: "Subscription is under processing status."
 ```json
 {
     "errorCode": "STILL_PROCESSING_SUBSCRIPTION",
@@ -1449,211 +1442,209 @@ Authorization: Bearer {access_token}
 }
 ```
 
-***
+#### Show User Subscription Request
+##### Request
+* URL: `/api/v1/number-subscription-request/${userRequestId}`
+* Method: `GET`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  - _No request body_
 
-  ## Show User Subscription Request
-  ### Request
-  * [[Authentication|API: Authentication#user-login]]: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
-  * URL: `/api/v1/number-subscription-request/${userRequestId}`
-  
-  | Variable       | Type  | Required  | Description                   |
-  |--------------- |-------|-----------| ----------------------------- |
-  |userRequestId   |Long   | **YES**   |ID of subscription user request|
-  
-  * Method: `GET`
-  * Headers (Required):
-  ```
-  Authorization: Bearer {access_token}
-  ```
-  | Variable  | Type        | Required  | Description |
-  |---------- |:-----------:|:---------:| ----------- |
-  |`access_token` |String | **YES**   |The token granted from [[logging in|API: Authentication#user-login]]|
-  
-  ### Response
-  #### Success
-  * Http Status: `200`
-  * Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
-  
-  #### Resource Not Found
-  ##### User request does not exist
-  * Http Status: `404`
-  * Response:
-  ```json
-  {
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**userRequestId** | true |Long | ID of subscription user request.  |
+
+### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+
+**Failed**
+* Http Status: `404 RESOURCE_NOT_FOUND`
+* Reason: "User request does not exist."
+* Response:
+    ```json
+    {
       "errorCode": "RESOURCE_NOT_FOUND",
       "errorMessage": "The targeted resource could not be found"
-  }
-  ```
-  
-  ## Unsubscribe Phone Number
-  ### Request
-  * [[Authentication|API: Authentication#user-login]]: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
-  * URL: `/api/v1/number-subscription/${number}/unsubscribe`
-  * Method: `POST`
-  * Headers (Required):
-  ```
-  Authorization: Bearer {access_token}
-  ```
-  | Variable  | Type        | Required  | Description |
-  |---------- |:-----------:|:---------:| ----------- |
-  |`access_token` |String | **YES**   |The token granted from [[logging in|API: Authentication#user-login]]|
-  |number     | String      | **YES**   | Phone Number to unsubscribe |
-  
-  ### Response
-  #### Success
-  * Http Status: `200`
-  
-  #### No phone number plan subscription
-  ##### The team is not subscribed to a phone number plan
-  * Http Status: `422`
-  * Response:
-  ```json
-  {
+    }
+    ```
+
+#### Unsubscribe Phone Number
+##### Request
+* URL: `/api/v1/number-subscription/${number}/unsubscribe`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  - _No request body_
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**number** | true |String | Phone Number to unsubscribe.  |
+
+### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+
+**Failed - No phone number plan subscription**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Reason: "The team is not subscribed to a phone number plan."
+* Response:
+    ```json
+    {
       "errorCode": "NO_PHONE_NUMBER_SUBSCRIPTION",
       "errorMessage": "You are not subscribed to a fax number plan."
-  }
-  ```
-  
-  #### Not Subscribed to phone number
-  ##### The team is not subscribed to the phone number to unsbscribe
-  * Http Status: `422`
-  * Response:
-  ```json
-  {
+    }
+    ```
+**Failed - Not subscribed to phone number**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Reason: "The team is not subscribed to the phone number to unsubscribe."
+* Response:
+    ```json
+    {
       "errorCode": "NOT_SUBSCRIBED_TO_PHONE_NUMBER",
       "errorMessage": "You are not subscribed to the fax number."
-  }
-  ```
-  
-  ***
-  
-  ## Unsubscribe Inactive Phone Number
-  ### Request
-  * [[Authentication|API: Authentication#user-login]]: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
-  * URL: `/api/v1/number-subscription/${number}/unsubscribe-inactive`
-  * Method: `POST`
-  * Headers (Required):
-  ```
-  Authorization: Bearer {access_token}
-  ```
-  | Variable  | Type        | Required  | Description |
-  |---------- |:-----------:|:---------:| ----------- |
-  |`access_token` |String | **YES**   |The token granted from [[logging in|API: Authentication#user-login]]|
-  |number     | String      | **YES**   | Phone Number to unsubscribe |
-  
-  ### Response
-  #### Success
-  * Http Status: `200`
-  
-  ***
-  
-  ### Phone Number Subscription User Request Response Body
-  ```json
-  {
-      "id": 2,
-      "status": "PROCESSING",
-      "numbers": [
-          {
-              "referenceId": 7,
-              "subscriptionId": 4,
-              "result": null,
-              "error": null,
-              "_entityType": "AddonSubscriptionAction"
-          },
-          {
-              "referenceId": 8,
-              "subscriptionId": 4,
-              "result": null,
-              "error": null,
-              "_entityType": "AddonSubscriptionAction"
-          }
-      ],
-      "_entityType": "NumberSubscriptionUserRequest"
-  }
-  ```
+    }
+    ```
 
-  **API Features:**
-  * [Update Incoming Fax Number Settings](#update-incoming-fax-number-settings)
-  
-  _You need to [[install a REST Client|Setup: Rest Client]]._
-  
-  ## Update Incoming Fax Number Settings
-  
-  ### Request
-  * [[Authentication|API: Authentication#user-login]]: `ROLE_TEAM_OWNER`, `ROLE_TEAM_MANAGER`
-  * URL `POST api/v1/incoming-fax/number-settings/{number}`
-  
-  ### Sample Request
-  ```json
-  {
-  	"receiverIds" : [
-  		"userUUID"
-  	],
-  	"senderIds" :  [
-  		"userUUID"
-  	]
-  }
-  ```
-  
-  ### Response
-  #### Successful
-  * Status: `200 CREATED`
-  * Body: [Incomingfaxnumbersettings Entity](#incomingfaxnumbersettings-entity)
-  
-  #### Errors
-  * Status: `422 UNPROCESSABLE ENTITY`
-  * Body:
-  ```
-  {
+#### Unsubscribe Inactive Phone Number
+##### Request
+* URL: `/api/v1/number-subscription/${number}/unsubscribe-inactive`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  - _No request body_
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**number** | true |String | Phone Number to unsubscribe.  |
+
+### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Phone Number Subscription User Request Body](#phone-number-subscription-user-request-response-body)
+
+#### Phone Number Subscription User Request Response Body
+```json5
+{
+  "id": 2,
+  "status": "PROCESSING",
+  "numbers": [
+      {
+          "referenceId": 7,
+          "subscriptionId": 4,
+          "result": null,
+          "error": null,
+          "_entityType": "AddonSubscriptionAction"
+      },
+      {
+          "referenceId": 8,
+          "subscriptionId": 4,
+          "result": null,
+          "error": null,
+          "_entityType": "AddonSubscriptionAction"
+      }
+  ],
+  "_entityType": "NumberSubscriptionUserRequest"
+}
+```
+
+## Inbound Fax Number
+### Description
+You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
+
+#### Update Incoming Fax Number Settings
+##### Request
+* URL: `/api/v1/incoming-fax/number-settings/{number}`
+* Method: `POST`
+* Headers:
+* Accept: `application/json`
+* Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_TEAM_MANAGER`
+* Body: 
+    ```json
+    {
+        "receiverIds" : [
+            "userUUID"
+        ],
+        "senderIds" :  [
+            "userUUID"
+        ]
+    }
+    ```
+
+### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Incoming Fax umber Settings Request Body](#incoming-fax-number-settings-request-body)
+
+**Failed**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Response:
+    ```json5
+    {
       "errorCode": "SENDER_EXISTS_IN_ANOTHER_FAX_NUMBER",
       "errorMessage": "User is already a sender of another fax number."
-  }
-  ```
-  
-  * Status: `422 UNPROCESSABLE ENTITY`
-  * Body: 
-  ```
-  {
+    }
+    ```
+
+**Failed**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Response:
+    ```json5
+    {
       "errorCode": "LIST_OF_RECEIVERS_CAN_NOT_BE_EMPTY",
       "errorMessage": "List of receivers can not be empty."
-  }
-  ```
-  
-  * Status: `404 RESOURCE NOT FOUND`
-  * Body: (Phone number does not belong to current team)
-  ```
-  {
-      "errorCode": "RESOURCE_NOT_FOUND",
-      "errorMessage": "The targeted resource could not be found"
-  }
-  ```
-  
-  #### IncomingFaxNumberSettings Entity
-  
-  ```
-  {
-      "senders": [
-         "UserSimplified"
-      ],
-      "recipients": [
-          "UserSimplified"
-      ],
-      "_entityType": "IncomingFaxNumberSettings"
-  }
-  ```
-  
-  ### UserSimplified Entity
-  ```
-          {
-              "id": "116e784c-5a89-4773-a1e7-ca655ae46491",
-              "emailAddress": "customer1@no-spam.ws",
-              "firstName": "first name",
-              "lastName": "last name",
-              "username": "customer1",
-              "_entityType": "UserSimplified"
-          }
-  ```
+    }
+    ```
 
+**Failed**
+* Http Status: `404 RESOURCE NOT FOUND`
+* Response:
+    ```json5
+    {
+        "errorCode": "RESOURCE_NOT_FOUND",
+        "errorMessage": "The targeted resource could not be found"
+    }
+    ```
+  
+#### Incoming Fax umber Settings Request Body
+
+```
+{
+    "senders": [
+     "UserSimplified"
+    ],
+    "recipients": [
+      "UserSimplified"
+    ],
+    "_entityType": "IncomingFaxNumberSettings"
+}
+```
+  
+### User Simplified Entity
+```
+{
+    "id": "116e784c-5a89-4773-a1e7-ca655ae46491",
+    "emailAddress": "customer1@no-spam.ws",
+    "firstName": "first name",
+    "lastName": "last name",
+    "username": "customer1",
+    "_entityType": "UserSimplified"
+}
+```
+
+### via Portal
   1) Login to the portal and in the sidebar menu: <br/>
     - Go to, `Fax Numbers` > `Active`
     ![image](https://user-images.githubusercontent.com/6060338/59597945-a20fa180-912d-11e9-9056-ed88f94462fb.png)
@@ -1668,10 +1659,6 @@ Authorization: Bearer {access_token}
     - You can request up to 10 available numbers.
   2) Requested numbers are listed here.
   3) Proceed to checkout. This will calculate all the fees for the requested numbers.
-
-### Sending Fax to a Fax Number
-
-  1) **TODO**
 
 ### Receiving Fax
   **Prerequisites**
@@ -2483,3 +2470,17 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 |-----|-----|-----|-----|
 |**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 |**fileData** |  | *Base64* | The document encoded in Base64 format. |
+
+### Callback Settings Parameters
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**callbackUrl** |  |String | The callback url to be set   | 
+|**enabled** | true |Boolean | The identifier if the settings will be used or not.|
+
+### Number Subscription Request Parameters
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**productSubscriptionId** | true |Long | The product subscription ID to reference.  |
+|**numberIds** | true | List | List of phone number IDs to subscribe.|
