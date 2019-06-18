@@ -94,7 +94,6 @@ Table of Contents
             * [Update Incoming Fax Number Settings](#update-incoming-fax-number-settings)
             * [Incoming Fax Number Settings Request Body](#incoming-fax-number-settings-request-body)
             * [User Simplified Entity](#user-simplified-entity)
-         * [Receiving Fax](#receiving-fax)
    * [VI. More Information](#vi-more-information)
       * [Exceptions/SOAP Faults](#exceptionssoap-faults)
          * [InvalidArgumentsException](#invalidargumentsexception)
@@ -1561,6 +1560,7 @@ To know more about Number Subscription Request you can check it here:
 
 ## Fax Number Settings
 ### Description
+#### Settings the fax number senders and recipients
 You will need a number to send the fax to. These API functions allows to buy a fax number and set number settings to add a recipient email address to attach the fax. Subscription to a phone number plan is required before you can subscribe to a number.
 
 **Prerequisites**
