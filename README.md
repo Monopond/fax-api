@@ -1,4 +1,149 @@
-# 1.Introduction
+Table of Contents
+=================
+
+   * [Table of Contents](#table-of-contents)
+   * [I. Introduction](#i-introduction)
+      * [Prerequisites](#prerequisites)
+      * [Overview of the Monopond Fax API](#overview-of-the-monopond-fax-api)
+   * [II. API Access and General Usage](#ii-api-access-and-general-usage)
+      * [API Web Service](#api-web-service)
+      * [Building a Request](#building-a-request)
+         * [SOAP Envelope](#soap-envelope)
+         * [Authorisation Headers](#authorisation-headers)
+   * [III. Function Definitions](#iii-function-definitions)
+      * [SendFax](#sendfax)
+         * [Description](#description)
+         * [Sending a single fax:](#sending-a-single-fax)
+         * [Sending a Fax with Retries inside a FaxMessage](#sending-a-fax-with-retries-inside-a-faxmessage)
+         * [Sending a Fax with Retries inside a SendFaxRequest](#sending-a-fax-with-retries-inside-a-sendfaxrequest)
+         * [Sending a Fax with BusyRetries inside a FaxMessage](#sending-a-fax-with-busyretries-inside-a-faxmessage)
+         * [Sending a Fax with BusyRetries inside a SendFaxRequest](#sending-a-fax-with-busyretries-inside-a-sendfaxrequest)
+         * [Sending a Fax with Resolution in FaxMessage](#sending-a-fax-with-resolution-in-faxmessage)
+         * [Sending a Fax with FaxDitheringTechnique in FaxDocument:](#sending-a-fax-with-faxditheringtechnique-in-faxdocument)
+         * [Assigning a Timezone in FaxMessage](#assigning-a-timezone-in-faxmessage)
+         * [Assigning a Timezone in SendFaxRequest](#assigning-a-timezone-in-sendfaxrequest)
+         * [Assigning SendFrom in FaxMessage](#assigning-sendfrom-in-faxmessage)
+         * [Assigning SendFrom in SendFaxRequest](#assigning-sendfrom-in-sendfaxrequest)
+         * [Assigning a HeaderFormat in FaxMessage](#assigning-a-headerformat-in-faxmessage)
+         * [Assigning a HeaderFormat in SendFaxRequest](#assigning-a-headerformat-in-sendfaxrequest)
+         * [Assigning CLI in FaxMessage](#assigning-cli-in-faxmessage)
+         * [Sending a Fax with DNCR enabled in FaxMessage](#sending-a-fax-with-dncr-enabled-in-faxmessage)
+         * [Sending a Fax with FPS enabled in FaxMessage](#sending-a-fax-with-fps-enabled-in-faxmessage)
+         * [Sending a Fax with Smartblock enabled in FaxMessage](#sending-a-fax-with-smartblock-enabled-in-faxmessage)
+         * [Sending a Fax with ScheduledStartTime in FaxMessage](#sending-a-fax-with-scheduledstarttime-in-faxmessage)
+         * [Sending a Fax with MustBeSentBeforeDate in FaxMessage](#sending-a-fax-with-mustbesentbeforedate-in-faxmessage)
+         * [Sending a Fax with MaxFaxPages in FaxMessage](#sending-a-fax-with-maxfaxpages-in-faxmessage)
+         * [Sending Multiple Faxes](#sending-multiple-faxes)
+         * [Sending faxes to multiple destinations with the same document (broadcasting)](#sending-faxes-to-multiple-destinations-with-the-same-document-broadcasting)
+         * [Sending Microsoft Documents With DocMergeData:](#sending-microsoft-documents-with-docmergedata)
+         * [Sending Tiff files with StampMergeData:](#sending-tiff-files-with-stampmergedata)
+         * [Response](#response)
+         * [SOAP Faults](#soap-faults)
+      * [FaxStatus](#faxstatus)
+         * [Description](#description-1)
+         * [Request](#request)
+         * [Response](#response-1)
+         * [SOAP Faults](#soap-faults-1)
+      * [StopFax](#stopfax)
+         * [Description](#description-2)
+         * [Request](#request-1)
+         * [Response](#response-2)
+         * [SOAP Faults](#soap-faults-2)
+      * [PauseFax](#pausefax)
+         * [Description](#description-3)
+         * [Request](#request-2)
+         * [Response](#response-3)
+         * [SOAP Faults](#soap-faults-3)
+      * [ResumeFax](#resumefax)
+         * [Request](#request-3)
+         * [Response](#response-4)
+         * [SOAP Faults](#soap-faults-4)
+      * [FaxDocumentPreview](#faxdocumentpreview)
+         * [Description](#description-4)
+         * [Request](#request-4)
+         * [Response](#response-5)
+         * [SOAP Faults](#soap-faults-5)
+      * [SaveFaxDocument](#savefaxdocument)
+         * [Description](#description-5)
+         * [Request](#request-5)
+         * [Sample Request](#sample-request-2)
+         * [SOAP Faults](#soap-faults-6)
+      * [DeleteFaxDocument](#deletefaxdocument)
+         * [Description](#description-6)
+         * [Request](#request-6)
+         * [SOAP Faults](#soap-faults-7)
+   * [IV. Outbound Callback Service](#iv-outbound-callback-service)
+      * [Description](#description-7)
+      * [Request](#request-7)
+   * [V. Inbound Fax Service](#v-inbound-fax-service)
+      * [Description](#description-8)
+      * [Callback Settings](#callback-settings)
+         * [Description](#description-9)
+         * [Expected callback request](#expected-callback-request)
+           * [Description](#description-10)
+         * [Setting the callback settings](#setting-the-callback-settings)
+         * [Getting the callback settings](#getting-the-callback-settings)
+      * [Fax Number](#fax-number)
+         * [Description](#description-11)
+            * [Subscribe Fax Numbers](#subscribe-fax-numbers)
+            * [Show User Subscription Request](#show-user-subscription-request)
+            * [Unsubscribe Fax Number](#unsubscribe-fax-number)
+            * [Unsubscribe Inactive Fax Number](#unsubscribe-inactive-fax-number)
+            * [Fax Number Subscription User Request Response Body](#fax-number-subscription-user-request-response-body)
+      * [Fax Number Settings](#fax-number-settings)
+         * [Description](#description-12)
+            * [Setting the fax number senders and recipients](#setting-the-fax-number-senders-and-recipients)
+            * [Update Inbound Fax Number Settings](#update-inbound-fax-number-settings)
+            * [Incoming Fax Number Settings Request Body](#incoming-fax-number-settings-request-body)
+            * [User Simplified Entity](#user-simplified-entity)
+         * [via Portal](#via-portal-1)
+   * [VI. More Information](#vi-more-information)
+      * [Exceptions/SOAP Faults](#exceptionssoap-faults)
+         * [InvalidArgumentsException](#invalidargumentsexception)
+         * [DocumentContentTypeNotFoundException](#documentcontenttypenotfoundexception)
+         * [DocumentRefAlreadyExistsException](#documentrefalreadyexistsexception)
+         * [DocumentContentTypeNotFoundException](#documentcontenttypenotfoundexception-1)
+         * [NoMessagesFoundException](#nomessagesfoundexception)
+         * [InternalServerException](#internalserverexception)
+      * [General Parameters and File Formatting](#general-parameters-and-file-formatting)
+         * [File Encoding](#file-encoding)
+         * [Dates](#dates)
+      * [List of Supported font names for StampMergeField TextValue](#list-of-supported-font-names-for-stampmergefield-textvalue)
+   * [VII. API Examples](#vii-api-examples)
+      * [SendFax](#sendfax-1)
+         * [Sending a single fax message](#sending-a-single-fax-message)
+         * [Sending multiple fax messages in a single request](#sending-multiple-fax-messages-in-a-single-request)
+         * [Sending multiple documents in a single fax message](#sending-multiple-documents-in-a-single-fax-message)
+      * [FaxStatus](#faxstatus-1)
+         * [Status request with “brief” verbosity](#status-request-with-brief-verbosity)
+         * [Status request with “details” verbosity](#status-request-with-details-verbosity)
+         * [Status request with “results” verbosity](#status-request-with-results-verbosity)
+         * [Status request with “all” verbosity](#status-request-with-all-verbosity)
+      * [FaxDocumentPreview](#faxdocumentpreview-1)
+         * [Fax Document Preview request](#fax-document-preview-request)
+         * [Fax Document Preview request with normal resolution](#fax-document-preview-request-with-normal-resolution)
+         * [Fax Document Preview request with extra dark dithering technique](#fax-document-preview-request-with-extra-dark-dithering-technique)
+         * [Fax Document Preview request with fine resolution and turbo dithering technique](#fax-document-preview-request-with-fine-resolution-and-turbo-dithering-technique)
+         * [Fax Document Preview request with fine resolution and single DocMergeData field](#fax-document-preview-request-with-fine-resolution-and-single-docmergedata-field)
+         * [Fax Document Preview request with fine resolution and multiple DocMergeData fields](#fax-document-preview-request-with-fine-resolution-and-multiple-docmergedata-fields)
+         * [Fax Document Preview request with fine resolution and StampMergeData Text field](#fax-document-preview-request-with-fine-resolution-and-stampmergedata-text-field)
+         * [Fax Document Preview request with fine resolution and multiple StampMergeData Text fields](#fax-document-preview-request-with-fine-resolution-and-multiple-stampmergedata-text-fields)
+         * [Fax Document Preview request with fine resolution and StampMergeData Image field](#fax-document-preview-request-with-fine-resolution-and-stampmergedata-image-field)
+         * [Fax Document Preview request with fine resolution and multiple StampMergeData Image fields](#fax-document-preview-request-with-fine-resolution-and-multiple-stampmergedata-image-fields)
+         * [Fax Document Preview request with fine resolution, multiple StampMergeData Text fields and StampMergeData Image field](#fax-document-preview-request-with-fine-resolution-multiple-stampmergedata-text-fields-and-stampmergedata-image-field)
+         * [SendFaxRequest Parameters](#sendfaxrequest-parameters)
+         * [FaxMessage Parameters](#faxmessage-parameters)
+         * [FaxDocument Parameters](#faxdocument-parameters)
+         * [FaxDitheringTechnique](#faxditheringtechnique)
+         * [Resolution Levels](#resolution-levels)
+         * [Header Format](#header-format)
+         * [Blocklists Parameters](#blocklists-parameters)
+      * [Inbound Fax Callback](#inbound-fax-callback)
+         * [Callback Settings Parameters](#callback-settings-parameters)
+         * [Number Subscription Request Parameters](#number-subscription-request-parameters)
+
+# I. Introduction
+
 ## Prerequisites
 To gain access to the system you must have a Monopond user account that is flagged with Fax API privileges. 
 Please note some features described in this document will require access controls to be enacted. Examples of this include enabling specific destinations, filtering options and/or retry settings.
@@ -26,7 +171,7 @@ Scheduling options:
 
 + Specify the date and time you would like the transmission to start.
 
-# 2.API Access and General Usage
+# II. API Access and General Usage
 ## API Web Service
 The API is available as a SOAP Web Service. This service includes a WSDL which describes the functionality available in the interface, and can be used by many programming tools (such as Apache Axis/WSDL2Java and Microsoft Visual Studio) to generate client code without the need of programming a library, thus making the Monopond Fax API programming language-agnostic and OS-independent.
 
@@ -36,8 +181,8 @@ Test WSDL: https://test.api.monopond.com/fax/soap/v2.1/?wsdl
 
 Production WSDL: https://faxapi.monopond.com/api/fax/v2.1?wsdl
 
-# Building a Request
-## SOAP Envelope 
+## Building a Request
+### SOAP Envelope 
 If you are using the WSDL to generate your client you won’t need to worry about this per-se, but it is handy to know what is happening underneath the hood.
 
 The SOAP envelope provides a wrapper around each API request, defining the XML document as a SOAP message. The namespace definitions in this XML element are required. If they are missing, the server will generate a fault and discard the request.
@@ -55,7 +200,7 @@ An example of a SOAP envelope for the Monopond Fax API is shown below with the h
     </soapenv:Body>
 </soapenv:Envelope>
 ```
-## Authorisation Headers
+### Authorisation Headers
 The Monopond Fax API uses WS-Security to authorise users on the platform. The WS-Security specification allows users to authenticate against SOAP services using a variety of different models.
 When connecting to the Monopond Fax API you must use the UsernameToken security token format whichformat, which authenticates based on your Monopond username and password.
 
@@ -91,7 +236,7 @@ Alternatively if you are sending raw XML to the API you will need to apply the s
     </soapenv:Header>
 ...
 ```
-# 3.Function Definitions
+# III. Function Definitions
 ## SendFax
 ### Description
 This is the core function in the API allowing you to send faxes on the platform. 
@@ -708,7 +853,7 @@ This request allows a TIFF file to be stamped with an image or text, based on X-
 Original tiff file:
 
 ![before](./img/StampMergeData/image_stamp/before.png)
-
+3
 Sample stamp image:
 
 ![stamp](./img/StampMergeData/image_stamp/stamp.png)
@@ -763,7 +908,7 @@ For more details, see [StampMergeData parameters section](#stampMergeDataParamet
 ### Response
 The response received from a SendFaxRequest matches the response you receive when calling the FaxStatus method call with a “send” verbosity level.
 
-**SOAP Faults**
+### SOAP Faults
 This function will throw one of the following SOAP faults/exceptions if something went wrong:
 **InvalidArgumentsException, NoMessagesFoundException, DocumentContentTypeNotFoundException, or InternalServerException.**
 You can find more details on these faults in the next sSection 5 of this document.
@@ -1118,15 +1263,15 @@ This function will throw one of the following SOAP faults/exceptions if somethin
 **DocumentRefDoesNotExistException**, **InternalServerException**.
 You can find more details on these faults in Section 5 of this document.You can find more details on these faults in the next section of this document.
 
-# 4.Callback Service
+# IV. Outbound Callback Service
 ## Description
-The callback service allows our platform to post fax results to you on fax message completion.
+The outbound callback service allows our platform to post fax results to you on fax message completion.
 
 To take advantage of this, you are required to write a simple web service to accept requests from our system, parse them and update the status of the faxes on your system.
 
 Once you have deployed the web service, please contact your account manager with the web service URL so they can attach it to your account. Once it is active, a request similar to the following will be posted to you on fax message completion:
 
-
+## Request
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <FaxMessages>
@@ -1138,7 +1283,405 @@ Once you have deployed the web service, please contact your account manager with
 </FaxMessages>
 ```
 
-# 5.More Information
+# V. Inbound Fax Service
+## Description
+The inbound service allows you to receive documents that have been faxed to your fax number directly to your email inbox. Whenever a fax is received, we send an email to each of the recipients in this list with the fax document attached as **TIFF**, **PDF** or **PNG**.
+The service also allows our platform to post fax results to you via http callback by enabling the callback url in your inbound callback settings.
+
+To use this, you can either access the portal and configure your inbound callback settings or send via API requests with Monopond User account authorization.
+
+## Callback Settings
+### Description
+This is a necessary function allowing you to set the callback url for your callback request.
+
+### Expected callback request
+#### Description
+The callback request will be sent to your specified callback url via POST request. This is a sample json request that we will attach to your callback url:
+
+```json5
+{
+  "messageRef": "1987665543",
+  "faxNumber": "12345677",
+  "status": "RELAYED",
+  "pages": 2,
+  "tsi": "tsi1234",
+  "cli": "cli1234",
+  "dateReceived": "2019-05-15 13:27:55",
+  "tiffDocumentUrl": "http://testtoken.cloudfront.net/test/info/file/4c19aca717d3?Expires=1559033055&Signature"
+}
+```
+
+|**Name** | **Type** | **Description** |
+|:------------:|:---------|:----------- |
+|**messageRef** |Long | The inbound fax message reference. The unique identifier for the fax messages sent. |
+|**faxNumber** | List | The sender's fax number.|
+|**status** | String | The status of the inbound fax message, (e.g. RELAYED, ON_HOLD) |
+|**pages** | Integer | The number of pages of the fax document.|
+|**tsi**  | String | The transmitting subscriber identification, used to identify the sender of the fax. |
+|**cli**  | String | The customer calling line identification. This will help the receiver to identify the caller|
+|**dateReceived** | String | The date received (UTC) for the inbound fax message to our system. |
+|**tiffDocumentUrl**  | String | A url of the tiff document that will expire after 24 hours. |
+
+### Setting the callback settings
+#### via API
+##### Request
+* URL: `/api/v1/incoming-fax-callback/settings`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (Login `access_token` fetched upon login)
+* Body: 
+  ```json5
+  {
+      "callbackUrl": "https://callback.com",
+      "enabled": true
+  }
+  ```
+
+To know more about CallbackSettings you can check it here:
+ * [Callback Settings Parameters](#callback-settings-parameters)
+
+##### Response
+
+**Successful**
+* Http Status: `200 OK`
+* Body:
+```json5
+{
+    "teamId": 5,
+    "callbackUrl": "https://callback.com",
+    "enabled": false,
+    "_entityType": "CallbackSettings"
+}
+```
+
+### Getting the callback settings
+
+##### Request
+* URL: `/api/v1/incoming-fax-callback/settings`
+* Method: `GET`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+
+##### Response
+
+**Successful**
+* Http Status: `200 OK`
+* Body:
+```json5
+{
+    "teamId": 5,
+    "callbackUrl": "https://callback.com",
+    "enabled": false,
+    "_entityType": "CallbackSettings"
+}
+```
+
+| Variable             | Type        | Nullable  | Description |
+|--------------------- |:-----------:|:---------:| ----------- |
+|`teamId`             |Number       | **NO**    |The team id of the logged in user.|
+|`callbackUrl`            |String       | **NO**   |The url that will be used for callback.|
+|`enabled`            |Boolean       | **NO**   |The flag that identifies fax callback setting usability.|
+
+**Failed**
+* Http Status: `404`
+* Body:
+```json5
+{
+    "errorCode": "RESOURCE_NOT_FOUND",
+    "errorMessage": "The targeted resource could not be found."
+}
+```
+
+#### via Portal
+
+##### Configure your inbound callback settings
+
+  1) Login to the portal and in the sidebar menu: <br/>
+    - Go to, `Settings` > `Incoming Fax`
+    ![image](https://user-images.githubusercontent.com/6060338/59597338-295c1580-912c-11e9-8008-f94ffbd8ef4f.png)
+  2) Unlock the panel first if unlocked: (_located at the top right side of the panel_)
+  ![image](https://user-images.githubusercontent.com/6060338/59594796-23176a80-9127-11e9-909c-cc8eff0566b6.png)
+  3) Enable the callback settings for you to be able to use the feature.
+  ![image](https://user-images.githubusercontent.com/6060338/59594959-75588b80-9127-11e9-8e5b-6db06ad0693a.png)
+  4) Then set the desired callback url to the input box. You can also use this area to update the callback url for your team.
+  ![image](https://user-images.githubusercontent.com/6060338/59597663-ed758000-912c-11e9-923c-d89a3424a228.png)
+
+## Fax Number
+### Description
+You will need a number to send the fax to. These API functions allows to subscribe and unsubscribe fax numbers. Subscription to a fax number plan is required before you can subscribe to a number.
+
+#### Subscribe Fax Numbers
+##### Request
+* URL: `/api/v1/number-subscription-request`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  ```json5
+  {
+     "productSubscriptionId": 4,
+     "numberIds": [1, 2]
+  }
+  ```
+
+To know more about Number Subscription Request you can check it here:
+ * [Number Subscription Request Parameters](#number-subscription-request-parameters)
+
+##### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
+
+**Failed**
+* Http Status: `404 RESOURCE_NOT_FOUND`
+* Reason: "Specified plan does not exist."
+* Response:
+```json
+{
+    "errorCode": "RESOURCE_NOT_FOUND",
+    "errorMessage": "The targeted resource could not be found"
+}
+```
+
+**Failed**
+* Http Status: `422`
+* Reason: "Subscription is under processing status."
+```json
+{
+    "errorCode": "STILL_PROCESSING_SUBSCRIPTION",
+    "errorMessage": "We are still processing your previous subscription."
+}
+```
+
+#### Show User Subscription Request
+##### Request
+* URL: `/api/v1/number-subscription-request/${userRequestId}`
+* Method: `GET`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  - _No request body_
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**userRequestId** | true |Long | ID of subscription user request.  |
+
+##### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
+
+**Failed**
+* Http Status: `404 RESOURCE_NOT_FOUND`
+* Reason: "User request does not exist."
+* Response:
+    ```json
+    {
+      "errorCode": "RESOURCE_NOT_FOUND",
+      "errorMessage": "The targeted resource could not be found"
+    }
+    ```
+
+#### Unsubscribe Fax Number
+##### Request
+* URL: `/api/v1/number-subscription/${number}/unsubscribe`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  - _No request body_
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**number** | true |String | Fax Number to unsubscribe.  |
+
+##### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
+
+**Failed - No fax number plan subscription**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Reason: "The team is not subscribed to a fax number plan."
+* Response:
+    ```json
+    {
+      "errorCode": "NO_PHONE_NUMBER_SUBSCRIPTION",
+      "errorMessage": "You are not subscribed to a fax number plan."
+    }
+    ```
+**Failed - Not subscribed to fax number**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Reason: "The team is not subscribed to the fax number to unsubscribe."
+* Response:
+    ```json
+    {
+      "errorCode": "NOT_SUBSCRIBED_TO_PHONE_NUMBER",
+      "errorMessage": "You are not subscribed to the fax number."
+    }
+    ```
+
+#### Unsubscribe Inactive Fax Number
+##### Request
+* URL: `/api/v1/number-subscription/${number}/unsubscribe-inactive`
+* Method: `POST`
+* Headers:
+  * Accept: `application/json`
+  * Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_FINANCE_ADMIN`, `ROLE_PRODUCT_ACCESS`, `ROLE_TEAM_MANAGER`
+* Body: 
+  - _No request body_
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**number** | true |String | Fax Number to unsubscribe.  |
+
+##### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Fax Number Subscription User Request Body](#fax-number-subscription-user-request-response-body)
+
+#### Fax Number Subscription User Request Response Body
+```json5
+{
+  "id": 2,
+  "status": "PROCESSING",
+  "numbers": [
+      {
+          "referenceId": 7,
+          "subscriptionId": 4,
+          "result": null,
+          "error": null,
+          "_entityType": "AddonSubscriptionAction"
+      },
+      {
+          "referenceId": 8,
+          "subscriptionId": 4,
+          "result": null,
+          "error": null,
+          "_entityType": "AddonSubscriptionAction"
+      }
+  ],
+  "_entityType": "NumberSubscriptionUserRequest"
+}
+```
+
+## Fax Number Settings
+### Description
+These API functions allows you to subscribe to a fax number and set number settings to add multiple recipient email addresses with fax attachment.
+
+#### Setting the fax number senders and recipients
+**Prerequisites**
+* Subscription to a fax number plan is required before you can subscribe to a number.
+* You have bought at least one number
+* You have one user assigned to receive fax from that number.
+
+#### Update Inbound Fax Number Settings
+##### Request
+* URL: `/api/v1/incoming-fax/number-settings/{number}`
+* Method: `POST`
+* Headers:
+* Accept: `application/json`
+* Authorization: Bearer `AUTH_TOKEN` (The `access_token` granted from logging in.)
+    * Required Roles: `ROLE_TEAM_OWNER`, `ROLE_TEAM_MANAGER`
+* Body: 
+    ```json
+    {
+        "receiverIds" : [
+            "userUUID"
+        ],
+        "senderIds" :  [
+            "userUUID"
+        ]
+    }
+    ```
+
+##### Response
+**Successful**
+* Http Status: `200 OK`
+* Response: [Incoming Fax Number Settings Request Body](#incoming-fax-number-settings-request-body)
+
+**Failed**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Response:
+    ```json5
+    {
+      "errorCode": "SENDER_EXISTS_IN_ANOTHER_FAX_NUMBER",
+      "errorMessage": "User is already a sender of another fax number."
+    }
+    ```
+
+**Failed**
+* Http Status: `422 UNPROCESSABLE_ENTITY`
+* Response:
+    ```json5
+    {
+      "errorCode": "LIST_OF_RECEIVERS_CAN_NOT_BE_EMPTY",
+      "errorMessage": "List of receivers can not be empty."
+    }
+    ```
+
+**Failed**
+* Http Status: `404 RESOURCE NOT FOUND`
+* Response:
+    ```json5
+    {
+        "errorCode": "RESOURCE_NOT_FOUND",
+        "errorMessage": "The targeted resource could not be found"
+    }
+    ```
+  
+#### Incoming Fax Number Settings Request Body
+
+```
+{
+    "senders": [
+     "UserSimplified"
+    ],
+    "recipients": [
+      "UserSimplified"
+    ],
+    "_entityType": "IncomingFaxNumberSettings"
+}
+```
+  
+#### User Simplified Entity
+```
+{
+    "id": "116e784c-5a89-4773-a1e7-ca655ae46491",
+    "emailAddress": "customer1@no-spam.ws",
+    "firstName": "first name",
+    "lastName": "last name",
+    "username": "customer1",
+    "_entityType": "UserSimplified"
+}
+```
+
+### via Portal
+  1) Login to the portal and in the sidebar menu: <br/>
+    - Go to, `Fax Numbers` > `Active`
+    ![image](https://user-images.githubusercontent.com/6060338/59597945-a20fa180-912d-11e9-9056-ed88f94462fb.png)
+  2) Choose a location:
+  ![Screenshot from 2019-06-17 13-35-42](https://user-images.githubusercontent.com/6060338/59583069-c444f780-910c-11e9-8990-776ad3a6fb74.png)
+    1) Select a country <br/>
+    2) Select a city or state
+  
+![Screenshot from 2019-06-17 14-57-19](https://user-images.githubusercontent.com/6060338/59586182-de82d380-9114-11e9-8ea4-bc1952e68cb6.png)
+
+  1) Available fax numbers are shown in this area for the specified location.
+    - You can request up to 10 available numbers.
+  2) Requested numbers are listed here.
+  3) Proceed to checkout. This will calculate all the fees for the requested numbers.
+
+# VI. More Information
 ## Exceptions/SOAP Faults
 If an error occurs during a request on the Monopond Fax API the service will throw a SOAP fault or exception. Each exception is listed in detail below. To see which exceptions match up to the function calls please refer to the function descriptions in the previous sectionSection 3.
 ### InvalidArgumentsException
@@ -1262,7 +1805,7 @@ Verdana-Regular
 Webdings-Regular
 ```
 
-# 6.API Examples
+# VII. API Examples
 ## SendFax
 ### Sending a single fax message
 
@@ -1943,3 +2486,18 @@ TODO: The default value is set to: “From %from%, To %to%|%a %b %d %H:%M %Y”
 |-----|-----|-----|-----|
 |**fileName** |  | *String* | The document filename including extension. This is important as it is used to help identify the document MIME type. |
 |**fileData** |  | *Base64* | The document encoded in Base64 format. |
+
+## Inbound Fax Callback
+### Callback Settings Parameters
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**callbackUrl** |  |String | The callback url to be set   | 
+|**enabled** | true |Boolean | The identifier if the settings will be used or not.|
+
+### Number Subscription Request Parameters
+
+|**Name** | **Required** | **Type** | **Description** |
+|:------------:|:-------|:---------|:----------- |
+|**productSubscriptionId** | true |Long | The subscription id to reference.  |
+|**numberIds** | true | List | List of fax number IDs to subscribe.|
