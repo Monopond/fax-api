@@ -1,8 +1,5 @@
 ## Monopond Outgoing Fax API
 
-### Prerequisites
-To gain access to the system you must have a Monopond user account that is subscribed to a Fax Plan. 
-
 ### Overview
 This SOAP-based API brings you the ability to send faxes programmatically from your applications.
 
@@ -28,9 +25,6 @@ Scheduling options:
 **For details on using the API, please see the [Outgoing Fax API page](https://github.com/Monopond/fax-api/wiki/Outgoing-Fax-SOAP-API).**
 
 ## Monopond Incoming Fax API
-
-### Prerequisites
-To gain access to the system you must have a Monopond user account that subscribed to a Fax Plan and a Numbers Plan.
 
 ### Overview
 This API brings you the ability to receive faxes programmatically. Since a number is needed to be able to receive messages, this API also gives you the ability subscribe to fax numbers programatically.
