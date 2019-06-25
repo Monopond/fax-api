@@ -30,3 +30,6 @@ Scheduling options:
 This API brings you the ability to receive faxes programmatically. Since a number is needed to be able to receive messages, this API also gives you the ability subscribe to fax numbers programatically.
 
 Using this REST API, you are able to view a list of available fax numbers and select numbers for purchase. Once subscribed to a fax number, the service allows you to receive documents that have been faxed to your fax number directly to your email inbox. Whenever a fax is received, we send an email to each of the recipients with the fax document attached as TIFF, PDF or PNG. The service also allows our platform to post fax results to you via http.
+
+### Incoming Fax API Usage
+**For details on using the API, please see the [Incoming Fax API page](https://github.com/Monopond/fax-api/wiki/Incoming-Fax-REST-API).**
